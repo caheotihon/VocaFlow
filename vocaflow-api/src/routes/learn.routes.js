@@ -1,0 +1,13 @@
+const router = require('express').Router();
+const ctrl   = require('../controllers/learn.controller');
+const { protect } = require('../middlewares/auth.middleware');
+
+router.use(protect); // all learn routes require auth
+
+router.post('/start',         ctrl.startSession);
+router.post('/result',        ctrl.submitResult);
+router.post('/complete',      ctrl.completeSession);
+router.get('/progress',       ctrl.getProgress);
+router.get('/review-today',   ctrl.getReviewToday);
+
+module.exports = router;
