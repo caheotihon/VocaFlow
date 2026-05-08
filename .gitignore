@@ -1,0 +1,17 @@
+# IDEs
+.idea/
+.vscode/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Project specific
+.gemini/
+*.log
+
+# Sub-folder ignore triggers (already handled by sub-folders but good to have)
+node_modules/
+build/
+.dart_tool/
+.env
