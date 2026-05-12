@@ -47,6 +47,11 @@ class _LearnScreenState extends State<LearnScreen> {
     final learnP = context.watch<LearnProvider>();
     final auth   = context.watch<AuthProvider>();
 
+    // Tính toán kích thước màn hình
+    final width = MediaQuery.of(context).size.width;
+    final isDesktop = width >= 900;
+    final isTablet = width >= 600 && width < 900;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -58,85 +63,118 @@ class _LearnScreenState extends State<LearnScreen> {
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Learn Vocabulary', style: AppTextStyles.h1),
-                    const SizedBox(height: 4),
-                    Text('Select your level and source to begin.',
-                        style: AppTextStyles.bodySmall),
-                    const SizedBox(height: 28),
+                // Căn giữa và giới hạn kích thước cho màn hình lớn
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1100),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Learn Vocabulary', style: AppTextStyles.h1),
+                        const SizedBox(height: 4),
+                        Text('Select your level and source to begin.',
+                            style: AppTextStyles.bodySmall),
+                        const SizedBox(height: 28),
 
-                    // ── Choose Level ───────────────────────────────
-                    const SectionHeader(title: 'Choose Level'),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 10, runSpacing: 10,
-                      children: _levels.map((lvl) => LevelChip(
-                        level: lvl,
-                        isSelected: _selectedLevel == lvl,
-                        onTap: () {
-                          setState(() => _selectedLevel = lvl);
-                          learnP.selectLevel(lvl);
-                        },
-                      )).toList(),
-                    ),
-                    const SizedBox(height: 28),
-
-                    // ── Choose Source ──────────────────────────────
-                    SectionHeader(
-                      title: 'Choose Learning Source',
-                      actionText: 'See All',
-                      onAction: () {},
-                    ),
-                    const SizedBox(height: 12),
-
-                    if (wordP.isLoading)
-                      const Center(child: CircularProgressIndicator(color: AppColors.primary))
-                    else
-                      ...(_sourceIcons.keys.map((src) {
-                        final srcData = wordP.sources.firstWhere(
-                          (s) => s['source'] == src,
-                          orElse: () => {'source': src, 'total': 0, 'mastered': 0, 'percentage': 0},
-                        );
-                        final isSelected = learnP.selectedSource == src;
-                        final total      = srcData['total'] ?? 0;
-                        final learned    = srcData['learned'] ?? 0;
-                        final pct        = srcData['percentage'] ?? 0;
-
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 14),
-                          child: _SourceCard(
-                            source:      src,
-                            description: _sourceDescriptions[src]!,
-                            icon:        _sourceIcons[src]!,
-                            totalWords:  total,
-                            masteredWords:  learned,
-                            percentage:  pct,
-                            isSelected:  isSelected,
+                        // ── Choose Level ───────────────────────────────
+                        const SectionHeader(title: 'Choose Level'),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 10, runSpacing: 10,
+                          children: _levels.map((lvl) => LevelChip(
+                            level: lvl,
+                            isSelected: _selectedLevel == lvl,
                             onTap: () {
-                              learnP.selectSource(src);
-                              learnP.selectLevel(_selectedLevel);
+                              setState(() => _selectedLevel = lvl);
+                              learnP.selectLevel(lvl);
                             },
-                          ),
-                        );
-                      })),
+                          )).toList(),
+                        ),
+                        const SizedBox(height: 32),
 
-                    const SizedBox(height: 80),
-                  ],
+                        // ── Choose Source ──────────────────────────────
+                        SectionHeader(
+                          title: 'Choose Learning Source',
+                          actionText: 'See All',
+                          onAction: () {},
+                        ),
+                        const SizedBox(height: 16),
+
+                        if (wordP.isLoading)
+                          const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(32),
+                              child: CircularProgressIndicator(color: AppColors.primary),
+                            ),
+                          )
+                        else
+                          // Thay Column bằng GridView responsive
+                          // Thay thế đoạn GridView.count cũ bằng GridView với gridDelegate
+GridView(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: isDesktop ? 3 : (isTablet ? 2 : 1),
+    crossAxisSpacing: 16,
+    mainAxisSpacing: 16,
+    // SỬ DỤNG MAIN AXIS EXTENT ĐỂ CỐ ĐỊNH CHIỀU CAO CARD
+    mainAxisExtent: 190, // Chiều cao cố định 190px (hoặc tùy chỉnh 180-200)
+  ),
+  children: _sourceIcons.keys.map((src) {
+    final srcData = wordP.sources.firstWhere(
+      (s) => s['source'] == src,
+      orElse: () => {'source': src, 'total': 0, 'mastered': 0, 'percentage': 0},
+    );
+    final isSelected = learnP.selectedSource == src;
+    final total      = srcData['total'] ?? 0;
+    final learned    = srcData['learned'] ?? 0;
+    final pct        = srcData['percentage'] ?? 0;
+
+    return _SourceCard(
+      source:      src,
+      description: _sourceDescriptions[src]!,
+      icon:        _sourceIcons[src]!,
+      totalWords:  total,
+      masteredWords:  learned,
+      percentage:  pct,
+      isSelected:  isSelected,
+      onTap: () {
+        learnP.selectSource(src);
+        learnP.selectLevel(_selectedLevel);
+      },
+    );
+  }).toList(),
+),
+
+                        const SizedBox(height: 80), // Khoảng trống cuộn
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
 
             // ── Continue button ─────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-              child: GradientButton(
-                text: 'Continue Learning',
-                icon: Icons.arrow_forward_rounded,
-                onTap: learnP.selectedSource != null
-                    ? () => Navigator.pushNamed(context, '/select-topic')
-                    : null,
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1100),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  // Trên Desktop/Tablet căn nút sang phải, Mobile full width
+                  alignment: isDesktop || isTablet ? Alignment.centerRight : Alignment.center,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: isDesktop || isTablet ? 280 : double.infinity,
+                    ),
+                    child: GradientButton(
+                      text: 'Continue Learning',
+                      icon: Icons.arrow_forward_rounded,
+                      onTap: learnP.selectedSource != null
+                          ? () => Navigator.pushNamed(context, '/select-topic')
+                          : null,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -161,81 +199,98 @@ class _SourceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(AppRadius.lg),
-          border: Border.all(
-            color: isSelected ? AppColors.primary : Colors.grey.shade100,
-            width: isSelected ? 2 : 1,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click, // Hiển thị con trỏ tay chỉ trên Web/Desktop
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(AppRadius.lg),
+            border: Border.all(
+              color: isSelected ? AppColors.primary : Colors.grey.shade100,
+              width: isSelected ? 2 : 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: isSelected
+                    ? AppColors.primary.withOpacity(0.12)
+                    : Colors.black.withOpacity(0.04),
+                blurRadius: 12, offset: const Offset(0, 4),
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              color: isSelected
-                  ? AppColors.primary.withOpacity(0.12)
-                  : Colors.black.withOpacity(0.04),
-              blurRadius: 12, offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 48, height: 48,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Tối ưu phân bổ không gian trong Grid
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 48, height: 48,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withOpacity(0.08),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(icon, color: AppColors.primary, size: 24),
+                      ),
+                      const Spacer(),
+                      if (isSelected)
+                        Container(
+                          width: 28, height: 28,
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(Icons.check_circle,
+                              color: AppColors.primary, size: 20),
+                        ),
+                    ],
                   ),
-                  child: Icon(icon, color: AppColors.primary, size: 24),
-                ),
-                const Spacer(),
-                if (isSelected)
-                  Container(
-                    width: 28, height: 28,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.check_circle,
-                        color: AppColors.primary, size: 20),
+                  const SizedBox(height: 12),
+                  Text(source,
+                      maxLines: 1, overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 2),
+                  Text(description, 
+                      maxLines: 1, overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.bodySmall),
+                ],
+              ),
+              
+              // Bottom Progress Info
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '$masteredWords / $totalWords Words',
+                        style: AppTextStyles.bodySmall,
+                      ),
+                      const Spacer(),
+                      Text(
+                        '$percentage%',
+                        style: TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.w700,
+                          color: percentage >= 80 ? AppColors.success : AppColors.primary,
+                        ),
+                      ),
+                    ],
                   ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(source,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
-            const SizedBox(height: 2),
-            Text(description, style: AppTextStyles.bodySmall),
-            const SizedBox(height: 14),
-            Row(
-              children: [
-                Text(
-                  '$masteredWords / $totalWords Words',
-                  style: AppTextStyles.bodySmall,
-                ),
-                const Spacer(),
-                Text(
-                  '$percentage%',
-                  style: TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.w700,
+                  const SizedBox(height: 8),
+                  AppProgressBar(
+                    value: percentage / 100,
                     color: percentage >= 80 ? AppColors.success : AppColors.primary,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            AppProgressBar(
-              value: percentage / 100,
-              color: percentage >= 80 ? AppColors.success : AppColors.primary,
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

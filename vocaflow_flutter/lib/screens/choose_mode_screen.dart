@@ -1,4 +1,3 @@
-// Choose Practice Mode Screen — Step 3
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/learn_provider.dart';
@@ -56,6 +55,7 @@ class ChooseModeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final learnP = context.watch<LearnProvider>();
+    final isDesktop = MediaQuery.of(context).size.width >= 900;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -67,89 +67,120 @@ class ChooseModeScreen extends StatelessWidget {
         title: const Text('LingoPro',
             style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800)),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.08),
-                      borderRadius: BorderRadius.circular(AppRadius.full),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
+      body: SafeArea(
+        // Giới hạn chiều rộng tối đa cho Tablet/Desktop
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1024),
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: isDesktop ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.school_outlined, color: AppColors.primary, size: 14),
-                        const SizedBox(width: 6),
-                        Text(
-                          '${learnP.selectedSource} • ${learnP.selectedLevel ?? 'All'}'
-                          '${learnP.selectedTopic != null ? ' • ${learnP.selectedTopic}' : ''}',
-                          style: const TextStyle(
-                            color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.w600),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.08),
+                            borderRadius: BorderRadius.circular(AppRadius.full),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.school_outlined, color: AppColors.primary, size: 14),
+                              const SizedBox(width: 6),
+                              Text(
+                                '${learnP.selectedSource} • ${learnP.selectedLevel ?? 'All'}'
+                                '${learnP.selectedTopic != null ? ' • ${learnP.selectedTopic}' : ''}',
+                                style: const TextStyle(
+                                  color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
                         ),
+                        const SizedBox(height: 16),
+                        const Text('Choose Practice Mode', style: AppTextStyles.h1, textAlign: TextAlign.center),
+                        const SizedBox(height: 4),
+                        const Text('Select how you want to practice today.',
+                            style: AppTextStyles.bodySmall, textAlign: TextAlign.center),
+                        const SizedBox(height: 24),
+
+                        // Responsive Grid sử dụng Wrap + LayoutBuilder
+                        LayoutBuilder(
+                          builder: (context, constraints) {
+                            final width = constraints.maxWidth;
+                            // Tính toán số cột dựa trên chiều rộng hiện tại
+                            int columns = width >= 800 ? 3 : (width >= 550 ? 2 : 1);
+                            double spacing = 16.0;
+                            // Tính toán chiều rộng của từng item
+                            double itemWidth = (width - (spacing * (columns - 1))) / columns;
+
+                            return Wrap(
+                              spacing: spacing,
+                              runSpacing: spacing,
+                              children: _modes.map((mode) {
+                                final isSelected = learnP.selectedMode == mode['id'];
+                                return SizedBox(
+                                  width: columns == 1 ? double.infinity : itemWidth,
+                                  child: _ModeCard(
+                                    id:         mode['id'] as String,
+                                    label:      mode['label'] as String,
+                                    icon:       mode['icon'] as IconData,
+                                    desc:       mode['desc'] as String,
+                                    color:      mode['color'] as Color,
+                                    isSelected: isSelected,
+                                    onTap: () => context.read<LearnProvider>().selectMode(mode['id'] as String),
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 24),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  const Text('Choose Practice Mode', style: AppTextStyles.h1),
-                  const SizedBox(height: 4),
-                  const Text('Select how you want to practice today.',
-                      style: AppTextStyles.bodySmall),
-                  const SizedBox(height: 24),
+                ),
 
-                  ..._modes.map((mode) {
-                    final isSelected = learnP.selectedMode == mode['id'];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: _ModeCard(
-                        id:         mode['id'] as String,
-                        label:      mode['label'] as String,
-                        icon:       mode['icon'] as IconData,
-                        desc:       mode['desc'] as String,
-                        color:      mode['color'] as Color,
-                        isSelected: isSelected,
-                        onTap: () => context.read<LearnProvider>().selectMode(mode['id'] as String),
+                // Start button - Căn giữa và giới hạn độ rộng trên Desktop
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+                      child: GradientButton(
+                        text: 'Start Session',
+                        icon: Icons.play_arrow_rounded,
+                        isLoading: learnP.isLoading,
+                        onTap: learnP.selectedMode != null
+                            ? () async {
+                                final ok = await learnP.startSession();
+                                if (!context.mounted) return;
+                                if (ok) {
+                                  final route = _getRoute(learnP.selectedMode!);
+                                  Navigator.pushNamed(context, route);
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(learnP.error ?? 'Failed to start session'),
+                                      backgroundColor: AppColors.error,
+                                      behavior: SnackBarBehavior.floating, // Floating đẹp hơn trên desktop
+                                    ),
+                                  );
+                                }
+                              }
+                            : null,
                       ),
-                    );
-                  }),
-                  const SizedBox(height: 16),
-                ],
-              ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-
-          // Start button
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-            child: GradientButton(
-              text: 'Start Session',
-              icon: Icons.play_arrow_rounded,
-              isLoading: learnP.isLoading,
-              onTap: learnP.selectedMode != null
-                  ? () async {
-                      final ok = await learnP.startSession();
-                      if (!context.mounted) return;
-                      if (ok) {
-                        final route = _getRoute(learnP.selectedMode!);
-                        Navigator.pushNamed(context, route);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(learnP.error ?? 'Failed to start session'),
-                            backgroundColor: AppColors.error,
-                          ),
-                        );
-                      }
-                    }
-                  : null,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -166,6 +197,7 @@ class ChooseModeScreen extends StatelessWidget {
   }
 }
 
+// Giữ nguyên _ModeCard như cũ vì thiết kế thẻ của bạn đã hoàn toàn responsive nội bộ
 class _ModeCard extends StatelessWidget {
   final String id, label, desc;
   final IconData icon;

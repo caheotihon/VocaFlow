@@ -22,189 +22,203 @@ class ProfileScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Column(
-            children: [
-              // ── Avatar + name ───────────────────────────────────────
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  gradient: AppColors.primaryGradient,
-                  borderRadius: BorderRadius.circular(AppRadius.xl),
-                  boxShadow: [
-                    BoxShadow(color: AppColors.primary.withOpacity(0.25),
-                        blurRadius: 20, offset: const Offset(0, 6)),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Stack(
-                      alignment: Alignment.bottomRight,
+          // ── Responsive Layout: Căn giữa và giới hạn chiều rộng ────────
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 800), // Profile ưu tiên hẹp hơn Grid
+              child: Column(
+                children: [
+                  // ── Avatar + name ───────────────────────────────────────
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      gradient: AppColors.primaryGradient,
+                      borderRadius: BorderRadius.circular(AppRadius.xl),
+                      boxShadow: [
+                        BoxShadow(color: AppColors.primary.withOpacity(0.25),
+                            blurRadius: 20, offset: const Offset(0, 6)),
+                      ],
+                    ),
+                    child: Column(
                       children: [
-                        CircleAvatar(
-                          radius: 44,
-                          backgroundColor: Colors.white.withOpacity(0.2),
-                          child: user?.avatar != null
-                              ? ClipOval(child: Image.network(user!.avatar!, fit: BoxFit.cover,
-                                  width: 88, height: 88))
-                              : Text(
-                                  user?.name.isNotEmpty == true
-                                      ? user!.name[0].toUpperCase() : 'U',
-                                  style: const TextStyle(
-                                    color: Colors.white, fontSize: 32, fontWeight: FontWeight.w800),
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            CircleAvatar(
+                              radius: 44,
+                              backgroundColor: Colors.white.withOpacity(0.2),
+                              child: user?.avatar != null
+                                  ? ClipOval(child: Image.network(user!.avatar!, fit: BoxFit.cover,
+                                      width: 88, height: 88))
+                                  : Text(
+                                      user?.name.isNotEmpty == true
+                                          ? user!.name[0].toUpperCase() : 'U',
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 32, fontWeight: FontWeight.w800),
+                                    ),
+                            ),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () {
+                                  // TODO: Handle edit avatar
+                                },
+                                child: Container(
+                                  width: 28, height: 28,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white, shape: BoxShape.circle,
+                                    boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 4)],
+                                  ),
+                                  child: const Icon(Icons.edit_rounded, color: AppColors.primary, size: 16),
                                 ),
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          width: 28, height: 28,
-                          decoration: BoxDecoration(
-                            color: Colors.white, shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 4)],
-                          ),
-                          child: const Icon(Icons.edit_rounded, color: AppColors.primary, size: 16),
+                        const SizedBox(height: 14),
+                        Text(user?.name ?? 'Learner',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22, fontWeight: FontWeight.w800)),
+                        const SizedBox(height: 2),
+                        Text(user?.email ?? '',
+                            style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 14)),
+                        const SizedBox(height: 16),
+
+                        // Streak + XP row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _StatPill('🔥 ${user?.streakDays ?? 0}d', 'Streak'),
+                            Container(width: 1, height: 32, color: Colors.white.withOpacity(0.3)),
+                            _StatPill('⚡ ${user?.totalXP ?? 0}', 'Total XP'),
+                            Container(width: 1, height: 32, color: Colors.white.withOpacity(0.3)),
+                            _StatPill('📚 ${progress['totalMastered'] ?? 0}', 'Mastered'),
+                          ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 14),
-                    Text(user?.name ?? 'Learner',
-                        style: const TextStyle(
-                          color: Colors.white, fontSize: 22, fontWeight: FontWeight.w800)),
-                    const SizedBox(height: 2),
-                    Text(user?.email ?? '',
-                        style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 14)),
-                    const SizedBox(height: 16),
-
-                    // Streak + XP row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _StatPill('🔥 ${user?.streakDays ?? 0}d', 'Streak'),
-                        Container(width: 1, height: 32, color: Colors.white.withOpacity(0.3)),
-                        _StatPill('⚡ ${user?.totalXP ?? 0}', 'Total XP'),
-                        Container(width: 1, height: 32, color: Colors.white.withOpacity(0.3)),
-                        _StatPill('📚 ${progress['totalMastered'] ?? 0}', 'Mastered'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // ── Goals section ───────────────────────────────────────
-              AppCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Learning Goals', style: AppTextStyles.h3),
-                    const SizedBox(height: 16),
-                    _GoalRow(
-                      icon: Icons.today_rounded,
-                      label: 'Daily Goal',
-                      value: '${user?.dailyGoal ?? 20} words/day',
-                      color: AppColors.primary,
-                    ),
-                    const Divider(height: 20),
-                    _GoalRow(
-                      icon: Icons.track_changes_rounded,
-                      label: 'Target Accuracy',
-                      value: '${user?.goalAccuracy ?? 80}%',
-                      color: AppColors.secondary,
-                    ),
-                    const Divider(height: 20),
-                    _GoalRow(
-                      icon: Icons.local_fire_department_rounded,
-                      label: 'Current Streak',
-                      value: '${user?.streakDays ?? 0} days',
-                      color: Colors.deepOrange,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // ── Badges ──────────────────────────────────────────────
-              if ((user?.badges ?? []).isNotEmpty)
-                AppCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Badges Earned', style: AppTextStyles.h3),
-                      const SizedBox(height: 14),
-                      Wrap(
-                        spacing: 10, runSpacing: 10,
-                        children: (user!.badges).map((b) => Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.08),
-                            borderRadius: BorderRadius.circular(AppRadius.full),
-                            border: Border.all(color: AppColors.primary.withOpacity(0.2)),
-                          ),
-                          child: Text('🏆 $b',
-                              style: const TextStyle(
-                                color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
-                        )).toList(),
-                      ),
-                    ],
                   ),
-                ),
-              const SizedBox(height: 16),
+                  const SizedBox(height: 24),
 
-              // ── Settings / Logout ───────────────────────────────────
-              AppCard(
-                child: Column(
-                  children: [
-                    _SettingsTile(
-                      icon: Icons.notifications_outlined,
-                      label: 'Notifications',
-                      onTap: () {},
+                  // ── Goals section ───────────────────────────────────────
+                  AppCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Learning Goals', style: AppTextStyles.h3),
+                        const SizedBox(height: 16),
+                        _GoalRow(
+                          icon: Icons.today_rounded,
+                          label: 'Daily Goal',
+                          value: '${user?.dailyGoal ?? 20} words/day',
+                          color: AppColors.primary,
+                        ),
+                        const Divider(height: 20),
+                        _GoalRow(
+                          icon: Icons.track_changes_rounded,
+                          label: 'Target Accuracy',
+                          value: '${user?.goalAccuracy ?? 80}%',
+                          color: AppColors.secondary,
+                        ),
+                        const Divider(height: 20),
+                        _GoalRow(
+                          icon: Icons.local_fire_department_rounded,
+                          label: 'Current Streak',
+                          value: '${user?.streakDays ?? 0} days',
+                          color: Colors.deepOrange,
+                        ),
+                      ],
                     ),
-                    const Divider(height: 1),
-                    _SettingsTile(
-                      icon: Icons.help_outline_rounded,
-                      label: 'Help & Support',
-                      onTap: () {},
-                    ),
-                    const Divider(height: 1),
-                    _SettingsTile(
-                      icon: Icons.privacy_tip_outlined,
-                      label: 'Privacy Policy',
-                      onTap: () {},
-                    ),
-                    const Divider(height: 1),
-                    _SettingsTile(
-                      icon: Icons.logout_rounded,
-                      label: 'Sign Out',
-                      color: AppColors.error,
-                      onTap: () async {
-                        final confirm = await showDialog<bool>(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(AppRadius.lg)),
-                            title: const Text('Sign Out?',
-                                style: TextStyle(fontWeight: FontWeight.w700)),
-                            content: const Text('Are you sure you want to sign out?'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () => Navigator.pop(context, false),
-                                  child: const Text('Cancel')),
-                              TextButton(
-                                  onPressed: () => Navigator.pop(context, true),
-                                  child: const Text('Sign Out',
-                                      style: TextStyle(color: AppColors.error))),
-                            ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // ── Badges ──────────────────────────────────────────────
+                  if ((user?.badges ?? []).isNotEmpty)
+                    AppCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Badges Earned', style: AppTextStyles.h3),
+                          const SizedBox(height: 14),
+                          Wrap(
+                            spacing: 10, runSpacing: 10,
+                            children: (user!.badges).map((b) => Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(AppRadius.full),
+                                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                              ),
+                              child: Text('🏆 $b',
+                                  style: const TextStyle(
+                                      color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
+                            )).toList(),
                           ),
-                        );
-                        if (confirm == true && context.mounted) {
-                          await context.read<AuthProvider>().logout();
-                          Navigator.pushReplacementNamed(context, '/login');
-                        }
-                      },
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  const SizedBox(height: 16),
+
+                  // ── Settings / Logout ───────────────────────────────────
+                  AppCard(
+                    child: Column(
+                      children: [
+                        _SettingsTile(
+                          icon: Icons.notifications_outlined,
+                          label: 'Notifications',
+                          onTap: () {},
+                        ),
+                        const Divider(height: 1),
+                        _SettingsTile(
+                          icon: Icons.help_outline_rounded,
+                          label: 'Help & Support',
+                          onTap: () {},
+                        ),
+                        const Divider(height: 1),
+                        _SettingsTile(
+                          icon: Icons.privacy_tip_outlined,
+                          label: 'Privacy Policy',
+                          onTap: () {},
+                        ),
+                        const Divider(height: 1),
+                        _SettingsTile(
+                          icon: Icons.logout_rounded,
+                          label: 'Sign Out',
+                          color: AppColors.error,
+                          onTap: () async {
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(AppRadius.lg)),
+                                title: const Text('Sign Out?',
+                                    style: TextStyle(fontWeight: FontWeight.w700)),
+                                content: const Text('Are you sure you want to sign out?'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context, false),
+                                      child: const Text('Cancel')),
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context, true),
+                                      child: const Text('Sign Out',
+                                          style: TextStyle(color: AppColors.error))),
+                                ],
+                              ),
+                            );
+                            if (confirm == true && context.mounted) {
+                              await context.read<AuthProvider>().logout();
+                              Navigator.pushReplacementNamed(context, '/login');
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 80),
+                ],
               ),
-              const SizedBox(height: 80),
-            ],
+            ),
           ),
         ),
       ),

@@ -40,89 +40,97 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
         title: const Text('LingoPro',
             style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800)),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Breadcrumb chip
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.08),
-                      borderRadius: BorderRadius.circular(AppRadius.full),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                // ── Responsive Layout: Căn giữa và giới hạn chiều rộng ────────
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.school_outlined, color: AppColors.primary, size: 14),
-                        const SizedBox(width: 6),
-                        Text(
-                          '${learnP.selectedSource} • ${learnP.selectedLevel ?? 'All'}',
-                          style: const TextStyle(
-                            color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.w600),
+                        // Breadcrumb chip
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.08),
+                            borderRadius: BorderRadius.circular(AppRadius.full),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.school_outlined, color: AppColors.primary, size: 14),
+                              const SizedBox(width: 6),
+                              Text(
+                                '${learnP.selectedSource} • ${learnP.selectedLevel ?? 'All'}',
+                                style: const TextStyle(
+                                    color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
                         ),
+                        const SizedBox(height: 16),
+                        const Text('Select Topic', style: AppTextStyles.h1),
+                        const SizedBox(height: 4),
+                        const Text('Choose a category to focus your practice session.',
+                            style: AppTextStyles.bodySmall),
+                        const SizedBox(height: 24),
+
+                        if (wordP.isLoading)
+                          const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                        else if (topics.isEmpty)
+                          Center(
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 40),
+                                Icon(Icons.folder_open, size: 60, color: Colors.grey.shade300),
+                                const SizedBox(height: 12),
+                                const Text('No topics found for this selection.',
+                                    style: AppTextStyles.bodySmall),
+                              ],
+                            ),
+                          )
+                        else
+                          ...topics.asMap().entries.map((e) {
+                            final i     = e.key;
+                            final topic = e.value;
+                            final name     = topic['topic'] as String? ?? '';
+                            final total    = topic['total'] as int? ?? 0;
+                            final mastered = topic['mastered'] as int? ?? 0;
+                            final learning = topic['learning'] as int? ?? 0;
+                            final newCount = topic['new'] as int? ?? total;
+                            final hasProgress = mastered > 0 || learning > 0;
+
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 14),
+                              child: _TopicCard(
+                                index:    i + 1,
+                                topic:    name,
+                                total:    total,
+                                mastered: mastered,
+                                learning: learning,
+                                newCount: newCount,
+                                hasProgress: hasProgress,
+                                onStart: () {
+                                  learnP.selectTopic(name);
+                                  Navigator.pushNamed(context, '/choose-mode');
+                                },
+                              ),
+                            );
+                          }),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  const Text('Select Topic', style: AppTextStyles.h1),
-                  const SizedBox(height: 4),
-                  const Text('Choose a category to focus your practice session.',
-                      style: AppTextStyles.bodySmall),
-                  const SizedBox(height: 24),
-
-                  if (wordP.isLoading)
-                    const Center(child: CircularProgressIndicator(color: AppColors.primary))
-                  else if (topics.isEmpty)
-                    Center(
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 40),
-                          Icon(Icons.folder_open, size: 60, color: Colors.grey.shade300),
-                          const SizedBox(height: 12),
-                          const Text('No topics found for this selection.',
-                              style: AppTextStyles.bodySmall),
-                        ],
-                      ),
-                    )
-                  else
-                    ...topics.asMap().entries.map((e) {
-                      final i     = e.key;
-                      final topic = e.value;
-                      final name     = topic['topic'] as String? ?? '';
-                      final total    = topic['total'] as int? ?? 0;
-                      final mastered = topic['mastered'] as int? ?? 0;
-                      final learning = topic['learning'] as int? ?? 0;
-                      final newCount = topic['new'] as int? ?? total;
-                      final hasProgress = mastered > 0 || learning > 0;
-
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-                        child: _TopicCard(
-                          index:    i + 1,
-                          topic:    name,
-                          total:    total,
-                          mastered: mastered,
-                          learning: learning,
-                          newCount: newCount,
-                          hasProgress: hasProgress,
-                          onStart: () {
-                            learnP.selectTopic(name);
-                            Navigator.pushNamed(context, '/choose-mode');
-                          },
-                        ),
-                      );
-                    }),
-                  const SizedBox(height: 20),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -167,7 +175,7 @@ class _TopicCard extends StatelessWidget {
                   child: Text(
                     index.toString().padLeft(2, '0'),
                     style: const TextStyle(
-                      fontWeight: FontWeight.w700, color: AppColors.textSecondary),
+                        fontWeight: FontWeight.w700, color: AppColors.textSecondary),
                   ),
                 ),
               ),
@@ -178,7 +186,7 @@ class _TopicCard extends StatelessWidget {
                   children: [
                     Text(topic,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 15)),
+                            fontWeight: FontWeight.w700, fontSize: 15)),
                     Text('$total WORDS',
                         style: AppTextStyles.label),
                   ],
@@ -202,33 +210,37 @@ class _TopicCard extends StatelessWidget {
             height: 5,
           ),
           const SizedBox(height: 12),
-          GestureDetector(
-            onTap: onStart,
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                gradient: hasProgress ? AppColors.primaryGradient : null,
-                color: hasProgress ? null : AppColors.background,
-                borderRadius: BorderRadius.circular(AppRadius.md),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.play_arrow_rounded,
-                    color: hasProgress ? Colors.white : AppColors.textSecondary,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    'Start Practice',
-                    style: TextStyle(
+          // ── Tối ưu UI cho nút bấm trên Web ────────
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: onStart,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  gradient: hasProgress ? AppColors.primaryGradient : null,
+                  color: hasProgress ? null : AppColors.background,
+                  borderRadius: BorderRadius.circular(AppRadius.md),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.play_arrow_rounded,
                       color: hasProgress ? Colors.white : AppColors.textSecondary,
-                      fontWeight: FontWeight.w600, fontSize: 14,
+                      size: 18,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 6),
+                    Text(
+                      'Start Practice',
+                      style: TextStyle(
+                        color: hasProgress ? Colors.white : AppColors.textSecondary,
+                        fontWeight: FontWeight.w600, fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
