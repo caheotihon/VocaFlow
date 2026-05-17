@@ -141,10 +141,21 @@ exports.getTopics = async (req, res) => {
       { $sort: { total: -1 } },
     ]);
 
-    // If user auth, enrich with progress
+    // If user auth, enrich with progress (filtered by current source and level)
     let progressMap = {};
     if (req.user) {
-      const progresses = await Progress.find({ user: req.user._id }).populate('word', 'topic');
+      const wordFilter = {};
+      if (source) wordFilter.source = source;
+      if (level) wordFilter.level = level;
+      
+      const targetWords = await Word.find(wordFilter).select('_id topic');
+      const targetWordIds = targetWords.map(w => w._id);
+
+      const progresses = await Progress.find({
+        user: req.user._id,
+        word: { $in: targetWordIds }
+      }).populate('word', 'topic');
+
       for (const p of progresses) {
         if (!p.word) continue;
         const t = p.word.topic;
@@ -153,13 +164,19 @@ exports.getTopics = async (req, res) => {
       }
     }
 
-    const enriched = topics.map((t) => ({
-      topic: t._id,
-      total: t.total,
-      mastered: progressMap[t._id]?.mastered || 0,
-      learning: (progressMap[t._id]?.learning || 0) + (progressMap[t._id]?.reviewing || 0),
-      new: t.total - (progressMap[t._id]?.mastered || 0) - (progressMap[t._id]?.learning || 0) - (progressMap[t._id]?.reviewing || 0),
-    }));
+    const enriched = topics.map((t) => {
+      const mastered = progressMap[t._id]?.mastered || 0;
+      const learning = (progressMap[t._id]?.learning || 0) + (progressMap[t._id]?.reviewing || 0);
+      const totalStudied = mastered + learning;
+      
+      return {
+        topic: t._id,
+        total: t.total,
+        mastered: mastered,
+        learning: learning,
+        new: Math.max(0, t.total - totalStudied),
+      };
+    });
 
     return successResponse(res, { topics: enriched });
   } catch (err) {

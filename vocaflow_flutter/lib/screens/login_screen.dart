@@ -1,9 +1,12 @@
-// Login Screen — Email/Password + Register toggle
+// Login Screen — Email/Password + Register toggle + Google Sign-In
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../providers/auth_provider.dart';
 import '../core/constants/app_constants.dart';
 import 'widgets/shared_widgets.dart';
+
+final _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen>
 
   bool _isRegister   = false;
   bool _obscurePass  = true;
+  bool _googleLoading = false;
   late AnimationController _ctrl;
   late Animation<double> _slideAnim;
 
@@ -53,16 +57,48 @@ class _LoginScreenState extends State<LoginScreen>
     if (ok && mounted) Navigator.pushReplacementNamed(context, '/home');
   }
 
+  Future<void> _signInWithGoogle() async {
+    setState(() => _googleLoading = true);
+    try {
+      final account = await _googleSignIn.signIn();
+      if (account == null) {
+        setState(() => _googleLoading = false);
+        return; // User cancelled
+      }
+
+      final auth = context.read<AuthProvider>();
+      final ok = await auth.loginWithGoogle(
+        email:    account.email,
+        name:     account.displayName ?? account.email,
+        avatar:   account.photoUrl,
+        googleId: account.id,
+      );
+
+      if (ok && mounted) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Google Sign-In failed: ${e.toString()}'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _googleLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        // Căn giữa toàn bộ giao diện theo cả 2 trục trên Desktop/Tablet
         child: Center(
-          // Giới hạn chiều rộng của form (chuẩn UX cho màn hình lớn)
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 480),
             child: AnimatedBuilder(
@@ -75,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch, // Kéo giãn các widget con vừa khung 480px
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // ── Logo ──────────────────────────────────────────────
                     Center(
@@ -137,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen>
                             icon: Icons.lock_outline,
                             obscure: _obscurePass,
                             textInputAction: TextInputAction.done,
-                            onFieldSubmitted: (_) => _submit(), // Enter để submit trên Desktop
+                            onFieldSubmitted: (_) => _submit(),
                             suffix: IconButton(
                               icon: Icon(_obscurePass ? Icons.visibility_off : Icons.visibility,
                                   color: AppColors.textSecondary),
@@ -180,17 +216,37 @@ class _LoginScreenState extends State<LoginScreen>
                       isLoading: auth.isLoading,
                       icon: _isRegister ? Icons.person_add : Icons.login,
                     ),
+                    const SizedBox(height: 16),
+
+                    // ── Divider ───────────────────────────────────────────
+                    Row(
+                      children: [
+                        Expanded(child: Divider(color: Colors.grey.shade200)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
+                          child: Text('OR', style: AppTextStyles.bodySmall),
+                        ),
+                        Expanded(child: Divider(color: Colors.grey.shade200)),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // ── Google Sign-In ─────────────────────────────────────
+                    _GoogleSignInButton(
+                      isLoading: _googleLoading,
+                      onTap: _signInWithGoogle,
+                    ),
                     const SizedBox(height: 20),
 
                     // ── Toggle ────────────────────────────────────────────
                     Center(
                       child: MouseRegion(
-                        cursor: SystemMouseCursors.click, // Hiển thị con trỏ click trên Desktop/Web
+                        cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () => setState(() => _isRegister = !_isRegister),
                           behavior: HitTestBehavior.opaque,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0), // Tăng vùng bấm (hitbox)
+                            padding: const EdgeInsets.all(8.0),
                             child: RichText(
                               text: TextSpan(
                                 text: _isRegister
@@ -222,6 +278,102 @@ class _LoginScreenState extends State<LoginScreen>
   }
 }
 
+// ── Google Sign-In Button ────────────────────────────────────────────────────
+class _GoogleSignInButton extends StatelessWidget {
+  final bool isLoading;
+  final VoidCallback onTap;
+  const _GoogleSignInButton({required this.isLoading, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: isLoading ? null : onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          height: 52,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(AppRadius.lg),
+            border: Border.all(color: Colors.grey.shade200, width: 1.5),
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.05),
+                  blurRadius: 8, offset: const Offset(0, 2)),
+            ],
+          ),
+          child: isLoading
+              ? const Center(
+                  child: SizedBox(
+                    width: 22, height: 22,
+                    child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary),
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Google "G" logo
+                    Container(
+                      width: 22, height: 22,
+                      decoration: const BoxDecoration(shape: BoxShape.circle),
+                      child: CustomPaint(painter: _GoogleLogoPainter()),
+                    ),
+                    const SizedBox(width: 12),
+                    const Text(
+                      'Continue with Google',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Custom Google "G" logo painter ──────────────────────────────────────────
+class _GoogleLogoPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+
+    // Draw 4-colored "G" using arc segments
+    final colors = [
+      const Color(0xFF4285F4), // blue
+      const Color(0xFF34A853), // green
+      const Color(0xFFFBBC05), // yellow
+      const Color(0xFFEA4335), // red
+    ];
+    final sweeps = [1.6, 1.6, 1.6, 1.0];
+    double startAngle = -0.4;
+
+    for (int i = 0; i < 4; i++) {
+      final paint = Paint()
+        ..color = colors[i]
+        ..strokeWidth = 4.5
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius - 2),
+        startAngle,
+        sweeps[i],
+        false,
+        paint,
+      );
+      startAngle += sweeps[i];
+    }
+  }
+
+  @override
+  bool shouldRepaint(_) => false;
+}
+
+// ── Input Field ─────────────────────────────────────────────────────────────
 class _InputField extends StatelessWidget {
   final TextEditingController ctrl;
   final String label;

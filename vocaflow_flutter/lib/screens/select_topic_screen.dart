@@ -197,17 +197,16 @@ class _TopicCard extends StatelessWidget {
           const SizedBox(height: 12),
           Row(
             children: [
-              _StatDot(label: '$mastered mastered', color: AppColors.mastered),
-              const SizedBox(width: 12),
-              _StatDot(label: '$learning learning', color: AppColors.learning),
-              const SizedBox(width: 12),
-              _StatDot(label: '$newCount new', color: AppColors.newWord),
+              _StatDot(label: 'mastered: $mastered đã học', color: AppColors.mastered),
+              const SizedBox(width: 16),
+              _StatDot(label: 'new: $newCount chưa học', color: AppColors.newWord),
             ],
           ),
           const SizedBox(height: 10),
           AppProgressBar(
-            value: total > 0 ? (mastered + learning) / total : 0,
-            height: 5,
+            value: total > 0 ? mastered / total : 0,
+            color: AppColors.secondary, // Violet/Purple progress bar
+            height: 6,
           ),
           const SizedBox(height: 12),
           // ── Tối ưu UI cho nút bấm trên Web ────────

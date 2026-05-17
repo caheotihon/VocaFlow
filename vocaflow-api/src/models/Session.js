@@ -19,6 +19,7 @@ const sessionSchema = new mongoose.Schema(
 
     // Results
     words_studied: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Word' }],
+    correct_new_words: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Word' }],
     total_words: { type: Number, default: 0 },
     correct_answers: { type: Number, default: 0 },
     wrong_answers: { type: Number, default: 0 },

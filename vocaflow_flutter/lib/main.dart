@@ -19,12 +19,14 @@ import 'screens/select_topic_screen.dart';
 import 'screens/choose_mode_screen.dart';
 import 'screens/result_screen.dart';
 import 'screens/favorites_screen.dart';
+import 'screens/leaderboard_screen.dart';
 import 'screens/practice/flashcard_screen.dart';
 import 'screens/practice/typing_screen.dart';
 import 'screens/practice/listening_screen.dart';
 import 'screens/practice/reverse_recall_screen.dart';
 import 'screens/practice/fill_blank_screen.dart';
 import 'screens/practice/mixed_challenge_screen.dart';
+import 'screens/practice/review_history_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -105,6 +107,8 @@ class LingoProApp extends StatelessWidget {
           '/choose-mode':   (_) => const ChooseModeScreen(),
           '/result':        (_) => const ResultScreen(),
           '/favorites':     (_) => const FavoritesScreen(),
+          '/leaderboard':   (_) => const LeaderboardScreen(),
+          '/review/history': (_) => const ReviewHistoryScreen(),
 
           // Practice modes
           '/practice/flashcard':  (_) => const FlashcardScreen(),

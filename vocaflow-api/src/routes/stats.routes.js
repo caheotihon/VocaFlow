@@ -4,6 +4,8 @@ const { protect } = require('../middlewares/auth.middleware');
 
 router.use(protect);
 
-router.get('/dashboard', ctrl.getDashboard);
+router.get('/dashboard',    ctrl.getDashboard);
+router.get('/leaderboard',  ctrl.getLeaderboard);
 
 module.exports = router;
+

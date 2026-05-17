@@ -55,27 +55,51 @@ exports.login = async (req, res) => {
 /**
  * POST /api/auth/google
  * Google OAuth login — validate idToken from Flutter
+ * Supports both id_token (Firebase) and access_token paths
  */
 exports.googleLogin = async (req, res) => {
   try {
-    const { idToken } = req.body;
-    if (!idToken) return errorResponse(res, 'Google ID token required', 400);
+    const { idToken, accessToken, email, name, avatar, googleId } = req.body;
+
+    // Path 1: Direct profile data (from google_sign_in without Firebase)
+    if (!idToken && email && name) {
+      let user = await User.findOne({ $or: [{ googleId }, { email }] });
+      if (!user) {
+        user = await User.create({
+          name, email,
+          googleId: googleId || null,
+          avatar: avatar || null,
+          authProvider: 'google',
+        });
+      } else {
+        if (!user.googleId && googleId) user.googleId = googleId;
+        user.authProvider = 'google';
+        if (!user.avatar && avatar) user.avatar = avatar;
+      }
+      user.updateStreak();
+      await user.save();
+      const token = generateToken(user._id);
+      return successResponse(res, { token, user: _safeUser(user) }, 'Google login successful');
+    }
+
+    // Path 2: ID token verification (Firebase / standard OAuth)
+    if (!idToken) return errorResponse(res, 'Google credentials required', 400);
 
     const ticket = await googleClient.verifyIdToken({
       idToken,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    const { sub: googleId, email, name, picture } = payload;
+    const { sub: gId, email: gEmail, name: gName, picture } = payload;
 
-    let user = await User.findOne({ $or: [{ googleId }, { email }] });
+    let user = await User.findOne({ $or: [{ googleId: gId }, { email: gEmail }] });
     if (!user) {
       user = await User.create({
-        name, email, googleId, avatar: picture,
+        name: gName, email: gEmail, googleId: gId, avatar: picture,
         authProvider: 'google',
       });
     } else if (!user.googleId) {
-      user.googleId = googleId;
+      user.googleId = gId;
       user.authProvider = 'google';
       if (!user.avatar) user.avatar = picture;
     }
@@ -101,19 +125,22 @@ exports.getMe = async (req, res) => {
 
 /**
  * PUT /api/auth/profile
- * Update user profile
+ * Update user profile — name, bio, dailyGoal, goalAccuracy, avatar (URL)
  */
 exports.updateProfile = async (req, res) => {
   try {
-    const { name, dailyGoal, goalAccuracy } = req.body;
+    const { name, bio, dailyGoal, goalAccuracy, avatar } = req.body;
     const updates = {};
-    if (name) updates.name = name;
-    if (dailyGoal) updates.dailyGoal = dailyGoal;
-    if (goalAccuracy) updates.goalAccuracy = goalAccuracy;
+    if (name !== undefined) updates.name = name;
+    if (bio !== undefined) updates.bio = bio;
+    if (dailyGoal !== undefined) updates.dailyGoal = Number(dailyGoal);
+    if (goalAccuracy !== undefined) updates.goalAccuracy = Number(goalAccuracy);
+    if (avatar !== undefined) updates.avatar = avatar;
 
     const user = await User.findByIdAndUpdate(req.user._id, updates, { new: true });
     return successResponse(res, { user: _safeUser(user) }, 'Profile updated');
   } catch (err) {
+    console.error('[Auth/profile]', err.message);
     return errorResponse(res, 'Server error', 500);
   }
 };
@@ -124,12 +151,15 @@ const _safeUser = (user) => ({
   name: user.name,
   email: user.email,
   avatar: user.avatar,
+  bio: user.bio || '',
   streakDays: user.streakDays,
+  bestStreak: user.bestStreak || 0,
   totalXP: user.totalXP,
   dailyXP: user.dailyXP,
   dailyGoal: user.dailyGoal,
   goalAccuracy: user.goalAccuracy,
   badges: user.badges,
+  streakMilestonesClaimed: user.streakMilestonesClaimed || [],
   authProvider: user.authProvider,
   createdAt: user.createdAt,
 });

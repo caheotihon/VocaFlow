@@ -79,6 +79,70 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  /// Google Sign-In — pass profile data from google_sign_in package
+  Future<bool> loginWithGoogle({
+    String? idToken,
+    String? email,
+    String? name,
+    String? avatar,
+    String? googleId,
+  }) async {
+    _setLoading(true);
+    try {
+      final res = await _api.googleLogin(
+        idToken: idToken,
+        email: email,
+        name: name,
+        avatar: avatar,
+        googleId: googleId,
+      );
+      if (res.data['success'] == true) {
+        await _handleAuthSuccess(res.data);
+        return true;
+      }
+      _errorMessage = res.data['message'] ?? 'Google sign-in failed';
+      return false;
+    } catch (e) {
+      _errorMessage = _parseError(e);
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  /// Update profile (name, bio, dailyGoal, goalAccuracy, avatar URL)
+  Future<bool> updateProfile({
+    String? name,
+    String? bio,
+    String? avatar,
+    int? dailyGoal,
+    int? goalAccuracy,
+  }) async {
+    _setLoading(true);
+    try {
+      final data = <String, dynamic>{};
+      if (name != null) data['name'] = name;
+      if (bio != null) data['bio'] = bio;
+      if (avatar != null) data['avatar'] = avatar;
+      if (dailyGoal != null) data['dailyGoal'] = dailyGoal;
+      if (goalAccuracy != null) data['goalAccuracy'] = goalAccuracy;
+
+      final res = await _api.updateProfile(data);
+      if (res.data['success'] == true) {
+        _user = UserModel.fromJson(res.data['data']['user']);
+        notifyListeners();
+        return true;
+      }
+      _errorMessage = res.data['message'];
+      return false;
+    } catch (e) {
+      _errorMessage = _parseError(e);
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
   Future<void> logout() async {
     await _storage.delete(key: 'auth_token');
     _user = null;
@@ -101,7 +165,12 @@ class AuthProvider extends ChangeNotifier {
   }
 
   String _parseError(dynamic e) {
-    if (e.toString().contains('connection')) return 'Cannot connect to server';
+    final msg = e.toString();
+    if (msg.contains('connection') || msg.contains('SocketException')) {
+      return 'Cannot connect to server. Check your connection.';
+    }
+    if (msg.contains('401')) return 'Invalid credentials';
+    if (msg.contains('409')) return 'Email already registered';
     return 'An error occurred. Please try again.';
   }
 }

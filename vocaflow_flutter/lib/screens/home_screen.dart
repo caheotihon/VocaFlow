@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/stats_provider.dart';
+import '../providers/learn_provider.dart';
 import '../core/constants/app_constants.dart';
 import 'widgets/shared_widgets.dart';
 
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  _buildResumeCard(context),
+                                  _buildResumeCard(context, dash),
                                   const SizedBox(height: 32),
                                   _buildQuickActions(context, crossAxisCount: 4, aspectRatio: 1.8),
                                 ],
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   _buildDailyProgress(user, dash),
                                   const SizedBox(height: 16),
-                                  _buildDailyStats(user),
+                                  _buildDailyStats(user, dash),
                                 ],
                               ),
                             ),
@@ -92,9 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildResumeCard(context),
+                            _buildResumeCard(context, dash),
                             const SizedBox(height: 16),
-                            _buildDailyStats(user),
+                            _buildDailyStats(user, dash),
                             const SizedBox(height: 16),
                             _buildDailyProgress(user, dash),
                             const SizedBox(height: 24),
@@ -175,47 +176,126 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildResumeCard(BuildContext context) {
+  Widget _buildResumeCard(BuildContext context, dash) {
+    final resume = dash?['resume'] as Map<String, dynamic>?;
+    final activeSession = resume?['activeSession'] as Map<String, dynamic>?;
+    final nextRec = resume?['nextRecommendation'] as Map<String, dynamic>?;
+
+    if (activeSession == null && nextRec == null) {
+      return const SizedBox.shrink();
+    }
+
+    final bool isActive = activeSession != null;
+    final Map<String, dynamic> data = isActive ? activeSession : nextRec!;
+
+    final String source = data['source'] ?? 'General';
+    final String? level = data['level'];
+    final String? topic = data['topic'];
+    final String mode = data['mode'] ?? 'mixed';
+
+    String title = source;
+    if (level != null) title += ' • $level';
+    if (topic != null) title += ' ($topic)';
+
     return AppCard(
       hasBorder: true,
       padding: const EdgeInsets.all(20),
-      onTap: () => Navigator.pushNamed(context, '/learn'),
+      onTap: () async {
+        final learnP = context.read<LearnProvider>();
+        if (isActive) {
+          final bool success = await learnP.resumeSession();
+          if (success && mounted) {
+            final route = _getRoute(mode);
+            Navigator.pushNamed(context, route);
+          } else if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Failed to resume session. Please try again! 🚀')),
+            );
+          }
+        } else {
+          learnP.selectedSource = source;
+          learnP.selectedLevel = level;
+          learnP.selectedTopic = topic;
+          learnP.selectedMode = mode;
+          final bool success = await learnP.startSession();
+          if (success && mounted) {
+            final route = _getRoute(mode);
+            Navigator.pushNamed(context, route);
+          } else if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Failed to start next session. Please try again! 🚀')),
+            );
+          }
+        }
+      },
       child: Row(
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('RESUME', style: AppTextStyles.label.copyWith(
-                  color: AppColors.primary, letterSpacing: 1.2)),
+                Text(
+                  isActive ? 'RESUME LEARNING' : 'RECOMMENDED FOR YOU',
+                  style: AppTextStyles.label.copyWith(
+                    color: isActive ? AppColors.primary : Colors.amber.shade800,
+                    letterSpacing: 1.2,
+                  ),
+                ),
                 const SizedBox(height: 6),
-                const Text('Oxford 5000',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(height: 2),
-                Text('Tap to continue learning',
-                    style: AppTextStyles.bodySmall),
+                Text(
+                  isActive 
+                      ? 'Tap to continue (${activeSession['currentIndex']} / ${activeSession['total_words']} words)' 
+                      : 'Tap to start next topic',
+                  style: AppTextStyles.bodySmall,
+                ),
               ],
             ),
           ),
           Container(
             width: 52, height: 52,
             decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
+              gradient: isActive ? AppColors.primaryGradient : null,
+              color: isActive ? null : Colors.amber.shade600,
               shape: BoxShape.circle,
-              boxShadow: [BoxShadow(
-                color: AppColors.primary.withOpacity(0.35),
-                blurRadius: 12, offset: const Offset(0, 4),
-              )],
+              boxShadow: [
+                BoxShadow(
+                  color: (isActive ? AppColors.primary : Colors.amber).withOpacity(0.35),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                )
+              ],
             ),
-            child: const Icon(Icons.play_arrow_rounded,
-                color: Colors.white, size: 28),
+            child: const Icon(
+              Icons.play_arrow_rounded,
+              color: Colors.white,
+              size: 28,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDailyStats(user) {
+  String _getRoute(String mode) {
+    switch (mode) {
+      case 'typing':        return '/practice/typing';
+      case 'listening':     return '/practice/listening';
+      case 'reverse_recall':return '/practice/reverse';
+      case 'fill_blank':    return '/practice/fill-blank';
+      case 'mixed':         return '/practice/mixed';
+      default:              return '/practice/flashcard';
+    }
+  }
+
+  Widget _buildDailyStats(user, dash) {
+    final dailyXP = dash?['user']?['dailyXP'] ?? user?.dailyXP ?? 0;
+    final accuracy = dash?['progress']?['accuracy'] ?? 80;
+
     return Row(
       children: [
         Expanded(
@@ -235,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Text('Daily XP', style: AppTextStyles.bodySmall),
                 const SizedBox(height: 2),
                 Text(
-                  '${user?.dailyXP ?? 0}',
+                  '$dailyXP',
                   style: const TextStyle(
                     fontSize: 22, fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary),
@@ -263,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Text('Goal Accuracy', style: AppTextStyles.bodySmall),
                 const SizedBox(height: 2),
                 Text(
-                  '${user?.goalAccuracy ?? 80}%',
+                  '$accuracy%',
                   style: const TextStyle(
                     fontSize: 22, fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary),
@@ -277,7 +357,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildDailyProgress(user, dash) {
+    final dailyWords = dash?['progress']?['dailyWordsLearned'] ?? 0;
+    final goal = user?.dailyGoal ?? 20;
+    final isGoalMet = dailyWords >= goal;
+
     return AppCard(
+      onTap: () {
+        if (isGoalMet) {
+          _showDailyRewardDialog(context, dailyWords, goal);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Learn ${goal - dailyWords} more words to achieve your daily goal! 🚀'),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      },
       child: Row(
         children: [
           Expanded(
@@ -293,13 +389,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '${dash?['progress']?['totalLearned'] ?? 0}',
-                        style: const TextStyle(
+                        text: '$dailyWords',
+                        style: TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w800,
-                          color: AppColors.primary),
+                          color: isGoalMet ? Colors.amber.shade700 : AppColors.primary),
                       ),
                       TextSpan(
-                        text: ' / ${user?.dailyGoal ?? 20}',
+                        text: ' / $goal',
                         style: AppTextStyles.body.copyWith(
                             color: AppColors.textSecondary),
                       ),
@@ -315,19 +411,111 @@ class _HomeScreenState extends State<HomeScreen> {
               alignment: Alignment.center,
               children: [
                 CircularProgressIndicator(
-                  value: ((dash?['progress']?['totalLearned'] ?? 0) /
-                          (user?.dailyGoal ?? 20)).clamp(0.0, 1.0),
+                  value: (dailyWords / goal).clamp(0.0, 1.0),
                   strokeWidth: 6,
                   backgroundColor: AppColors.background,
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    isGoalMet ? Colors.amber : AppColors.primary
+                  ),
                 ),
-                const Icon(Icons.star_rounded,
-                    color: AppColors.primary, size: 26),
+                Icon(
+                  isGoalMet ? Icons.stars_rounded : Icons.star_rounded,
+                  color: isGoalMet ? Colors.amber : AppColors.primary,
+                  size: isGoalMet ? 32 : 26,
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showDailyRewardDialog(BuildContext context, int dailyWords, int goal) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: Colors.white,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.amber.shade50,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.emoji_events_rounded,
+                color: Colors.amber.shade800,
+                size: 64,
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Daily Goal Met! 🎉',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Congratulations! You learned $dailyWords / $goal words today and achieved your daily goal!',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppColors.textSecondary,
+                height: 1.4,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('⚡', style: TextStyle(fontSize: 20)),
+                  const SizedBox(width: 8),
+                  Text(
+                    '+50 XP Daily Reward',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.primary,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber.shade600,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 14),
+                elevation: 2,
+              ),
+              child: const Text(
+                'Awesome!',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }
@@ -353,16 +541,16 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () => Navigator.pushNamed(context, '/learn'),
             ),
             _QuickActionCard(
-              icon: Icons.quiz_outlined,
-              label: 'Take a Quiz',
+              icon: Icons.leaderboard_rounded,
+              label: 'Leaderboard',
               color: AppColors.secondary,
-              onTap: () => Navigator.pushNamed(context, '/learn'),
+              onTap: () => Navigator.pushNamed(context, '/leaderboard'),
             ),
             _QuickActionCard(
-              icon: Icons.history_rounded,
-              label: 'Review Mistakes',
+              icon: Icons.replay_circle_filled_rounded,
+              label: 'Review Today',
               color: Colors.redAccent,
-              onTap: () => Navigator.pushNamed(context, '/favorites'),
+              onTap: () => Navigator.pushNamed(context, '/review/history'),
             ),
             _QuickActionCard(
               icon: Icons.favorite_border_rounded,

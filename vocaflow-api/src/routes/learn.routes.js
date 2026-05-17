@@ -9,5 +9,7 @@ router.post('/result',        ctrl.submitResult);
 router.post('/complete',      ctrl.completeSession);
 router.get('/progress',       ctrl.getProgress);
 router.get('/review-today',   ctrl.getReviewToday);
+router.get('/today-history',  ctrl.getTodayHistory);
+router.get('/last-active',    ctrl.getLastActiveSession);
 
 module.exports = router;

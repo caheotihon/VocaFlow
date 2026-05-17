@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/learn_provider.dart';
+import '../../providers/favorite_provider.dart';
 import '../../core/constants/app_constants.dart';
 import '../widgets/shared_widgets.dart';
 
@@ -45,28 +46,32 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
     setState(() { _options = opts; _selected = null; _submitted = false; _showBack = false; });
   }
 
-  Future<void> _answer(bool correct) async {
+  void _answer(bool correct) {
     if (_submitted) return;
     setState(() => _submitted = true);
     final ms = DateTime.now().difference(_startTime).inMilliseconds;
-    await context.read<LearnProvider>().submitAnswer(correct, timeTakenMs: ms);
-    if (!mounted) return;
-    final lp = context.read<LearnProvider>();
-    if (lp.isSessionComplete) {
-      final result = await lp.completeSession();
-      Navigator.pushReplacementNamed(context, '/result', arguments: result);
-    } else {
-      _nextMode();
-    }
+    context.read<LearnProvider>().submitAnswer(correct, timeTakenMs: ms);
   }
 
-  Future<void> _selectOption(String opt) async {
+  void _selectOption(String opt) {
     if (_submitted) return;
     setState(() { _selected = opt; _submitted = true; });
     final lp = context.read<LearnProvider>();
     final correct = opt == lp.currentWord!.word;
-    await Future.delayed(const Duration(milliseconds: 800));
-    await _answer(correct);
+    final ms = DateTime.now().difference(_startTime).inMilliseconds;
+    lp.submitAnswer(correct, timeTakenMs: ms);
+  }
+
+  Future<void> _goToNext() async {
+    final lp = context.read<LearnProvider>();
+    if (lp.isSessionComplete) {
+      final result = await lp.completeSession();
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/result', arguments: result);
+      }
+    } else {
+      _nextMode();
+    }
   }
 
   @override
@@ -78,6 +83,7 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
     final total   = lp.session?.words.length ?? 1;
     final current = lp.session?.currentIndex ?? 0;
 
+    final favP = context.watch<FavoriteProvider>();
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -94,6 +100,15 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
                 style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              favP.isFavorite(word.id) ? Icons.favorite : Icons.favorite_border,
+              color: favP.isFavorite(word.id) ? Colors.pinkAccent : AppColors.textSecondary,
+            ),
+            onPressed: () => favP.toggleFavorite(word),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -236,6 +251,32 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
                     ),
                   );
                 }).toList(),
+              ),
+            ],
+            if (_submitted) ...[
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: _goToNext,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppRadius.lg),
+                    ),
+                    elevation: 2,
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Tiếp tục', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      SizedBox(width: 8),
+                      Icon(Icons.arrow_forward_rounded, size: 20),
+                    ],
+                  ),
+                ),
               ),
             ],
             const SizedBox(height: 24),

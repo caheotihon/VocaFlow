@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/learn_provider.dart';
+import '../../providers/favorite_provider.dart';
 import '../../core/constants/app_constants.dart';
 import '../widgets/shared_widgets.dart';
 
@@ -25,7 +26,7 @@ class _TypingScreenState extends State<TypingScreen> {
     super.dispose();
   }
 
-  Future<void> _submit() async {
+  void _submit() {
     if (_submitted) return;
     final lp   = context.read<LearnProvider>();
     final word = lp.currentWord!;
@@ -34,14 +35,17 @@ class _TypingScreenState extends State<TypingScreen> {
 
     setState(() { _isCorrect = correct; _submitted = true; });
 
-    await Future.delayed(const Duration(milliseconds: 1200));
     final ms = DateTime.now().difference(_startTime).inMilliseconds;
-    await lp.submitAnswer(correct, timeTakenMs: ms);
+    lp.submitAnswer(correct, timeTakenMs: ms);
+  }
 
-    if (!mounted) return;
+  Future<void> _goToNext() async {
+    final lp = context.read<LearnProvider>();
     if (lp.isSessionComplete) {
       final result = await lp.completeSession();
-      Navigator.pushReplacementNamed(context, '/result', arguments: result);
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/result', arguments: result);
+      }
     } else {
       _ctrl.clear();
       setState(() { _isCorrect = null; _submitted = false; });
@@ -62,6 +66,7 @@ class _TypingScreenState extends State<TypingScreen> {
     if (_isCorrect == true)  borderColor = AppColors.success;
     if (_isCorrect == false) borderColor = AppColors.error;
 
+    final favP = context.watch<FavoriteProvider>();
     return Scaffold(
       backgroundColor: AppColors.background,
       resizeToAvoidBottomInset: true,
@@ -72,6 +77,15 @@ class _TypingScreenState extends State<TypingScreen> {
         centerTitle: true,
         title: Text('$current / $total',
             style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+        actions: [
+          IconButton(
+            icon: Icon(
+              favP.isFavorite(word.id) ? Icons.favorite : Icons.favorite_border,
+              color: favP.isFavorite(word.id) ? Colors.pinkAccent : AppColors.textSecondary,
+            ),
+            onPressed: () => favP.toggleFavorite(word),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -125,13 +139,12 @@ class _TypingScreenState extends State<TypingScreen> {
             const Text('TYPE THE WORD', style: AppTextStyles.label),
             const SizedBox(height: 10),
 
-            // Input field
             TextField(
               controller: _ctrl,
               focusNode: _focusNode,
               autofocus: true,
               enabled: !_submitted,
-              onSubmitted: (_) => _submit(),
+              onSubmitted: (_) => _submitted ? _goToNext() : _submit(),
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700, letterSpacing: 1),
               textAlign: TextAlign.center,
               decoration: InputDecoration(
@@ -182,9 +195,9 @@ class _TypingScreenState extends State<TypingScreen> {
 
             const Spacer(),
             GradientButton(
-              text: _submitted ? 'Next →' : 'Check Answer',
-              onTap: _submit,
-              icon: _submitted ? null : Icons.check_rounded,
+              text: _submitted ? 'Tiếp tục' : 'Kiểm tra',
+              onTap: _submitted ? _goToNext : _submit,
+              icon: _submitted ? Icons.arrow_forward_rounded : Icons.check_rounded,
             ),
             const SizedBox(height: 20),
           ],

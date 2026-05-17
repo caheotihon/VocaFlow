@@ -19,6 +19,16 @@ const protect = async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'User not found or inactive' });
     }
 
+    // Daily reset check for wordsLearnedToday / dailyGoalClaimed / dailyXP
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (user.lastWordsResetDate !== todayStr) {
+      user.wordsLearnedToday = [];
+      user.dailyGoalClaimed = false;
+      user.dailyXP = 0;
+      user.lastWordsResetDate = todayStr;
+      await user.save();
+    }
+
     req.user = user;
     next();
   } catch (err) {

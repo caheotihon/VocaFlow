@@ -6,6 +6,7 @@ import '../providers/stats_provider.dart';
 import '../core/constants/app_constants.dart';
 import 'home_screen.dart';
 import 'learn_screen.dart';
+import 'favorites_screen.dart';
 import 'statistics_screen.dart';
 import 'profile_screen.dart';
 
@@ -21,16 +22,18 @@ class _MainShellState extends State<MainShell> {
   final List<Widget> _screens = const [
     HomeScreen(),
     LearnScreen(),
+    FavoritesScreen(),
     StatisticsScreen(),
     ProfileScreen(),
   ];
 
   // Tách data để dễ dàng build cho cả Bottom Nav và Side Nav
   final List<Map<String, dynamic>> _navItems = [
-    {'icon': Icons.home_outlined, 'activeIcon': Icons.home_rounded, 'label': 'HOME'},
-    {'icon': Icons.school_outlined, 'activeIcon': Icons.school_rounded, 'label': 'LEARN'},
-    {'icon': Icons.bar_chart_outlined, 'activeIcon': Icons.bar_chart_rounded, 'label': 'STATS'},
-    {'icon': Icons.person_outline_rounded, 'activeIcon': Icons.person_rounded, 'label': 'PROFILE'},
+    {'icon': Icons.home_outlined,         'activeIcon': Icons.home_rounded,            'label': 'HOME'},
+    {'icon': Icons.school_outlined,        'activeIcon': Icons.school_rounded,           'label': 'LEARN'},
+    {'icon': Icons.favorite_border_rounded,'activeIcon': Icons.favorite_rounded,         'label': 'SAVED'},
+    {'icon': Icons.bar_chart_outlined,     'activeIcon': Icons.bar_chart_rounded,        'label': 'STATS'},
+    {'icon': Icons.person_outline_rounded, 'activeIcon': Icons.person_rounded,           'label': 'PROFILE'},
   ];
 
   @override

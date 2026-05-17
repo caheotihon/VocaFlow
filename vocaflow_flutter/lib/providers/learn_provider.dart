@@ -12,6 +12,10 @@ class LearnProvider extends ChangeNotifier {
   String? _error;
   Map<String, dynamic>? _sessionResult;
 
+  Map<String, dynamic>? _todayStats;
+  List<WordModel> _todayCorrectWords = [];
+  List<WordModel> _todayWrongWords = [];
+
   // Selected learn flow state
   String? selectedSource;
   String? selectedLevel;
@@ -24,6 +28,34 @@ class LearnProvider extends ChangeNotifier {
   Map<String, dynamic>? get sessionResult => _sessionResult;
   WordModel? get currentWord => _session?.currentWord;
   bool get isSessionComplete => _session?.isComplete ?? false;
+
+  Map<String, dynamic>? get todayStats => _todayStats;
+  List<WordModel> get todayCorrectWords => _todayCorrectWords;
+  List<WordModel> get todayWrongWords => _todayWrongWords;
+
+  Future<bool> fetchTodayHistory() async {
+    _setLoading(true);
+    try {
+      final res = await _api.getTodayHistory();
+      if (res.data['success'] == true) {
+        final data = res.data['data'];
+        _todayStats = data['stats'];
+        _todayCorrectWords = (data['correctWords'] as List)
+            .map((w) => WordModel.fromJson(w))
+            .toList();
+        _todayWrongWords = (data['wrongWords'] as List)
+            .map((w) => WordModel.fromJson(w))
+            .toList();
+        notifyListeners();
+        return true;
+      }
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _setLoading(false);
+    }
+    return false;
+  }
 
   void selectSource(String source) {
     selectedSource = source;
@@ -68,6 +100,45 @@ class LearnProvider extends ChangeNotifier {
           topic: selectedTopic,
           mode: selectedMode!,
           words: words,
+        );
+        notifyListeners();
+        return true;
+      }
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _setLoading(false);
+    }
+    return false;
+  }
+
+  Future<bool> resumeSession() async {
+    _setLoading(true);
+    try {
+      final res = await _api.getLastActiveSession();
+      if (res.data['success'] == true && res.data['data']['session'] != null) {
+        final sessionData = res.data['data']['session'];
+        final words = (sessionData['words_studied'] as List)
+            .map((w) => WordModel.fromJson(w))
+            .toList();
+        
+        selectedSource = sessionData['source'];
+        selectedLevel = sessionData['level'];
+        selectedTopic = sessionData['topic'];
+        selectedMode = sessionData['mode'];
+
+        final currentIndex = (sessionData['correct_answers'] ?? 0) + (sessionData['wrong_answers'] ?? 0);
+
+        _session = SessionModel(
+          id: sessionData['_id'] ?? sessionData['session_id'] ?? '',
+          source: selectedSource!,
+          level: selectedLevel,
+          topic: selectedTopic,
+          mode: selectedMode!,
+          words: words,
+          currentIndex: currentIndex,
+          correctAnswers: sessionData['correct_answers'] ?? 0,
+          wrongAnswers: sessionData['wrong_answers'] ?? 0,
         );
         notifyListeners();
         return true;

@@ -41,43 +41,58 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    // 1. Lấy kích thước màn hình để tính toán Responsive
     final size = MediaQuery.of(context).size;
-    final bool isWide = size.width > 800; // Tablet/Desktop threshold
+    final bool isWide = size.width > 800;
 
     final result = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final accuracy = result?['accuracy'] ?? 0;
-    final xpEarned = result?['xp_earned'] ?? 0;
-    final correct = result?['correct'] ?? 0;
-    final wrong = result?['wrong'] ?? 0;
-    final total = result?['total'] ?? 0;
-    final streak = result?['streak'] ?? 0;
-    final isPerfect = accuracy >= 90;
+    final accuracy      = result?['accuracy'] ?? 0;
+    final xpEarned      = result?['xp_earned'] ?? 0;
+    final correct       = result?['correct'] ?? 0;
+    final wrong         = result?['wrong'] ?? 0;
+    final total         = result?['total'] ?? 0;
+    final streak        = result?['streak'] ?? 0;
+    final milestone     = result?['milestoneReached'] as Map<String, dynamic>?;
+    final dailyProgress = result?['dailyProgress'] as Map<String, dynamic>?;
+    final dailyGoalMet   = dailyProgress?['dailyGoalMet'] == true;
+    final isPerfect     = accuracy >= 90;
+
+    // Show daily goal popup once after animations done
+    if (dailyGoalMet) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Future.delayed(const Duration(milliseconds: 1800), () {
+          if (mounted) _showDailyGoalDialog(context, dailyProgress!);
+        });
+      });
+    }
+
+    // Show milestone popup once after animations done
+    if (milestone != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Future.delayed(Duration(milliseconds: dailyGoalMet ? 3600 : 1800), () {
+          if (mounted) _showMilestoneDialog(context, milestone);
+        });
+      });
+    }
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Center( // Căn giữa nội dung cho Desktop
+      body: Center(
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 1000), // Giới hạn chiều rộng tối đa
+          constraints: const BoxConstraints(maxWidth: 1000),
           child: SafeArea(
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
-                horizontal: isWide ? 40 : 24, 
-                vertical: 20
-              ),
+              padding: EdgeInsets.symmetric(horizontal: isWide ? 40 : 24, vertical: 20),
               child: Column(
                 children: [
                   _buildHeader(isPerfect, accuracy),
                   const SizedBox(height: 40),
-                  
-                  // Bố cục linh hoạt: Hàng ngang cho Desktop, Dọc cho Mobile
-                  isWide 
+                  isWide
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(child: _buildProgressCircle(accuracy, isPerfect)),
                           const SizedBox(width: 40),
-                          Expanded(flex: 1, child: _buildStatsContent(correct, wrong, xpEarned, streak, total)),
+                          Expanded(child: _buildStatsContent(correct, wrong, xpEarned, streak, total)),
                         ],
                       )
                     : Column(
@@ -87,13 +102,116 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
                           _buildStatsContent(correct, wrong, xpEarned, streak, total),
                         ],
                       ),
-                  
                   const SizedBox(height: 40),
                   _buildActionButtons(context, isWide),
                 ],
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showMilestoneDialog(BuildContext context, Map<String, dynamic> milestone) {
+    final days = milestone['days'] as int;
+    final xp   = milestone['bonusXP'] as int;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        contentPadding: const EdgeInsets.all(28),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('🎉', style: TextStyle(fontSize: 56)),
+            const SizedBox(height: 12),
+            Text('$days-Day Streak!',
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900,
+                    color: Colors.deepOrange)),
+            const SizedBox(height: 8),
+            Text('Amazing! You\'ve maintained your streak for $days days!',
+                textAlign: TextAlign.center, style: const TextStyle(color: AppColors.textSecondary)),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.amber.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.amber.withOpacity(0.4)),
+              ),
+              child: Text('+$xp XP Bonus!',
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w800,
+                      color: Colors.amber)),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Awesome!', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showDailyGoalDialog(BuildContext context, Map<String, dynamic> progress) {
+    final learned = progress['dailyWordsLearned'] ?? 20;
+    final goal    = progress['dailyGoal'] ?? 20;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        contentPadding: const EdgeInsets.all(28),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('⭐', style: TextStyle(fontSize: 56)),
+            const SizedBox(height: 12),
+            const Text('Daily Goal Achieved!',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900,
+                    color: Colors.amber)),
+            const SizedBox(height: 8),
+            Text('Fantastic! You\'ve reached your daily goal by learning $learned / $goal words today!',
+                textAlign: TextAlign.center, style: const TextStyle(color: AppColors.textSecondary)),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.primary.withOpacity(0.4)),
+              ),
+              child: const Text('+50 XP Goal Reward!',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800,
+                      color: AppColors.primary)),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber.shade600,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Awesome!', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -3,7 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
-  static const String _baseUrl = 'http://localhost:3000/api'; // Use 'http://10.0.2.2:3000/api' for Android Emulator
+  // Use 'http://10.0.2.2:3000/api' for Android Emulator
+  // Use 'http://localhost:3000/api' for iOS Simulator or Web
+  // Use your machine's IP for physical device: 'http://192.168.1.x:3000/api'
+  static const String _baseUrl = 'http://localhost:3000/api';
 
   late final Dio _dio;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
@@ -38,8 +41,21 @@ class ApiService {
   Future<Response> login(String email, String password) =>
       _dio.post('/auth/login', data: {'email': email, 'password': password});
 
-  Future<Response> googleLogin(String idToken) =>
-      _dio.post('/auth/google', data: {'idToken': idToken});
+  /// Google login — pass profile data directly (no idToken needed for google_sign_in)
+  Future<Response> googleLogin({
+    String? idToken,
+    String? email,
+    String? name,
+    String? avatar,
+    String? googleId,
+  }) =>
+      _dio.post('/auth/google', data: {
+        if (idToken != null) 'idToken': idToken,
+        if (email != null) 'email': email,
+        if (name != null) 'name': name,
+        if (avatar != null) 'avatar': avatar,
+        if (googleId != null) 'googleId': googleId,
+      });
 
   Future<Response> getMe() => _dio.get('/auth/me');
 
@@ -96,6 +112,8 @@ class ApiService {
           queryParameters: {'source': source, 'level': level, 'topic': topic});
 
   Future<Response> getReviewToday() => _dio.get('/learn/review-today');
+  Future<Response> getTodayHistory() => _dio.get('/learn/today-history');
+  Future<Response> getLastActiveSession() => _dio.get('/learn/last-active');
 
   // ── Favorites ─────────────────────────────────────────────────────
   Future<Response> getFavorites() => _dio.get('/favorite');
@@ -105,4 +123,6 @@ class ApiService {
 
   // ── Stats ─────────────────────────────────────────────────────────
   Future<Response> getDashboard() => _dio.get('/stats/dashboard');
+  Future<Response> getLeaderboard({String type = 'streak'}) =>
+      _dio.get('/stats/leaderboard', queryParameters: {'type': type});
 }

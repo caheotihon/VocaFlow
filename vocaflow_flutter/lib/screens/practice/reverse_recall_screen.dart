@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/learn_provider.dart';
+import '../../providers/favorite_provider.dart';
 import '../../core/constants/app_constants.dart';
 import '../widgets/shared_widgets.dart';
 
@@ -33,20 +34,23 @@ class _ReverseRecallScreenState extends State<ReverseRecallScreen> {
     setState(() => _options = opts);
   }
 
-  Future<void> _select(String option) async {
+  void _select(String option) {
     if (_submitted) return;
     setState(() { _selected = option; _submitted = true; });
     final lp    = context.read<LearnProvider>();
     final word  = lp.currentWord!;
     final correct = option == word.word;
     final ms    = DateTime.now().difference(_startTime).inMilliseconds;
+    lp.submitAnswer(correct, timeTakenMs: ms);
+  }
 
-    await Future.delayed(const Duration(milliseconds: 900));
-    await lp.submitAnswer(correct, timeTakenMs: ms);
-    if (!mounted) return;
+  Future<void> _goToNext() async {
+    final lp = context.read<LearnProvider>();
     if (lp.isSessionComplete) {
       final result = await lp.completeSession();
-      Navigator.pushReplacementNamed(context, '/result', arguments: result);
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/result', arguments: result);
+      }
     } else {
       setState(() { _selected = null; _submitted = false; });
       _buildOptions();
@@ -62,6 +66,7 @@ class _ReverseRecallScreenState extends State<ReverseRecallScreen> {
     final total   = lp.session?.words.length ?? 1;
     final current = lp.session?.currentIndex ?? 0;
 
+    final favP = context.watch<FavoriteProvider>();
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -71,6 +76,15 @@ class _ReverseRecallScreenState extends State<ReverseRecallScreen> {
         centerTitle: true,
         title: Text('$current / $total',
             style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+        actions: [
+          IconButton(
+            icon: Icon(
+              favP.isFavorite(word.id) ? Icons.favorite : Icons.favorite_border,
+              color: favP.isFavorite(word.id) ? Colors.pinkAccent : AppColors.textSecondary,
+            ),
+            onPressed: () => favP.toggleFavorite(word),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -171,6 +185,33 @@ class _ReverseRecallScreenState extends State<ReverseRecallScreen> {
                 }).toList(),
               ),
             ),
+            if (_submitted) ...[
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: _goToNext,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppRadius.lg),
+                    ),
+                    elevation: 2,
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Tiếp tục', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      SizedBox(width: 8),
+                      Icon(Icons.arrow_forward_rounded, size: 20),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
           ],
         ),
       ),

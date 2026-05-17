@@ -30,27 +30,37 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         w.word.toLowerCase().contains(_search.toLowerCase()) ||
         w.meaningVn.toLowerCase().contains(_search.toLowerCase())).toList();
 
+    final canPop = Navigator.canPop(context);
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        // ── Responsive Layout: Căn giữa và giới hạn chiều rộng ────────
+        // ── Responsive Layout ────────────────────────────────────────────────
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800), // Giới hạn chiều rộng danh sách
+            constraints: const BoxConstraints(maxWidth: 800),
             child: Column(
               children: [
-                // ── Header ─────────────────────────────────────────────
+                // ── Header with optional Back button ──────────────────────
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(12, 16, 20, 0),
                   child: Row(
                     children: [
-                      const Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Favorites', style: AppTextStyles.h2),
-                            Text('Your saved vocabulary', style: AppTextStyles.bodySmall),
-                          ],
+                      if (canPop)
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back_ios_new_rounded,
+                              color: AppColors.textPrimary, size: 20),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: canPop ? 0 : 8),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Favorites', style: AppTextStyles.h2),
+                              Text('Your saved vocabulary', style: AppTextStyles.bodySmall),
+                            ],
+                          ),
                         ),
                       ),
                       Container(
@@ -62,7 +72,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         child: Text(
                           '${words.length} words',
                           style: const TextStyle(
-                            color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13),
+                              color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13),
                         ),
                       ),
                     ],
