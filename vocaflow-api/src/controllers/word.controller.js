@@ -190,14 +190,26 @@ exports.getTopics = async (req, res) => {
  */
 exports.getSources = async (req, res) => {
   try {
+    const { level } = req.query;
+    const matchStage = {};
+    if (level) {
+      matchStage.level = level;
+    }
+
     const sources = await Word.aggregate([
+      { $match: matchStage },
       { $group: { _id: '$source', total: { $sum: 1 } } },
       { $sort: { total: -1 } },
     ]);
 
     let progressMap = {};
     if (req.user) {
-      const progresses = await Progress.find({ user: req.user._id }).populate('word', 'source');
+      const progresses = await Progress.find({ user: req.user._id }).populate({
+        path: 'word',
+        match: matchStage,
+        select: 'source level'
+      });
+
       for (const p of progresses) {
         if (!p.word) continue;
         const s = p.word.source;

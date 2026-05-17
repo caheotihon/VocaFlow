@@ -37,7 +37,10 @@ class _LearnScreenState extends State<LearnScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<WordProvider>().loadSources();
+      final lp = context.read<LearnProvider>();
+      final initialLevel = lp.selectedLevel ?? 'B1';
+      setState(() => _selectedLevel = initialLevel);
+      context.read<WordProvider>().loadSources(level: initialLevel);
     });
   }
 
@@ -87,6 +90,7 @@ class _LearnScreenState extends State<LearnScreen> {
                             onTap: () {
                               setState(() => _selectedLevel = lvl);
                               learnP.selectLevel(lvl);
+                              context.read<WordProvider>().loadSources(level: lvl);
                             },
                           )).toList(),
                         ),

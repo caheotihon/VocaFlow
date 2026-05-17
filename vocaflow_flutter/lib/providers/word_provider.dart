@@ -20,10 +20,10 @@ class WordProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  Future<void> loadSources() async {
+  Future<void> loadSources({String? level}) async {
     _setLoading(true);
     try {
-      final res = await _api.getSources();
+      final res = await _api.getSources(level: level);
       if (res.data['success'] == true) {
         _sources = List<Map<String, dynamic>>.from(res.data['data']['sources']);
       }

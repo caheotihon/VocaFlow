@@ -84,7 +84,8 @@ class ApiService {
   Future<Response> getWordsByLevel(String level) =>
       _dio.get('/words/level/$level');
 
-  Future<Response> getSources() => _dio.get('/words/sources/list');
+  Future<Response> getSources({String? level}) =>
+      _dio.get('/words/sources/list', queryParameters: level != null ? {'level': level} : null);
 
   Future<Response> getTopics({String? source, String? level}) =>
       _dio.get('/words/topics/list', queryParameters: {'source': source, 'level': level});
