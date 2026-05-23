@@ -127,7 +127,7 @@ exports.getDashboard = async (req, res) => {
     return successResponse(res, {
       user: {
         name: req.user.name,
-        streakDays: req.user.streakDays,
+        streakDays: typeof req.user.getStreakForToday === 'function' ? req.user.getStreakForToday() : req.user.streakDays,
         bestStreak: req.user.bestStreak || 0,
         totalXP: req.user.totalXP,
         dailyXP: req.user.dailyXP,

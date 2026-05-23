@@ -58,16 +58,20 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 
 // Update streak logic — returns { streakBroken, milestoneReached }
 userSchema.methods.updateStreak = function () {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const toUTCMidnight = (d) => {
+    const x = new Date(d);
+    x.setUTCHours(0, 0, 0, 0);
+    return x;
+  };
+
+  const today = toUTCMidnight(new Date());
 
   let streakBroken = false;
 
   if (!this.lastActiveDate) {
     this.streakDays = 1;
   } else {
-    const last = new Date(this.lastActiveDate);
-    last.setHours(0, 0, 0, 0);
+    const last = toUTCMidnight(this.lastActiveDate);
     const diffDays = Math.floor((today - last) / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) return { streakBroken: false, milestoneReached: null }; // already updated today
@@ -106,6 +110,24 @@ userSchema.methods.updateStreak = function () {
   }
 
   return { streakBroken, milestoneReached };
+};
+
+// Get streak to display for "today" (0 if streak is already broken)
+userSchema.methods.getStreakForToday = function () {
+  if (!this.lastActiveDate) return 0;
+
+  const toUTCMidnight = (d) => {
+    const x = new Date(d);
+    x.setUTCHours(0, 0, 0, 0);
+    return x;
+  };
+
+  const today = toUTCMidnight(new Date());
+  const last = toUTCMidnight(this.lastActiveDate);
+  const diffDays = Math.floor((today - last) / (1000 * 60 * 60 * 24));
+
+  if (diffDays > 1) return 0;
+  return this.streakDays || 0;
 };
 
 module.exports = mongoose.model('User', userSchema);

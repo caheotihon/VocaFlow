@@ -269,7 +269,7 @@ exports.completeSession = async (req, res) => {
       accuracy,
       xp_earned: xp,
       total_xp: user.totalXP,
-      streak: user.streakDays,
+      streak: typeof user.getStreakForToday === 'function' ? user.getStreakForToday() : user.streakDays,
       bestStreak: user.bestStreak || 0,
       correct: session.correct_answers,
       wrong: session.wrong_answers,
