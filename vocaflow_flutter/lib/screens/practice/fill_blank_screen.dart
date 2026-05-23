@@ -1,5 +1,4 @@
 // Fill in the Blank Screen
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/learn_provider.dart';
@@ -17,19 +16,12 @@ class _FillBlankScreenState extends State<FillBlankScreen> {
   List<String> _options = [];
   String? _selected;
   bool _submitted = false;
-  DateTime _startTime = DateTime.now();
-  Timer? _nextTimer;
+  DateTime _wordStartTime = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     _buildOptions();
-  }
-
-  @override
-  void dispose() {
-    _nextTimer?.cancel();
-    super.dispose();
   }
 
   void _buildOptions() {
@@ -42,37 +34,48 @@ class _FillBlankScreenState extends State<FillBlankScreen> {
     final distractors = allWords.where((w) => w != correct).toList()..shuffle();
     final opts = [correct, ...distractors.take(3)]..shuffle();
 
-    setState(() => _options = opts);
+    setState(() {
+      _options = opts;
+      _selected = null;
+      _submitted = false;
+    });
+    _wordStartTime = DateTime.now();
   }
 
-  void _select(String option) {
+  Future<void> _select(String option) async {
     if (_submitted) return;
+    setState(() { _selected = option; _submitted = true; });
+
     final lp     = context.read<LearnProvider>();
     final word   = lp.currentWord!;
     final correct = option == word.word;
+    final ms     = DateTime.now().difference(_wordStartTime).inMilliseconds;
+    final sentence = word.example.isNotEmpty
+        ? word.example.replaceAll(word.word, '_______')
+        : 'The _______ means: ${word.meaningVn}';
+    await lp.submitAnswer(
+      correct,
+      timeTakenMs: ms,
+      userAnswer: option,
+      correctAnswer: word.word,
+      prompt: sentence,
+      options: _options,
+      mode: 'fill_blank',
+      advance: false,
+    );
 
-    setState(() { _selected = option; _submitted = true; });
+    await Future.delayed(const Duration(seconds: 1));
+    if (!mounted) return;
 
-    final ms     = DateTime.now().difference(_startTime).inMilliseconds;
-    lp.submitAnswer(correct, timeTakenMs: ms);
-
-    if (correct) {
-      _nextTimer = Timer(const Duration(milliseconds: 1000), () {
-        if (mounted) _goToNext();
-      });
-    }
-  }
-
-  Future<void> _goToNext() async {
-    final lp = context.read<LearnProvider>();
-    lp.nextWord();
-    if (lp.isSessionComplete) {
+    final total = lp.session?.words.length ?? 1;
+    final current = lp.session?.currentIndex ?? 0;
+    if (current >= total - 1) {
       final result = await lp.completeSession();
       if (mounted) {
         Navigator.pushReplacementNamed(context, '/result', arguments: result);
       }
     } else {
-      setState(() { _selected = null; _submitted = false; _startTime = DateTime.now(); });
+      lp.goToNextWord();
       _buildOptions();
     }
   }
@@ -109,119 +112,99 @@ class _FillBlankScreenState extends State<FillBlankScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 650),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppProgressBar(value: current / total),
+            const SizedBox(height: 28),
+
+            // Instruction
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: AppColors.warning.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(AppRadius.full),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.edit_note_rounded, color: AppColors.warning, size: 16),
+                  SizedBox(width: 6),
+                  Text('Fill in the Blank',
+                      style: TextStyle(color: AppColors.warning, fontWeight: FontWeight.w600, fontSize: 13)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Sentence card
+            AppCard(
+              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppProgressBar(value: current / total),
-                const SizedBox(height: 28),
+                children: [
+                  const Text('COMPLETE THE SENTENCE', style: AppTextStyles.label),
+                  const SizedBox(height: 12),
+                  Text(sentence,
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, height: 1.5)),
+                  const SizedBox(height: 16),
+                  const Divider(),
+                  const SizedBox(height: 10),
+                  Text('Meaning: ${word.meaningVn}',
+                      style: AppTextStyles.bodySmall),
+                ],
+              ),
+            ),
+            const SizedBox(height: 28),
 
-                // Instruction
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.warning.withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(AppRadius.full),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.edit_note_rounded, color: AppColors.warning, size: 16),
-                      SizedBox(width: 6),
-                      Text('Fill in the Blank',
-                          style: TextStyle(color: AppColors.warning, fontWeight: FontWeight.w600, fontSize: 13)),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
+            // Options grid
+            const Text('SELECT THE CORRECT WORD', style: AppTextStyles.label),
+            const SizedBox(height: 14),
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 2.5,
+              children: _options.map((opt) {
+                Color bg      = Colors.white;
+                Color border  = Colors.grey.shade200;
+                Color textClr = AppColors.textPrimary;
 
-                // Sentence card
-                AppCard(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('COMPLETE THE SENTENCE', style: AppTextStyles.label),
-                      const SizedBox(height: 12),
-                      Text(sentence,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, height: 1.5)),
-                      const SizedBox(height: 16),
-                      const Divider(),
-                      const SizedBox(height: 10),
-                      Text('Meaning: ${word.meaningVn}',
-                          style: AppTextStyles.bodySmall),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 28),
+                if (_submitted && _selected == opt) {
+                  final isCorrect = opt == word.word;
+                  bg      = isCorrect ? AppColors.success.withOpacity(0.12) : AppColors.error.withOpacity(0.12);
+                  border  = isCorrect ? AppColors.success : AppColors.error;
+                  textClr = isCorrect ? AppColors.success : AppColors.error;
+                } else if (_submitted && opt == word.word) {
+                  bg      = AppColors.success.withOpacity(0.12);
+                  border  = AppColors.success;
+                  textClr = AppColors.success;
+                }
 
-                // Options grid
-                const Text('SELECT THE CORRECT WORD', style: AppTextStyles.label),
-                const SizedBox(height: 14),
-                GridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 2.5,
-                  children: _options.map((opt) {
-                    Color bg      = Colors.white;
-                    Color border  = Colors.grey.shade200;
-                    Color textClr = AppColors.textPrimary;
-
-                    if (_submitted && _selected == opt) {
-                      final isCorrect = opt == word.word;
-                      bg      = isCorrect ? AppColors.success.withOpacity(0.12) : AppColors.error.withOpacity(0.12);
-                      border  = isCorrect ? AppColors.success : AppColors.error;
-                      textClr = isCorrect ? AppColors.success : AppColors.error;
-                    } else if (_submitted && opt == word.word) {
-                      bg      = AppColors.success.withOpacity(0.12);
-                      border  = AppColors.success;
-                      textClr = AppColors.success;
-                    }
-
-                    return GestureDetector(
-                      onTap: () => _select(opt),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        decoration: BoxDecoration(
-                          color: bg,
-                          borderRadius: BorderRadius.circular(AppRadius.lg),
-                          border: Border.all(color: border, width: 1.5),
-                        ),
-                        child: Center(
-                          child: Text(opt,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 15, color: textClr)),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                if (_submitted && _selected != word.word) ...[
-                  const SizedBox(height: 20),
-                  Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 340),
-                      child: GradientButton(
-                        text: 'Tiếp tục',
-                        onTap: _goToNext,
-                        icon: Icons.arrow_forward_rounded,
-                      ),
+                return GestureDetector(
+                  onTap: () => _select(opt),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    decoration: BoxDecoration(
+                      color: bg,
+                      borderRadius: BorderRadius.circular(AppRadius.lg),
+                      border: Border.all(color: border, width: 1.5),
+                    ),
+                    child: Center(
+                      child: Text(opt,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 15, color: textClr)),
                     ),
                   ),
-                  const SizedBox(height: 12),
-                ],
-              ],
+                );
+              }).toList(),
             ),
-          ),
-          ),
+            const SizedBox(height: 20),
+            const SizedBox(height: 12),
+          ],
         ),
       ),
     );

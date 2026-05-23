@@ -103,9 +103,7 @@ class _LearnScreenState extends State<LearnScreen> {
 
                         // ── Choose Source ──────────────────────────────
                         SectionHeader(
-                          title: 'Choose Learning Source',
-                          actionText: 'See All',
-                          onAction: () {},
+                          title: 'Choose Learning Source'
                         ),
                         const SizedBox(height: 16),
 
@@ -163,28 +161,27 @@ GridView(
             ),
 
             // ── Continue button ─────────────────────────────────────
-            Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1100),
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                  // Trên Desktop/Tablet căn nút sang phải, Mobile căn giữa gọn gàng
-                  alignment: isDesktop || isTablet ? Alignment.centerRight : Alignment.center,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: isDesktop || isTablet ? 280 : 340,
-                    ),
-                    child: GradientButton(
-                      text: 'Continue Learning',
-                      icon: Icons.arrow_forward_rounded,
-                      onTap: learnP.selectedSource != null
-                          ? () => Navigator.pushNamed(context, '/select-topic')
-                          : null,
+            if (learnP.selectedSource != null)
+              Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1100),
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    // Trên Desktop/Tablet căn nút sang phải, Mobile full width
+                    alignment: isDesktop || isTablet ? Alignment.centerRight : Alignment.center,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: isDesktop || isTablet ? 280 : double.infinity,
+                      ),
+                      child: GradientButton(
+                        text: 'Continue Learning',
+                        icon: Icons.arrow_forward_rounded,
+                        onTap: () => Navigator.pushNamed(context, '/select-topic'),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

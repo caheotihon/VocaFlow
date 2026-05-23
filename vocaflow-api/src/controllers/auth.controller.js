@@ -152,7 +152,7 @@ const _safeUser = (user) => ({
   email: user.email,
   avatar: user.avatar,
   bio: user.bio || '',
-  streakDays: user.streakDays,
+  streakDays: typeof user.getStreakForToday === 'function' ? user.getStreakForToday() : user.streakDays,
   bestStreak: user.bestStreak || 0,
   totalXP: user.totalXP,
   dailyXP: user.dailyXP,

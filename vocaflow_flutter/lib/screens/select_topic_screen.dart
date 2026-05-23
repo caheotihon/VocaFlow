@@ -229,24 +229,25 @@ class _TopicCard extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
-                  gradient: hasProgress ? AppColors.primaryGradient : null,
-                  color: hasProgress ? null : AppColors.background,
+                  // LUÔN LUÔN dùng màu gradient chủ đạo của app
+                  gradient: AppColors.primaryGradient, 
                   borderRadius: BorderRadius.circular(AppRadius.md),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.play_arrow_rounded,
-                      color: hasProgress ? Colors.white : AppColors.textSecondary,
+                      color: Colors.white, // LUÔN màu trắng để nổi bật trên nền gradient
                       size: 18,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       'Start Practice',
-                      style: TextStyle(
-                        color: hasProgress ? Colors.white : AppColors.textSecondary,
-                        fontWeight: FontWeight.w600, fontSize: 14,
+                      style: const TextStyle(
+                        color: Colors.white, // LUÔN màu trắng
+                        fontWeight: FontWeight.w600, 
+                        fontSize: 14,
                       ),
                     ),
                   ],

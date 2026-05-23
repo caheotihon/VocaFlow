@@ -40,6 +40,9 @@ class SessionModel {
       DateTime.now().difference(startTime).inSeconds;
 
   void nextWord() => currentIndex++;
+  void prevWord() {
+    if (currentIndex > 0) currentIndex--;
+  }
 }
 
 // Learning result for a single word answer
