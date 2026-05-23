@@ -22,7 +22,7 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
   bool _submitted  = false;
   bool _showBack   = false;
   final _rand      = Random();
-  final _startTime = DateTime.now();
+  DateTime _wordStartTime = DateTime.now();
 
   @override
   void initState() {
@@ -44,32 +44,73 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
     final dist = all.where((w) => w.word != word.word).map((w) => w.word).toList()..shuffle();
     final opts = [word.word, ...dist.take(3)]..shuffle();
     setState(() { _options = opts; _selected = null; _submitted = false; _showBack = false; });
+    _wordStartTime = DateTime.now();
   }
 
-  void _answer(bool correct) {
+  Future<void> _answer(bool correct) async {
     if (_submitted) return;
     setState(() => _submitted = true);
-    final ms = DateTime.now().difference(_startTime).inMilliseconds;
-    context.read<LearnProvider>().submitAnswer(correct, timeTakenMs: ms);
-  }
-
-  void _selectOption(String opt) {
-    if (_submitted) return;
-    setState(() { _selected = opt; _submitted = true; });
     final lp = context.read<LearnProvider>();
-    final correct = opt == lp.currentWord!.word;
-    final ms = DateTime.now().difference(_startTime).inMilliseconds;
-    lp.submitAnswer(correct, timeTakenMs: ms);
-  }
+    final word = lp.currentWord;
+    final ms = DateTime.now().difference(_wordStartTime).inMilliseconds;
+    await lp.submitAnswer(
+      correct,
+      timeTakenMs: ms,
+      userAnswer: correct ? 'Marked correct' : 'Marked wrong',
+      correctAnswer: word?.meaningVn ?? '',
+      prompt: word?.word ?? '',
+      mode: 'flashcard',
+      advance: false,
+    );
 
-  Future<void> _goToNext() async {
-    final lp = context.read<LearnProvider>();
-    if (lp.isSessionComplete) {
+    await Future.delayed(const Duration(seconds: 1));
+    if (!mounted) return;
+
+    final total = lp.session?.words.length ?? 1;
+    final current = lp.session?.currentIndex ?? 0;
+    if (current >= total - 1) {
       final result = await lp.completeSession();
       if (mounted) {
         Navigator.pushReplacementNamed(context, '/result', arguments: result);
       }
     } else {
+      lp.goToNextWord();
+      _nextMode();
+    }
+  }
+
+  Future<void> _selectOption(String opt) async {
+    if (_submitted) return;
+    setState(() { _selected = opt; _submitted = true; });
+    final lp = context.read<LearnProvider>();
+    final word = lp.currentWord!;
+    final correct = opt == word.word;
+    final ms = DateTime.now().difference(_wordStartTime).inMilliseconds;
+    final mode = _mode == _MixedMode.fillBlank ? 'fill_blank' : 'reverse_recall';
+    final prompt = _mode == _MixedMode.fillBlank ? 'Meaning: ${word.meaningVn}' : word.meaningVn;
+    await lp.submitAnswer(
+      correct,
+      timeTakenMs: ms,
+      userAnswer: opt,
+      correctAnswer: word.word,
+      prompt: prompt,
+      options: _options,
+      mode: mode,
+      advance: false,
+    );
+
+    await Future.delayed(const Duration(seconds: 1));
+    if (!mounted) return;
+
+    final total = lp.session?.words.length ?? 1;
+    final current = lp.session?.currentIndex ?? 0;
+    if (current >= total - 1) {
+      final result = await lp.completeSession();
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/result', arguments: result);
+      }
+    } else {
+      lp.goToNextWord();
       _nextMode();
     }
   }
@@ -253,32 +294,8 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
                 }).toList(),
               ),
             ],
-            if (_submitted) ...[
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  onPressed: _goToNext,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppRadius.lg),
-                    ),
-                    elevation: 2,
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Tiếp tục', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      SizedBox(width: 8),
-                      Icon(Icons.arrow_forward_rounded, size: 20),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            const SizedBox(height: 20),
+            const SizedBox(height: 12),
             const SizedBox(height: 24),
           ],
         ),

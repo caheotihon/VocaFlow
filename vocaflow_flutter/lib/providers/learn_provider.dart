@@ -11,6 +11,7 @@ class LearnProvider extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   Map<String, dynamic>? _sessionResult;
+  final Map<String, bool> _answeredCorrectByWordId = {};
 
   Map<String, dynamic>? _todayStats;
   List<WordModel> _todayCorrectWords = [];
@@ -151,9 +152,28 @@ class LearnProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<void> submitAnswer(bool isCorrect, {int timeTakenMs = 0}) async {
+  Future<void> submitAnswer(
+    bool isCorrect, {
+    int timeTakenMs = 0,
+    String? userAnswer,
+    String? correctAnswer,
+    String? prompt,
+    List<String>? options,
+    String? mode,
+    bool advance = true,
+  }) async {
     if (_session == null || _session!.currentWord == null) return;
     final word = _session!.currentWord!;
+
+    final prev = _answeredCorrectByWordId[word.id];
+    if (prev != null) {
+      if (prev) {
+        _session!.correctAnswers = (_session!.correctAnswers - 1) < 0 ? 0 : (_session!.correctAnswers - 1);
+      } else {
+        _session!.wrongAnswers = (_session!.wrongAnswers - 1) < 0 ? 0 : (_session!.wrongAnswers - 1);
+      }
+    }
+    _answeredCorrectByWordId[word.id] = isCorrect;
 
     if (isCorrect) {
       _session!.correctAnswers++;
@@ -167,9 +187,26 @@ class LearnProvider extends ChangeNotifier {
         word.id,
         isCorrect: isCorrect,
         timeTakenMs: timeTakenMs,
+        userAnswer: userAnswer,
+        correctAnswer: correctAnswer,
+        prompt: prompt,
+        options: options,
+        mode: mode,
       );
     } catch (_) { /* Fire and forget */ }
 
+    if (advance) _session!.nextWord();
+    notifyListeners();
+  }
+
+  void goToPreviousWord() {
+    if (_session == null) return;
+    _session!.prevWord();
+    notifyListeners();
+  }
+
+  void goToNextWord() {
+    if (_session == null) return;
     _session!.nextWord();
     notifyListeners();
   }
@@ -195,6 +232,7 @@ class LearnProvider extends ChangeNotifier {
   void resetSession() {
     _session = null;
     _sessionResult = null;
+    _answeredCorrectByWordId.clear();
     notifyListeners();
   }
 

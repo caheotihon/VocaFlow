@@ -20,7 +20,7 @@ class _ListeningScreenState extends State<ListeningScreen>
   String? _selected;
   bool _submitted = false;
   bool _revealed  = false;
-  final _startTime = DateTime.now();
+  DateTime _wordStartTime = DateTime.now();
   late AnimationController _pulseCtrl;
 
   @override
@@ -46,10 +46,8 @@ class _ListeningScreenState extends State<ListeningScreen>
     final word = lp.currentWord;
     if (word == null) return;
 
-    // Play audio automatically
-    if (word.audioUrl.isNotEmpty) {
-      _audioPlayer.play(UrlSource(word.audioUrl));
-    }
+    // Phát âm thanh tự động khi vừa vào từ mới
+    _playAudio(word.audioUrl);
 
     final allWords = lp.session?.words ?? [];
     final distractors = allWords
@@ -57,28 +55,54 @@ class _ListeningScreenState extends State<ListeningScreen>
         .map((w) => w.meaningVn)
         .toList()..shuffle();
     final opts = [word.meaningVn, ...distractors.take(3)]..shuffle();
-    setState(() { _options = opts; _revealed = false; });
+    setState(() {
+      _options = opts;
+      _selected = null;
+      _submitted = false;
+      _revealed = false; // Reset trạng thái ẩn chữ cho từ mới
+    });
+    _wordStartTime = DateTime.now();
   }
 
-  void _select(String option) {
+  // Hàm helper để gọi phát âm thanh dễ dàng
+  void _playAudio(String url) {
+    if (url.isNotEmpty) {
+      _audioPlayer.stop(); // Dừng luồng âm thanh cũ nếu đang chạy dở
+      _audioPlayer.play(UrlSource(url));
+    }
+  }
+
+  Future<void> _select(String option) async {
     if (_submitted) return;
     setState(() { _selected = option; _submitted = true; });
     final lp    = context.read<LearnProvider>();
     final word  = lp.currentWord!;
     final correct = option == word.meaningVn;
-    final ms    = DateTime.now().difference(_startTime).inMilliseconds;
-    lp.submitAnswer(correct, timeTakenMs: ms);
-  }
+    final ms    = DateTime.now().difference(_wordStartTime).inMilliseconds;
 
-  Future<void> _goToNext() async {
-    final lp = context.read<LearnProvider>();
-    if (lp.isSessionComplete) {
+    await lp.submitAnswer(
+      correct,
+      timeTakenMs: ms,
+      userAnswer: option,
+      correctAnswer: word.meaningVn,
+      prompt: word.word,
+      options: _options,
+      mode: 'listening',
+      advance: false,
+    );
+
+    await Future.delayed(const Duration(seconds: 1));
+    if (!mounted) return;
+
+    final total = lp.session?.words.length ?? 1;
+    final current = lp.session?.currentIndex ?? 0;
+    if (current >= total - 1) {
       final result = await lp.completeSession();
       if (mounted) {
         Navigator.pushReplacementNamed(context, '/result', arguments: result);
       }
     } else {
-      setState(() { _selected = null; _submitted = false; });
+      lp.goToNextWord();
       _buildOptions();
     }
   }
@@ -100,7 +124,7 @@ class _ListeningScreenState extends State<ListeningScreen>
         elevation: 0,
         leading: const BackButton(color: AppColors.textPrimary),
         centerTitle: true,
-        title: Text('$current / $total',
+        title: Text('${current + 1} / $total', // Thêm +1 để hiển thị số thứ tự tự nhiên (ví dụ 1/10 thay vì 0/10)
             style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
         actions: [
           IconButton(
@@ -116,24 +140,19 @@ class _ListeningScreenState extends State<ListeningScreen>
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Column(
           children: [
-            AppProgressBar(value: current / total),
+            AppProgressBar(value: (current + 1) / total),
             const SizedBox(height: 32),
 
-            // Speaker button
             const Text('WHAT DOES THIS WORD MEAN?', style: AppTextStyles.label),
             const SizedBox(height: 24),
 
+            // NÚT NGHE LẠI (Speaker button)
             ScaleTransition(
               scale: _pulseCtrl,
               child: GestureDetector(
-                onTap: () {
-                  if (word.audioUrl.isNotEmpty) {
-                    _audioPlayer.play(UrlSource(word.audioUrl));
-                  }
-                  setState(() => _revealed = true);
-                },
+                onTap: () => _playAudio(word.audioUrl), // Nhấn vào đây để nghe lại thoải mái
                 child: Container(
-                  width: 130, height: 130,
+                  width: 120, height: 120,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [Color(0xFF0EA5E9), Color(0xFF3B82F6)],
@@ -145,19 +164,39 @@ class _ListeningScreenState extends State<ListeningScreen>
                           blurRadius: 24, offset: const Offset(0, 8)),
                     ],
                   ),
-                  child: const Icon(Icons.headphones_rounded, color: Colors.white, size: 56),
+                  child: const Icon(Icons.volume_up_rounded, color: Colors.white, size: 52),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
-            if (_revealed)
-              Text(word.word,
-                  style: const TextStyle(
-                    fontSize: 32, fontWeight: FontWeight.w800, color: AppColors.primary))
-            else
-              Text('Tap the headphones to reveal the word',
-                  style: AppTextStyles.bodySmall),
+            // KHU VỰC HIỂN THỊ TỪ / NÚT SHOW TỪ TÁCH BIỆT
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: _revealed
+                  ? Text(
+                      word.word,
+                      key: const ValueKey('word_text'),
+                      style: const TextStyle(
+                          fontSize: 30, 
+                          fontWeight: FontWeight.w800, 
+                          color: AppColors.primary,
+                          letterSpacing: 0.5,
+                      ),
+                    )
+                  : TextButton.icon(
+                      key: const ValueKey('show_button'),
+                      onPressed: () => setState(() => _revealed = true),
+                      icon: const Icon(Icons.visibility_outlined, size: 18, color: AppColors.textSecondary),
+                      label: const Text('Show Word Hint', 
+                          style: TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        backgroundColor: Colors.grey.shade100,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      ),
+                    ),
+            ),
 
             const SizedBox(height: 32),
             const Align(
@@ -166,6 +205,7 @@ class _ListeningScreenState extends State<ListeningScreen>
             ),
             const SizedBox(height: 12),
 
+            // Danh sách các lựa chọn đáp án nghĩa Tiếng Việt
             Expanded(
               child: ListView.separated(
                 itemCount: _options.length,
@@ -205,33 +245,11 @@ class _ListeningScreenState extends State<ListeningScreen>
                 },
               ),
             ),
-            if (_submitted) ...[
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  onPressed: _goToNext,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppRadius.lg),
-                    ),
-                    elevation: 2,
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Tiếp tục', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      SizedBox(width: 8),
-                      Icon(Icons.arrow_forward_rounded, size: 20),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
+            
+            const SizedBox(height: 20),
+            
+            // Thanh điều hướng Prev / Next bài tập
+
             const SizedBox(height: 16),
           ],
         ),

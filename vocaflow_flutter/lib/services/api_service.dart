@@ -102,11 +102,27 @@ class ApiService {
         'source': source, 'mode': mode, 'level': level, 'topic': topic, 'count': count,
       });
 
-  Future<Response> submitResult(String sessionId, String wordId,
-          {required bool isCorrect, int timeTakenMs = 0}) =>
+  Future<Response> submitResult(
+    String sessionId,
+    String wordId, {
+    required bool isCorrect,
+    int timeTakenMs = 0,
+    String? userAnswer,
+    String? correctAnswer,
+    String? prompt,
+    List<String>? options,
+    String? mode,
+  }) =>
       _dio.post('/learn/result', data: {
-        'session_id': sessionId, 'word_id': wordId,
-        'is_correct': isCorrect, 'time_taken_ms': timeTakenMs,
+        'session_id': sessionId,
+        'word_id': wordId,
+        'is_correct': isCorrect,
+        'time_taken_ms': timeTakenMs,
+        if (userAnswer != null) 'user_answer': userAnswer,
+        if (correctAnswer != null) 'correct_answer': correctAnswer,
+        if (prompt != null) 'prompt': prompt,
+        if (options != null) 'options': options,
+        if (mode != null) 'mode': mode,
       });
 
   Future<Response> completeSession(String sessionId, {int durationSeconds = 0}) =>

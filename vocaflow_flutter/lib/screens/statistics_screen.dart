@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:intl/intl.dart'; // Đảm bảo đã thêm intl vào pubspec.yaml để định dạng ngày tháng
 import '../providers/stats_provider.dart';
 import '../providers/auth_provider.dart';
 import '../core/constants/app_constants.dart';
@@ -25,7 +26,6 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
     final stats = context.watch<StatsProvider>();
-    final auth  = context.watch<AuthProvider>();
     final dash  = stats.dashboard;
     final weekly = (dash?['weeklyData'] as List?)?.cast<Map<String, dynamic>>() ?? [];
     final progress = dash?['progress'] as Map<String, dynamic>? ?? {};
@@ -62,12 +62,12 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
                           Text('This Week',
                               style: const TextStyle(
-                                color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
+                                  color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 24),
                       SizedBox(
-                        height: 120,
+                        height: 140, // Tăng nhẹ chiều cao để tooltip không bị che khuất
                         child: stats.isLoading
                             ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
                             : BarChart(
@@ -75,18 +75,35 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                   alignment: BarChartAlignment.spaceAround,
                                   maxY: weekly.isEmpty ? 10 :
                                       (weekly.map((d) => (d['xp'] as int? ?? 0).toDouble())
-                                          .reduce((a, b) => a > b ? a : b) + 20),
+                                          .reduce((a, b) => a > b ? a : b) + 30), // Tăng padding top cho cột
+                                  // CẢI TIẾN: Thêm hiệu ứng hover/chạm hiển thị thông số rõ ràng
+                                  barTouchData: BarTouchData(
+  touchTooltipData: BarTouchTooltipData(
+    getTooltipColor: (group) => Colors.grey.shade900,
+    tooltipRoundedRadius: 8,
+    // Đã sửa thành công thuộc tính chuẩn của fl_chart 0.68.0
+    tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+    tooltipMargin: 6,
+    fitInsideHorizontally: true,
+    fitInsideVertically: true,
+    getTooltipItem: (group, groupIndex, rod, rodIndex) {
+      return BarTooltipItem(
+        '${rod.toY.toInt()} XP',
+        const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+      );
+    },
+  ),
+),
                                   barGroups: weekly.asMap().entries.map((e) {
                                     final today = DateTime.now();
-                                    final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
-                                        [today.weekday - 1];
+                                    final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][today.weekday - 1];
                                     final isToday = e.value['day'] == dayName;
                                     return BarChartGroupData(
                                       x: e.key,
                                       barRods: [
                                         BarChartRodData(
                                           toY: (e.value['xp'] as int? ?? 0).toDouble(),
-                                          color: isToday ? AppColors.primary : AppColors.primary.withOpacity(0.3),
+                                          color: isToday ? AppColors.primary : AppColors.primary.withOpacity(0.35),
                                           width: 18,
                                           borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
                                         ),
@@ -107,13 +124,15 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                                           final day = weekly.isNotEmpty && idx < weekly.length
                                               ? weekly[idx]['day'] as String? ?? '' : '';
                                           final today = DateTime.now();
-                                          final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
-                                              [today.weekday - 1];
-                                          return Text(day,
-                                              style: TextStyle(
-                                                fontSize: 12, fontWeight: FontWeight.w600,
-                                                color: day == dayName ? AppColors.primary : AppColors.textSecondary,
-                                              ));
+                                          final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][today.weekday - 1];
+                                          return Padding(
+                                            padding: const EdgeInsets.only(top: 8.0),
+                                            child: Text(day,
+                                                style: TextStyle(
+                                                  fontSize: 12, fontWeight: FontWeight.w600,
+                                                  color: day == dayName ? AppColors.primary : AppColors.textSecondary,
+                                                )),
+                                          );
                                         },
                                       ),
                                     ),
@@ -145,7 +164,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                             Text(
                               '${progress['totalMastered'] ?? 0}',
                               style: const TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                                  fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
                             ),
                           ],
                         ),
@@ -168,7 +187,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                             Text(
                               '${progress['accuracy'] ?? 0}%',
                               style: const TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                                  fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
                             ),
                           ],
                         ),
@@ -196,7 +215,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                               style: TextStyle(color: Colors.white70, fontSize: 13)),
                           Text('${study['totalStudyHours'] ?? 0}h',
                               style: const TextStyle(
-                                color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
+                                  color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
                         ],
                       ),
                       const Spacer(),
@@ -220,32 +239,33 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Activity Heatmap',
+                          const Text('Activity Heatmap',
                               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                          Text('Last 30 Days',
+                          Text('Last 4 Weeks', // Đổi thành 4 tuần để hiển thị dạng lưới thứ ngày chuẩn
                               style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                         ],
                       ),
+                      const SizedBox(height: 16),
+                      // CẢI TIẾN: Component Heatmap mới dễ nhìn, có tiêu đề các ngày trong tuần
+                      _EnhancedHeatmapGrid(heatmap: heatmap),
                       const SizedBox(height: 14),
-                      _HeatmapGrid(heatmap: heatmap),
-                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          const Text('Less', style: AppTextStyles.bodySmall),
+                          const Text('Less', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                           const SizedBox(width: 6),
                           ...List.generate(4, (i) => Container(
-                            width: 14, height: 14,
+                            width: 12, height: 12,
                             margin: const EdgeInsets.only(right: 4),
                             decoration: BoxDecoration(
                               color: AppColors.primary.withOpacity(0.15 + i * 0.25),
                               borderRadius: BorderRadius.circular(3),
                             ),
                           )),
-                          const Text('More', style: AppTextStyles.bodySmall),
+                          const Text('More', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                         ],
                       ),
                     ],
@@ -258,14 +278,20 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   AppCard(
                     padding: const EdgeInsets.all(18),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Recent Badges',
                             style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
                         const SizedBox(height: 16),
-                        ...badges.map((b) => Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: _BadgeItem(badge: b),
-                        )),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: badges.map((b) => Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: _BadgeItem(badge: b),
+                            )).toList(),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -281,40 +307,90 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   }
 }
 
-class _HeatmapGrid extends StatelessWidget {
+// CẢI TIẾN TOÀN DIỆN: Tạo Heatmap dạng Lưới Lịch tuần trực quan cho người dùng không chuyên
+// CẢI TIẾN: Thay đổi nhãn từ 1 chữ cái sang 3 chữ cái [Mon, Tue, Wed...]
+class _EnhancedHeatmapGrid extends StatelessWidget {
   final Map<String, dynamic> heatmap;
-  const _HeatmapGrid({required this.heatmap});
+  const _EnhancedHeatmapGrid({required this.heatmap});
 
   @override
   Widget build(BuildContext context) {
-    final now   = DateTime.now();
-    final cells = List.generate(30, (i) {
-      final date = now.subtract(Duration(days: 29 - i));
-      final key  = date.toIso8601String().split('T')[0];
-      final val  = (heatmap[key] as int?) ?? 0;
-      return val;
-    });
+    final now = DateTime.now();
+    
+    // Tìm ngày Thứ 2 của 3 tuần trước để tạo thành một bảng lưới 4 tuần hoàn chỉnh (28 ngày)
+    final int daysToSubtract = (now.weekday - 1) + 21; 
+    final startDate = now.subtract(Duration(days: daysToSubtract));
 
-    int maxVal = cells.isEmpty ? 1 : cells.reduce((a, b) => a > b ? a : b);
-    if (maxVal == 0) maxVal = 1;
+    List<DateTime> gridDates = List.generate(28, (i) => startDate.add(Duration(days: i)));
+    
+    int maxVal = 1;
+    for (var date in gridDates) {
+      final key = date.toIso8601String().split('T')[0];
+      final val = (heatmap[key] as int?) ?? 0;
+      if (val > maxVal) maxVal = val;
+    }
 
-    return GridView.count(
-      crossAxisCount: 10,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 4,
-      mainAxisSpacing: 4,
-      children: cells.map((v) {
-        final intensity = v / maxVal;
-        return Container(
-          decoration: BoxDecoration(
-            color: v == 0
-                ? Colors.grey.shade100
-                : AppColors.primary.withOpacity(0.2 + intensity * 0.8),
-            borderRadius: BorderRadius.circular(3),
+    // ── ĐÃ SỬA Ở ĐÂY: Đổi sang nhãn 3 chữ cái đầy đủ trực quan ──────────
+    final weekLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    return Column(
+      children: [
+        // Hàng tiêu đề hiển thị Thứ (Mon, Tue, Wed...)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: weekLabels.map((label) => Expanded(
+            child: Center(
+              child: Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 11, // Giữ kích thước nhỏ gọn để vừa vặn theo cột
+                  fontWeight: FontWeight.w600, 
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+          )).toList(),
+        ),
+        const SizedBox(height: 10), // Tăng khoảng cách nhẹ cho thoáng mắt
+        
+        // Lưới các ô vuông biểu thị ngày học
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 28,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 7, 
+            crossAxisSpacing: 6,
+            mainAxisSpacing: 6,
           ),
-        );
-      }).toList(),
+          itemBuilder: (context, index) {
+            final date = gridDates[index];
+            final key = date.toIso8601String().split('T')[0];
+            final value = (heatmap[key] as int?) ?? 0;
+            final intensity = value / maxVal;
+            
+            final isFuture = date.isAfter(now);
+
+            return Tooltip(
+              message: '${DateFormat('dd/MM/yyyy').format(date)}: ${value} bài học',
+              preferBelow: false,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: isFuture
+                      ? Colors.transparent 
+                      : (value == 0
+                          ? Colors.grey.shade100 
+                          : AppColors.primary.withOpacity(0.25 + intensity * 0.75)), 
+                  borderRadius: BorderRadius.circular(4),
+                  border: date.day == now.day && date.month == now.month && date.year == now.year
+                      ? Border.all(color: AppColors.primary, width: 1.5) 
+                      : null,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
@@ -336,19 +412,16 @@ class _BadgeItem extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 64, height: 64,
+          width: 56, height: 56,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(
-              color: (data['color'] as Color).withOpacity(0.5), width: 2),
+            border: Border.all(color: (data['color'] as Color).withOpacity(0.4), width: 2),
             color: (data['color'] as Color).withOpacity(0.08),
           ),
-          child: Center(child: Text(data['icon'] as String,
-              style: const TextStyle(fontSize: 28))),
+          child: Center(child: Text(data['icon'] as String, style: const TextStyle(fontSize: 24))),
         ),
         const SizedBox(height: 6),
-        Text(badge,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+        Text(badge, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
       ],
     );
   }
