@@ -31,6 +31,10 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
     final learnP = context.watch<LearnProvider>();
     final topics = wordP.topics;
 
+    final width = MediaQuery.of(context).size.width;
+    final isDesktop = width >= 900;
+    final isTablet = width >= 600 && width < 900;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -95,19 +99,26 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
                             ),
                           )
                         else
-                          ...topics.asMap().entries.map((e) {
-                            final i     = e.key;
-                            final topic = e.value;
-                            final name     = topic['topic'] as String? ?? '';
-                            final total    = topic['total'] as int? ?? 0;
-                            final mastered = topic['mastered'] as int? ?? 0;
-                            final learning = topic['learning'] as int? ?? 0;
-                            final newCount = topic['new'] as int? ?? total;
-                            final hasProgress = mastered > 0 || learning > 0;
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: isDesktop ? 2 : (isTablet ? 2 : 1),
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              mainAxisExtent: 185,
+                            ),
+                            itemCount: topics.length,
+                            itemBuilder: (context, i) {
+                              final topic = topics[i];
+                              final name     = topic['topic'] as String? ?? '';
+                              final total    = topic['total'] as int? ?? 0;
+                              final mastered = topic['mastered'] as int? ?? 0;
+                              final learning = topic['learning'] as int? ?? 0;
+                              final newCount = topic['new'] as int? ?? total;
+                              final hasProgress = mastered > 0 || learning > 0;
 
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 14),
-                              child: _TopicCard(
+                              return _TopicCard(
                                 index:    i + 1,
                                 topic:    name,
                                 total:    total,
@@ -119,9 +130,9 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
                                   learnP.selectTopic(name);
                                   Navigator.pushNamed(context, '/choose-mode');
                                 },
-                              ),
-                            );
-                          }),
+                              );
+                            },
+                          ),
                         const SizedBox(height: 20),
                       ],
                     ),

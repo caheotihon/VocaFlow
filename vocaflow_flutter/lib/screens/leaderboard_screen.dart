@@ -122,58 +122,63 @@ class _LeaderboardList extends StatelessWidget {
   Widget build(BuildContext context) {
     final showPodium = entries.length >= 3;
 
-    return RefreshIndicator(
-      onRefresh: onRefresh,
-      color: AppColors.primary,
-      child: entries.isEmpty
-          ? _buildEmptyState()
-          : CustomScrollView(
-              slivers: [
-                // Top 3 podium
-                if (showPodium)
-                  SliverToBoxAdapter(child: _PodiumWidget(entries: entries, type: type)),
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 700),
+        child: RefreshIndicator(
+          onRefresh: onRefresh,
+          color: AppColors.primary,
+          child: entries.isEmpty
+              ? _buildEmptyState()
+              : CustomScrollView(
+                  slivers: [
+                    // Top 3 podium
+                    if (showPodium)
+                      SliverToBoxAdapter(child: _PodiumWidget(entries: entries, type: type)),
 
-                // My rank banner (if not in top 20)
-                if (myRank != null && myRank! > 20)
-                  SliverToBoxAdapter(
-                    child: Container(
-                      margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.08),
-                        borderRadius: BorderRadius.circular(AppRadius.lg),
-                        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                    // My rank banner (if not in top 20)
+                    if (myRank != null && myRank! > 20)
+                      SliverToBoxAdapter(
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.08),
+                            borderRadius: BorderRadius.circular(AppRadius.lg),
+                            border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.person_rounded, color: AppColors.primary, size: 20),
+                              const SizedBox(width: 8),
+                              Text('Your rank: #$myRank',
+                                  style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary)),
+                              const Spacer(),
+                              const Text('Keep learning to climb! 🚀',
+                                  style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.person_rounded, color: AppColors.primary, size: 20),
-                          const SizedBox(width: 8),
-                          Text('Your rank: #$myRank',
-                              style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary)),
-                          const Spacer(),
-                          const Text('Keep learning to climb! 🚀',
-                              style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                        ],
+
+                    // Full list (skip top 3 only if shown in podium)
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (_, i) {
+                          final entry = entries[i];
+                          final rank  = entry['rank'] as int;
+                          final isMe  = entry['_id']?.toString() == currentUserId;
+                          if (showPodium && rank <= 3) return const SizedBox.shrink();
+                          return _LeaderboardTile(entry: entry, type: type, isMe: isMe);
+                        },
+                        childCount: entries.length,
                       ),
                     ),
-                  ),
-
-                // Full list (skip top 3 only if shown in podium)
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (_, i) {
-                      final entry = entries[i];
-                      final rank  = entry['rank'] as int;
-                      final isMe  = entry['_id']?.toString() == currentUserId;
-                      if (showPodium && rank <= 3) return const SizedBox.shrink();
-                      return _LeaderboardTile(entry: entry, type: type, isMe: isMe);
-                    },
-                    childCount: entries.length,
-                  ),
+                    const SliverToBoxAdapter(child: SizedBox(height: 80)),
+                  ],
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 80)),
-              ],
-            ),
+        ),
+      ),
     );
   }
 

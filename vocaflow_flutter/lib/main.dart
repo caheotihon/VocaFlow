@@ -28,6 +28,7 @@ import 'screens/practice/reverse_recall_screen.dart';
 import 'screens/practice/fill_blank_screen.dart';
 import 'screens/practice/mixed_challenge_screen.dart';
 import 'screens/practice/review_history_screen.dart';
+import 'screens/practice/speech_practice_screen.dart';
 import 'screens/story_select_words_screen.dart';
 import 'screens/story_view_screen.dart';
 import 'screens/story_quiz_screen.dart';
@@ -127,6 +128,7 @@ class LingoProApp extends StatelessWidget {
           '/practice/reverse':    (_) => const ReverseRecallScreen(),
           '/practice/fill-blank': (_) => const FillBlankScreen(),
           '/practice/mixed':      (_) => const MixedChallengeScreen(),
+          '/practice/speech':     (_) => const SpeechPracticeScreen(),
         },
 
         // ── Page transitions ──────────────────────────────────────────

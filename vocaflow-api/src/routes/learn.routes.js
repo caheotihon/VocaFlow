@@ -7,6 +7,7 @@ router.use(protect); // all learn routes require auth
 router.post('/start',         ctrl.startSession);
 router.post('/result',        ctrl.submitResult);
 router.post('/complete',      ctrl.completeSession);
+router.post('/ai-story',      ctrl.generateAiStory);
 router.get('/progress',       ctrl.getProgress);
 router.get('/review-today',   ctrl.getReviewToday);
 router.get('/today-history',  ctrl.getTodayHistory);

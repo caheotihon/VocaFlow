@@ -291,6 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 'listening':     return '/practice/listening';
       case 'reverse_recall':return '/practice/reverse';
       case 'fill_blank':    return '/practice/fill-blank';
+      case 'speech':        return '/practice/speech';
       case 'mixed':         return '/practice/mixed';
       default:              return '/practice/flashcard';
     }

@@ -24,6 +24,7 @@ router.get('/topics/list',   optionalAuth, ctrl.getTopics);
 router.get('/source/:source',optionalAuth, ctrl.getBySource);
 router.get('/topic/:topic',  optionalAuth, ctrl.getByTopic);
 router.get('/level/:level',  ctrl.getByLevel);
+router.post('/ai-generate',  protect, ctrl.generateAIDeck);
 router.get('/:id',           ctrl.getWordById);
 router.get('/',              ctrl.getAllWords);
 

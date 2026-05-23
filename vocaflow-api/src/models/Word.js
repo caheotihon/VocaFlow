@@ -19,8 +19,14 @@ const wordSchema = new mongoose.Schema(
     level: { type: String, enum: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], required: true, index: true },
     source: {
       type: String,
-      enum: ['Oxford 5000', 'Oxford 3000', 'Cambridge B1/B2', 'IELTS Core', 'TOEIC Core'],
+      enum: ['Oxford 5000', 'Oxford 3000', 'Cambridge B1/B2', 'IELTS Core', 'TOEIC Core', 'AI Generated'],
       required: true,
+      index: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null,
       index: true,
     },
     topic: { type: String, required: true, index: true },

@@ -64,17 +64,22 @@ class _ReviewHistoryScreenState extends State<ReviewHistoryScreen>
           ],
         ),
       ),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : stats == null
-              ? _buildEmptyState()
-              : TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _buildStatsTab(stats, learnP),
-                    _buildWordsTab(learnP),
-                  ],
-                ),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : stats == null
+                  ? _buildEmptyState()
+                  : TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildStatsTab(stats, learnP),
+                        _buildWordsTab(learnP),
+                      ],
+                    ),
+        ),
+      ),
     );
   }
 
