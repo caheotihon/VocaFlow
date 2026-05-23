@@ -242,6 +242,666 @@
     "phonetic": "/kənˈfjuːz/"
   },
   {
+    "word": "consider",
+    "meaning_vn": "xem xét, cân nhắc",
+    "definition_vn": "Suy nghĩ kỹ về điều gì đó trước khi quyết định.",
+    "definition_en": "To think carefully about something before making a decision.",
+    "example": "I will consider your offer.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1500,
+    "tags": [
+      "common",
+      "decision"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/kənˈsɪdə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/consider-us.mp3"
+  },
+  {
+    "word": "create",
+    "meaning_vn": "tạo ra, sáng tạo",
+    "definition_vn": "Mang lại sự tồn tại của điều gì đó mới.",
+    "definition_en": "To bring something new into existence.",
+    "example": "She loves to create art in her free time.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 900,
+    "tags": [
+      "common",
+      "art"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/kɹiːˈeɪt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/create-us.mp3"
+  },
+  {
+    "word": "curious",
+    "meaning_vn": "tò mò, ham hiểu biết",
+    "definition_vn": "Muốn biết nhiều hơn về mọi thứ.",
+    "definition_en": "Eager to know or learn something.",
+    "example": "The child was curious about everything around him.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1300,
+    "tags": [
+      "common",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈkjɔː-/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/curious-us.mp3"
+  },
+  {
+    "word": "decide",
+    "meaning_vn": "quyết định",
+    "definition_vn": "Chọn một lựa chọn sau khi suy nghĩ.",
+    "definition_en": "To choose a course of action after thinking.",
+    "example": "I can't decide what to eat for dinner.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 500,
+    "tags": [
+      "basic",
+      "decision"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/dɪˈsaɪd/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/decide-us.mp3"
+  },
+  {
+    "word": "develop",
+    "meaning_vn": "phát triển",
+    "definition_vn": "Trở nên tốt hơn hoặc mạnh mẽ hơn theo thời gian.",
+    "definition_en": "To become better or stronger over time.",
+    "example": "The company plans to develop new products.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1400,
+    "tags": [
+      "common",
+      "growth"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/dɛˈvɛ.ləp/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/develop-us.mp3"
+  },
+  {
+    "word": "discuss",
+    "meaning_vn": "thảo luận, bàn luận",
+    "definition_vn": "Nói về một chủ đề với người khác để chia sẻ ý kiến.",
+    "definition_en": "To talk about a topic with others to share opinions.",
+    "example": "Let's discuss the project details in the meeting.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1600,
+    "tags": [
+      "common",
+      "communication"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/dɪsˈkʊs/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/discuss-us.mp3"
+  },
+  {
+    "word": "enjoy",
+    "meaning_vn": "thưởng thức, thích thú",
+    "definition_vn": "Cảm thấy vui vẻ hoặc hài lòng khi làm điều gì đó.",
+    "definition_en": "To feel happy or satisfied while doing something.",
+    "example": "I really enjoy listening to music.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 400,
+    "tags": [
+      "basic",
+      "emotion"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ənˈd͡ʒɔɪ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/enjoy-us.mp3"
+  },
+  {
+    "word": "experience",
+    "meaning_vn": "trải nghiệm",
+    "definition_vn": "Những điều đã xảy ra với bạn trong cuộc sống.",
+    "definition_en": "The things that have happened to you in life.",
+    "example": "Traveling gives you valuable experience.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1200,
+    "tags": [
+      "common",
+      "life"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ɪkˈspɪə.ɹɪəns/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/experience-uk.mp3"
+  },
+  {
+    "word": "familiar",
+    "meaning_vn": "quen thuộc, thân thuộc",
+    "definition_vn": "Được biết đến hoặc dễ nhận ra.",
+    "definition_en": "Well known or easily recognized.",
+    "example": "The song sounded familiar to me.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1100,
+    "tags": [
+      "common",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/fəˈmɪl.i.ə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/familiar-us.mp3"
+  },
+  {
+    "word": "focus",
+    "meaning_vn": "tập trung",
+    "definition_vn": "Sự chú ý hoặc nỗ lực được hướng vào một thứ cụ thể.",
+    "definition_en": "The attention or effort directed at a particular thing.",
+    "example": "I need to focus on my studies.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1300,
+    "tags": [
+      "common",
+      "study"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈfəʊ.kəs/"
+  },
+  {
+    "word": "forget",
+    "meaning_vn": "quên",
+    "definition_vn": "Không nhớ hoặc không thể nhớ điều gì đó.",
+    "definition_en": "To fail to remember something.",
+    "example": "I forgot my keys at home.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 300,
+    "tags": [
+      "basic",
+      "memory"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/fəˈɡɛt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/forget-us.mp3"
+  },
+  {
+    "word": "friend",
+    "meaning_vn": "bạn bè",
+    "definition_vn": "Một người mà bạn biết và thích.",
+    "definition_en": "A person you know and like.",
+    "example": "She is my best friend.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 200,
+    "tags": [
+      "basic",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/fɹɛnd/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/friend-uk.mp3"
+  },
+  {
+    "word": "fun",
+    "meaning_vn": "vui vẻ, thú vị",
+    "definition_vn": "Mang lại niềm vui hoặc giải trí.",
+    "definition_en": "Providing enjoyment or amusement.",
+    "example": "We had a lot of fun at the party.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 500,
+    "tags": [
+      "basic",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/fʊn/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/fun-us.mp3"
+  },
+  {
+    "word": "general",
+    "meaning_vn": "chung, tổng quát",
+    "definition_vn": "Áp dụng cho tất cả hoặc hầu hết mọi người hoặc tình huống.",
+    "definition_en": "Applying to all or most people or situations.",
+    "example": "In general, I prefer tea over coffee.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 900,
+    "tags": [
+      "common",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈd͡ʒɛnɹəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/general-us.mp3"
+  },
+  {
+    "word": "hobby",
+    "meaning_vn": "sở thích",
+    "definition_vn": "Một hoạt động mà bạn làm để giải trí trong thời gian rảnh.",
+    "definition_en": "An activity done for enjoyment in one's free time.",
+    "example": "My hobby is painting.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 800,
+    "tags": [
+      "basic",
+      "activity"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈhɒ.bi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/hobby-uk.mp3"
+  },
+  {
+    "word": "improve",
+    "meaning_vn": "cải thiện, nâng cao",
+    "definition_vn": "Làm cho điều gì đó trở nên tốt hơn.",
+    "definition_en": "To make something better.",
+    "example": "I want to improve my English skills.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1000,
+    "tags": [
+      "common",
+      "growth"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɪmˈpɹuːv/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/improve-us.mp3"
+  },
+  {
+    "word": "important",
+    "meaning_vn": "quan trọng",
+    "definition_vn": "Rất cần thiết hoặc có ý nghĩa lớn.",
+    "definition_en": "Very necessary or of great significance.",
+    "example": "It's important to eat healthy food.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 300,
+    "tags": [
+      "basic",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɪmˈpɔːtənt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/important-us.mp3"
+  },
+  {
+    "word": "interest",
+    "meaning_vn": "sở thích, quan tâm",
+    "definition_vn": "Cảm giác muốn biết hoặc làm điều gì đó.",
+    "definition_en": "The feeling of wanting to know or do something.",
+    "example": "I have a strong interest in music.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 700,
+    "tags": [
+      "basic",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɪntəɹɪst/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/interest-us.mp3"
+  },
+  {
+    "word": "introduce",
+    "meaning_vn": "giới thiệu",
+    "definition_vn": "Nói với ai đó về một người hoặc điều gì đó mới.",
+    "definition_en": "To tell someone about a new person or thing.",
+    "example": "Let me introduce you to my friend.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 600,
+    "tags": [
+      "basic",
+      "communication"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˌɪntɹəˈdjuːs/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/introduce-us.mp3"
+  },
+  {
+    "word": "knowledge",
+    "meaning_vn": "kiến thức",
+    "definition_vn": "Thông tin, sự hiểu biết mà bạn có được qua học tập hoặc kinh nghiệm.",
+    "definition_en": "Information and understanding that you have gained through learning or experience.",
+    "example": "She has a lot of knowledge about history.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 900,
+    "tags": [
+      "common",
+      "education"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈnɒlɪdʒ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/knowledge-us.mp3"
+  },
+  {
+    "word": "learn",
+    "meaning_vn": "học, học tập",
+    "definition_vn": "Tiếp thu kiến thức hoặc kỹ năng mới.",
+    "definition_en": "To acquire new knowledge or skills.",
+    "example": "I want to learn how to play the guitar.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 400,
+    "tags": [
+      "basic",
+      "education"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/lɜːn/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/learn-us.mp3"
+  },
+  {
+    "word": "lifestyle",
+    "meaning_vn": "lối sống",
+    "definition_vn": "Cách mà một người sống, bao gồm thói quen và hoạt động hàng ngày.",
+    "definition_en": "The way a person lives, including their habits and daily activities.",
+    "example": "She has a healthy lifestyle.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1500,
+    "tags": [
+      "common",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlaɪfˌstaɪl/"
+  },
+  {
+    "word": "manage",
+    "meaning_vn": "quản lý, xoay sở",
+    "definition_vn": "Kiểm soát hoặc điều hành một tình huống hoặc công việc.",
+    "definition_en": "To control or handle a situation or task.",
+    "example": "She manages a team of five people.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1300,
+    "tags": [
+      "common",
+      "work"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˈmænɪdʒ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/manage-us.mp3"
+  },
+  {
+    "word": "memory",
+    "meaning_vn": "kí ức, trí nhớ",
+    "definition_vn": "Khả năng lưu giữ và nhớ lại thông tin hoặc trải nghiệm.",
+    "definition_en": "The ability to store and recall information or experiences.",
+    "example": "I have a good memory for faces.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1200,
+    "tags": [
+      "common",
+      "cognition"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmɛm(ə)ɹi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/memory-us.mp3"
+  },
+  {
+    "word": "motivate",
+    "meaning_vn": "động viên, thúc đẩy",
+    "definition_vn": "Khiến ai đó muốn làm điều gì đó.",
+    "definition_en": "To make someone want to do something.",
+    "example": "The coach motivated the team to win the game.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1400,
+    "tags": [
+      "common",
+      "emotion"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˈməʊtɪveɪt/"
+  },
+  {
+    "word": "opportunity",
+    "meaning_vn": "cơ hội",
+    "definition_vn": "Một tình huống hoặc điều kiện thuận lợi để làm điều gì đó.",
+    "definition_en": "A favorable situation or condition for doing something.",
+    "example": "This job is a great opportunity for me.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1100,
+    "tags": [
+      "common",
+      "chance"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌɒp.əˈtjuː.nɪ.tɪ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/opportunity-us.mp3"
+  },
+  {
+    "word": "organize",
+    "meaning_vn": "tổ chức, sắp xếp",
+    "definition_vn": "Sắp xếp hoặc lên kế hoạch cho một sự kiện hoặc hoạt động.",
+    "definition_en": "To arrange or plan an event or activity.",
+    "example": "She organized a charity event last month.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1500,
+    "tags": [
+      "common",
+      "planning"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˈɔːɡənaɪz/"
+  },
+  {
+    "word": "participate",
+    "meaning_vn": "tham gia",
+    "definition_vn": "Tham gia vào một hoạt động hoặc sự kiện.",
+    "definition_en": "To take part in an activity or event.",
+    "example": "Many students participated in the competition.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1600,
+    "tags": [
+      "common",
+      "activity"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/pɑːˈtɪsɪpeɪt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/participate-us.mp3"
+  },
+  {
+    "word": "positive",
+    "meaning_vn": "tích cực",
+    "definition_vn": "Có thái độ lạc quan hoặc tin tưởng vào điều tốt đẹp.",
+    "definition_en": "Having an optimistic attitude or belief in good things.",
+    "example": "She always has a positive outlook on life.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 2,
+    "frequency_rank": 1000,
+    "tags": [
+      "common",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈpɒzɪ̈tɪv/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/positive-us.mp3"
+  },
+  {
+    "word": "prepare",
+    "meaning_vn": "chuẩn bị",
+    "definition_vn": "Sẵn sàng cho một sự kiện hoặc tình huống.",
+    "definition_en": "To get ready for an event or situation.",
+    "example": "I need to prepare for my exam.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 500,
+    "tags": [
+      "basic",
+      "planning"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/pɹɪˈpɛə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/prepare-us.mp3"
+  },
+  {
+    "word": "problem",
+    "meaning_vn": "vấn đề, khó khăn",
+    "definition_vn": "Một tình huống khó khăn hoặc không mong muốn.",
+    "definition_en": "A difficult or undesirable situation.",
+    "example": "We need to find a solution to this problem.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 400,
+    "tags": [
+      "basic",
+      "challenge"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈpɹɒbləm/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/problem-us.mp3"
+  },
+  {
+    "word": "productive",
+    "meaning_vn": "năng suất, hiệu quả",
+    "definition_vn": "Mang lại kết quả tốt hoặc nhiều kết quả.",
+    "definition_en": "Yielding good or many results.",
+    "example": "I had a productive day at work.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1300,
+    "tags": [
+      "common",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/pɹəˈdʌktɪv/"
+  },
+  {
+    "word": "relax",
+    "meaning_vn": "thư giãn",
+    "definition_vn": "Trở nên bớt căng thẳng hoặc lo lắng.",
+    "definition_en": "To become less tense or anxious.",
+    "example": "I like to relax by listening to music.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 600,
+    "tags": [
+      "basic",
+      "emotion"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɹɪˈlæks/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/relax-us.mp3"
+  },
+  {
+    "word": "remember",
+    "meaning_vn": "nhớ, ghi nhớ",
+    "definition_vn": "Có khả năng lưu giữ và gọi lại thông tin hoặc trải nghiệm.",
+    "definition_en": "To have the ability to store and recall information or experiences.",
+    "example": "I remember my first day of school.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 1,
+    "frequency_rank": 300,
+    "tags": [
+      "basic",
+      "memory"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɹɪˈmɛmbə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/remember-1-uk.mp3"
+  },
+  {
+    "word": "responsible",
+    "meaning_vn": "chịu trách nhiệm",
+    "definition_vn": "Có nghĩa vụ hoặc trách nhiệm về điều gì đó.",
+    "definition_en": "Having an obligation or duty to do something.",
+    "example": "She is responsible for managing the team.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Daily Life",
+    "difficulty": 3,
+    "frequency_rank": 1400,
+    "tags": [
+      "common",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɹɪˈspɒnsəbl̩/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/responsible-us.mp3"
+  },
+  {
     "word": "adventure",
     "meaning_vn": "cuộc phiêu lưu",
     "definition_vn": "Một trải nghiệm thú vị và hơi nguy hiểm.",
@@ -368,6 +1028,188 @@
     "partOfSpeech": "noun",
     "phonetic": "/ˈkʌstəmz/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/customs-us.mp3"
+  },
+  {
+    "word": "luggage",
+    "meaning_vn": "hành lý",
+    "definition_vn": "Túi, vali mang theo khi đi du lịch.",
+    "definition_en": "Bags and suitcases taken on a trip.",
+    "example": "I packed my luggage the night before the trip.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 1,
+    "frequency_rank": 2200,
+    "tags": [
+      "travel"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlʌɡɪd͡ʒ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/luggage-uk.mp3"
+  },
+  {
+    "word": "tourist",
+    "meaning_vn": "khách du lịch",
+    "definition_vn": "Người đi du lịch để tham quan và trải nghiệm.",
+    "definition_en": "A person who travels for pleasure and to see new places.",
+    "example": "The city is popular with tourists.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 1,
+    "frequency_rank": 900,
+    "tags": [
+      "travel",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈtʊəɹɪst/"
+  },
+  {
+    "word": "tourism",
+    "meaning_vn": "du lịch",
+    "definition_vn": "Hoạt động đi du lịch để giải trí và tham quan.",
+    "definition_en": "The activity of traveling for pleasure and to see new places.",
+    "example": "Tourism is a major industry in this country.",
+    "level": "A2",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 2,
+    "frequency_rank": 1500,
+    "tags": [
+      "travel"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/tɔːɹɪz(ə)m/"
+  },
+  {
+    "word": "travel",
+    "meaning_vn": "du lịch, đi du lịch",
+    "definition_vn": "Đi từ nơi này đến nơi khác, thường là để giải trí.",
+    "definition_en": "To go from one place to another, often for pleasure.",
+    "example": "I love to travel and explore new cultures.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 1,
+    "frequency_rank": 500,
+    "tags": [
+      "travel",
+      "verb"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˈtɹævəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/travel-us.mp3"
+  },
+  {
+    "word": "trip",
+    "meaning_vn": "chuyến đi",
+    "definition_vn": "Một chuyến đi ngắn, thường để giải trí hoặc công tác.",
+    "definition_en": "A short journey, often for pleasure or business.",
+    "example": "We took a trip to the beach last weekend.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 1,
+    "frequency_rank": 700,
+    "tags": [
+      "travel"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/tɹɪp/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/trip-1-uk.mp3"
+  },
+  {
+    "word": "vacation",
+    "meaning_vn": "kỳ nghỉ",
+    "definition_vn": "Thời gian nghỉ ngơi khỏi công việc hoặc học tập.",
+    "definition_en": "A period of time spent away from work or school for rest or recreation.",
+    "example": "We are planning a vacation to the mountains.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 1,
+    "frequency_rank": 600,
+    "tags": [
+      "travel"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/veɪˈkeɪʃ(ə)n/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/vacation-us.mp3"
+  },
+  {
+    "word": "voyage",
+    "meaning_vn": "chuyến đi dài, hành trình",
+    "definition_vn": "Một chuyến đi dài, đặc biệt là bằng đường biển hoặc không gian.",
+    "definition_en": "A long journey, especially by sea or in space.",
+    "example": "The voyage across the Atlantic took two weeks.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "travel"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈvɔɪ.ɪdʒ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/voyage-us.mp3"
+  },
+  {
+    "word": "wanderlust",
+    "meaning_vn": "sự ham muốn đi du lịch",
+    "definition_vn": "Một mong muốn mạnh mẽ để đi du lịch và khám phá thế giới.",
+    "definition_en": "A strong desire to travel and explore the world.",
+    "example": "She has a case of wanderlust and is always planning her next trip.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 4,
+    "frequency_rank": 4500,
+    "tags": [
+      "travel",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈvændəˌlʊst/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/wanderlust-uk.mp3"
+  },
+  {
+    "word": "world",
+    "meaning_vn": "thế giới",
+    "definition_vn": "Toàn bộ hành tinh và tất cả những gì trên đó.",
+    "definition_en": "The entire planet and all life on it.",
+    "example": "The world is a beautiful place to explore.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 1,
+    "frequency_rank": 300,
+    "tags": [
+      "travel",
+      "basic"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/wɝld/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/world-ca.mp3"
+  },
+  {
+    "word": "journey",
+    "meaning_vn": "chuyến đi, hành trình",
+    "definition_vn": "Hành động di chuyển từ một nơi đến một nơi khác, thường là một chuyến đi dài.",
+    "definition_en": "The act of moving from one place to another, often a long trip.",
+    "example": "The journey from New York to London takes about 7 hours.",
+    "level": "A2",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 2,
+    "frequency_rank": 1200,
+    "tags": [
+      "travel"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈd͡ʒɜːni/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/journey-uk.mp3"
   },
   {
     "word": "passenger",
@@ -520,6 +1362,154 @@
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/excursion-us.mp3"
   },
   {
+    "word": "hostel",
+    "meaning_vn": "nhà trọ, ký túc xá",
+    "definition_vn": "Một loại chỗ ở giá rẻ, thường dành cho khách du lịch trẻ tuổi.",
+    "definition_en": "A type of inexpensive accommodation, often for young travelers.",
+    "example": "We stayed in a hostel during our trip to Europe.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "travel",
+      "accommodation"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈhɒstəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/hostel-us.mp3"
+  },
+  {
+    "word": "cruise",
+    "meaning_vn": "chuyến du thuyền",
+    "definition_vn": "Một chuyến đi trên một con tàu lớn, thường để giải trí.",
+    "definition_en": "A trip on a large ship for pleasure.",
+    "example": "They went on a cruise to the Caribbean.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "travel",
+      "activity"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kɹuːz/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/cruise-uk.mp3"
+  },
+  {
+    "word": "backpack",
+    "meaning_vn": "ba lô, đi du lịch bụi",
+    "definition_vn": "Mang theo hành lý trong một chiếc ba lô khi đi du lịch.",
+    "definition_en": "To carry luggage in a backpack while traveling.",
+    "example": "Many young people choose to backpack through Southeast Asia.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 3,
+    "frequency_rank": 3300,
+    "tags": [
+      "travel",
+      "activity"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˈbæk.pæk/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/backpack-uk.mp3"
+  },
+  {
+    "word": "cabin",
+    "meaning_vn": "buồng, phòng trên tàu hoặc máy bay",
+    "definition_vn": "Một phòng nhỏ trên một con tàu hoặc máy bay.",
+    "definition_en": "A small room on a ship or plane.",
+    "example": "We booked a cabin on the cruise ship.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 3,
+    "frequency_rank": 3600,
+    "tags": [
+      "travel",
+      "accommodation"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkæbɪn/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/cabin-us.mp3"
+  },
+  {
+    "word": "check-in",
+    "meaning_vn": "quầy làm thủ tục",
+    "definition_vn": "Nơi bạn đăng ký và nhận thẻ lên máy bay tại sân bay.",
+    "definition_en": "The place where you register and receive your boarding pass at the airport.",
+    "example": "We arrived at the check-in counter two hours before our flight.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 3,
+    "frequency_rank": 2500,
+    "tags": [
+      "travel",
+      "airport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "boarding pass",
+    "meaning_vn": "thẻ lên máy bay",
+    "definition_vn": "Một thẻ cho phép bạn lên máy bay sau khi đã làm thủ tục.",
+    "definition_en": "A card that allows you to board an aircraft after checking in.",
+    "example": "Don't forget to bring your boarding pass to the gate.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 3,
+    "frequency_rank": 2600,
+    "tags": [
+      "travel",
+      "airport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈbɔɹdɪŋ ˌpæs/"
+  },
+  {
+    "word": "layover",
+    "meaning_vn": "thời gian dừng chân giữa các chuyến bay",
+    "definition_vn": "Thời gian tạm dừng giữa hai chuyến bay khi đi du lịch.",
+    "definition_en": "A short stay in a place while waiting for a connecting flight.",
+    "example": "We had a long layover in Dubai during our trip.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "travel",
+      "airport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "red-eye flight",
+    "meaning_vn": "chuyến bay đêm",
+    "definition_vn": "Một chuyến bay diễn ra vào ban đêm, thường khiến hành khách mệt mỏi vào sáng hôm sau.",
+    "definition_en": "A flight that departs late at night and arrives early the next morning.",
+    "example": "I took a red-eye flight to save money on accommodation.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Travel",
+    "difficulty": 4,
+    "frequency_rank": 4500,
+    "tags": [
+      "travel",
+      "airport"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
     "word": "budget",
     "meaning_vn": "ngân sách",
     "definition_vn": "Số tiền có thể chi tiêu cho một mục đích.",
@@ -646,6 +1636,246 @@
     ],
     "partOfSpeech": "noun",
     "phonetic": "/ˈstɹætədʒi/"
+  },
+  {
+    "word": "teamwork",
+    "meaning_vn": "làm việc nhóm",
+    "definition_vn": "Hợp tác giữa các thành viên trong một nhóm để đạt mục tiêu chung.",
+    "definition_en": "Cooperation between members of a group to achieve a common goal.",
+    "example": "Good teamwork is essential for project success.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 3,
+    "frequency_rank": 1800,
+    "tags": [
+      "business"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "innovation",
+    "meaning_vn": "sự đổi mới",
+    "definition_vn": "Sự sáng tạo và áp dụng ý tưởng mới để cải thiện sản phẩm hoặc dịch vụ.",
+    "definition_en": "The creation and application of new ideas to improve products or services.",
+    "example": "Innovation is key to staying competitive in the market.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 2400,
+    "tags": [
+      "business",
+      "technology"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌɪnəˈveɪʃən/"
+  },
+  {
+    "word": "investment",
+    "meaning_vn": "đầu tư",
+    "definition_vn": "Số tiền bỏ ra để mua tài sản hoặc cổ phiếu với hy vọng thu lợi nhuận.",
+    "definition_en": "Money put into something with the expectation of gaining a profit.",
+    "example": "He made a smart investment in the stock market.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 2600,
+    "tags": [
+      "business",
+      "finance"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ɪnˈvɛsmənt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/investment-us.mp3"
+  },
+  {
+    "word": "market",
+    "meaning_vn": "thị trường",
+    "definition_vn": "Nơi mà hàng hóa và dịch vụ được mua bán.",
+    "definition_en": "A place where goods and services are bought and sold.",
+    "example": "The company is trying to enter the Asian market.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 3,
+    "frequency_rank": 1500,
+    "tags": [
+      "business"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmɑːkɪt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/market-uk.mp3"
+  },
+  {
+    "word": "customer",
+    "meaning_vn": "khách hàng",
+    "definition_vn": "Người mua hàng hóa hoặc dịch vụ.",
+    "definition_en": "A person who buys goods or services.",
+    "example": "The store has many loyal customers.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 1,
+    "frequency_rank": 800,
+    "tags": [
+      "business",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkʌstəmə/"
+  },
+  {
+    "word": "employee",
+    "meaning_vn": "nhân viên",
+    "definition_vn": "Người làm việc cho một công ty hoặc tổ chức.",
+    "definition_en": "A person who works for a company or organization.",
+    "example": "The company has over 500 employees.",
+    "level": "A1",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 1,
+    "frequency_rank": 900,
+    "tags": [
+      "business",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/(ˌ)ɪm-/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/employee-us.mp3"
+  },
+  {
+    "word": "manager",
+    "meaning_vn": "quản lý",
+    "definition_vn": "Người chịu trách nhiệm quản lý một nhóm hoặc bộ phận trong công ty.",
+    "definition_en": "A person responsible for controlling or administering an organization or group of staff.",
+    "example": "She is the manager of the sales department.",
+    "level": "A2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 2,
+    "frequency_rank": 1200,
+    "tags": [
+      "business",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmæn.ɪ.dʒə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/manager-us.mp3"
+  },
+  {
+    "word": "profit",
+    "meaning_vn": "lợi nhuận",
+    "definition_vn": "Số tiền kiếm được trong kinh doanh sau khi trừ đi chi phí.",
+    "definition_en": "Money that is earned in trade or business after paying the costs.",
+    "example": "The company made a huge profit this year.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 3,
+    "frequency_rank": 1300,
+    "tags": [
+      "business",
+      "finance"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈpɹɒfɪt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/profit-us.mp3"
+  },
+  {
+    "word": "sales",
+    "meaning_vn": "doanh số bán hàng",
+    "definition_vn": "Số lượng hàng hóa hoặc dịch vụ được bán ra.",
+    "definition_en": "The amount of goods or services sold.",
+    "example": "The company's sales increased by 20% last quarter.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 3,
+    "frequency_rank": 1400,
+    "tags": [
+      "business",
+      "finance"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/seɪlz/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/sales-us.mp3"
+  },
+  {
+    "word": "supplier",
+    "meaning_vn": "nhà cung cấp",
+    "definition_vn": "Một công ty hoặc người cung cấp hàng hóa hoặc dịch vụ cho một công ty khác.",
+    "definition_en": "A company or person that provides goods or services to another company.",
+    "example": "We need to find a reliable supplier for our materials.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 2200,
+    "tags": [
+      "business",
+      "supply chain"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/səˈplaɪə/"
+  },
+  {
+    "word": "transaction",
+    "meaning_vn": "giao dịch",
+    "definition_vn": "Một hành động mua bán hoặc trao đổi hàng hóa hoặc dịch vụ.",
+    "definition_en": "An act of buying or selling something.",
+    "example": "The transaction was completed successfully.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "business",
+      "finance"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/tɹænˈzækʃən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/transaction-us.mp3"
+  },
+  {
+    "word": "venture",
+    "meaning_vn": "liên doanh, dự án kinh doanh mới",
+    "definition_vn": "Một dự án kinh doanh mới hoặc mạo hiểm.",
+    "definition_en": "A new or risky business project.",
+    "example": "They started a new venture in the tech industry.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "business",
+      "entrepreneurship"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈvɛn.t͡ʃə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/venture-us.mp3"
+  },
+  {
+    "word": "workforce",
+    "meaning_vn": "lực lượng lao động",
+    "definition_vn": "Tổng số người làm việc trong một công ty hoặc ngành công nghiệp.",
+    "definition_en": "The total number of people employed in a company or industry.",
+    "example": "The company's workforce is highly skilled.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 2700,
+    "tags": [
+      "business",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
   },
   {
     "word": "profit",
@@ -796,6 +2026,136 @@
     "phonetic": "/ˌɡæɹənˈtiː/"
   },
   {
+    "word": "liability",
+    "meaning_vn": "trách nhiệm pháp lý",
+    "definition_vn": "Trách nhiệm pháp lý đối với một hành động hoặc sự kiện.",
+    "definition_en": "Legal responsibility for something.",
+    "example": "The company has a liability for any damages caused by its products.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "business",
+      "law"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/laɪəˈbɪlɪti/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/liability-us.mp3"
+  },
+  {
+    "word": "merger",
+    "meaning_vn": "sự sáp nhập",
+    "definition_vn": "Sự kết hợp của hai công ty thành một công ty mới.",
+    "definition_en": "The combination of two companies into a new company.",
+    "example": "The merger of the two companies created a powerful new player in the industry.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "business",
+      "corporate"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmɜːdʒə/"
+  },
+  {
+    "word": "outsource",
+    "meaning_vn": "thuê ngoài",
+    "definition_vn": "Thuê một công ty khác để thực hiện một phần công việc của bạn.",
+    "definition_en": "To hire another company to do work that could be done by your own company.",
+    "example": "Many companies outsource their customer service to other countries.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "business",
+      "operations"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˈaʊtˌsɔɹs/"
+  },
+  {
+    "word": "stakeholder",
+    "meaning_vn": "cổ đông, bên liên quan",
+    "definition_vn": "Một người hoặc tổ chức có lợi ích trong một công ty hoặc dự án.",
+    "definition_en": "A person or organization with an interest in a company or project.",
+    "example": "The company must consider the interests of all its stakeholders.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 2700,
+    "tags": [
+      "business",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsteɪkhoʊldə(ɹ)/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/stakeholder-uk.mp3"
+  },
+  {
+    "word": "subsidiary",
+    "meaning_vn": "công ty con",
+    "definition_vn": "Một công ty được kiểm soát bởi một công ty khác.",
+    "definition_en": "A company controlled by another company.",
+    "example": "The multinational corporation has several subsidiaries around the world.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 2900,
+    "tags": [
+      "business",
+      "corporate"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/sʌbˈsɪ.di.əɹ.i/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/subsidiary-uk.mp3"
+  },
+  {
+    "word": "sustainability",
+    "meaning_vn": "sự bền vững",
+    "definition_vn": "Khả năng duy trì một hoạt động hoặc quá trình trong thời gian dài mà không gây hại cho môi trường hoặc xã hội.",
+    "definition_en": "The ability to maintain an activity or process over the long term without harming the environment or society.",
+    "example": "The company is committed to sustainability and reducing its carbon footprint.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 3100,
+    "tags": [
+      "business",
+      "environment"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/səsˌteɪnəˈbɪlɪti/"
+  },
+  {
+    "word": "turnover",
+    "meaning_vn": "doanh thu, doanh số",
+    "definition_vn": "Tổng số tiền kiếm được từ kinh doanh trong một khoảng thời gian nhất định.",
+    "definition_en": "The total amount of money earned from business in a certain period of time.",
+    "example": "The company's turnover increased by 10% last year.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Business",
+    "difficulty": 4,
+    "frequency_rank": 3300,
+    "tags": [
+      "business",
+      "finance"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/turnover-us.mp3"
+  },
+  {
     "word": "appetite",
     "meaning_vn": "sự thèm ăn",
     "definition_vn": "Cảm giác muốn ăn.",
@@ -924,6 +2284,269 @@
     "partOfSpeech": "noun",
     "phonetic": "/ˈfleɪvə/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/flavor-us.mp3"
+  },
+  {
+    "word": "fresh",
+    "meaning_vn": "tươi, mới",
+    "definition_vn": "Mới được thu hoạch hoặc sản xuất và chưa bị hỏng.",
+    "definition_en": "Recently harvested or produced and not spoiled.",
+    "example": "I prefer to buy fresh vegetables from the market.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 1,
+    "frequency_rank": 1600,
+    "tags": [
+      "food"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/fɹɛʃ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/fresh-us.mp3"
+  },
+  {
+    "word": "savory",
+    "meaning_vn": "mặn, có vị mặn",
+    "definition_vn": "Có vị mặn hoặc có hương vị mạnh mẽ, không ngọt.",
+    "definition_en": "Having a salty or strong flavor, not sweet.",
+    "example": "The savory pie was filled with meat and vegetables.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 2600,
+    "tags": [
+      "food",
+      "taste"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈseɪvəɹi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/savory-us.mp3"
+  },
+  {
+    "word": "sweet",
+    "meaning_vn": "ngọt",
+    "definition_vn": "Có vị ngọt, giống như đường hoặc mật ong.",
+    "definition_en": "Having a taste like sugar or honey.",
+    "example": "The cake was too sweet for my liking.",
+    "level": "A1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 1,
+    "frequency_rank": 1700,
+    "tags": [
+      "food",
+      "taste"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/swiːt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/sweet-us.mp3"
+  },
+  {
+    "word": "bitter",
+    "meaning_vn": "đắng",
+    "definition_vn": "Có vị đắng, giống như cà phê đen hoặc thuốc.",
+    "definition_en": "Having a sharp, unpleasant taste like black coffee or medicine.",
+    "example": "The dark chocolate has a bitter taste.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 2800,
+    "tags": [
+      "food",
+      "taste"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈbɪtə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/bitter-us.mp3"
+  },
+  {
+    "word": "sour",
+    "meaning_vn": "chua",
+    "definition_vn": "Có vị sắc, giống như vị của quả chanh.",
+    "definition_en": "Having a sharp, sometimes unpleasant, taste or smell, like a lemon.",
+    "example": "The sauce was a little too sour for my taste.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 3400,
+    "tags": [
+      "food",
+      "taste"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈsaʊə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/sour-us.mp3"
+  },
+  {
+    "word": "umami",
+    "meaning_vn": "vị umami",
+    "definition_vn": "Một vị cơ bản có hương vị đậm đà, thường được mô tả là 'ngon miệng'.",
+    "definition_en": "A basic taste that is savory and often described as 'meaty' or 'delicious'.",
+    "example": "The broth had a rich umami flavor.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "food",
+      "taste"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/uˈmɑːmi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/umami-au.mp3"
+  },
+  {
+    "word": "gourmet",
+    "meaning_vn": "ẩm thực cao cấp",
+    "definition_vn": "Thức ăn hoặc đồ uống chất lượng cao, thường được chuẩn bị và trình bày một cách tinh tế.",
+    "definition_en": "Food or drink of high quality, often prepared and presented in an elaborate way.",
+    "example": "The restaurant is known for its gourmet dishes.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "food",
+      "quality"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈɡɔːmeɪ/"
+  },
+  {
+    "word": "organic",
+    "meaning_vn": "hữu cơ",
+    "definition_vn": "Thực phẩm được sản xuất mà không sử dụng hóa chất tổng hợp hoặc phân bón nhân tạo.",
+    "definition_en": "Food produced without the use of synthetic chemicals or artificial fertilizers.",
+    "example": "I prefer to buy organic fruits and vegetables.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 3000,
+    "tags": [
+      "food",
+      "health"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɔːˈɡænɪk/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/organic-us.mp3"
+  },
+  {
+    "word": "vegan",
+    "meaning_vn": "người ăn chay thuần chay",
+    "definition_vn": "Người không ăn hoặc sử dụng bất kỳ sản phẩm nào có nguồn gốc từ động vật.",
+    "definition_en": "A person who does not eat or use any products derived from animals.",
+    "example": "She has been a vegan for three years.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "food",
+      "lifestyle"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈviːɡən/"
+  },
+  {
+    "word": "gluten",
+    "meaning_vn": "gluten",
+    "definition_vn": "Một loại protein có trong lúa mì và các loại ngũ cốc khác.",
+    "definition_en": "A type of protein found in wheat and other grains.",
+    "example": "Some people have a gluten intolerance.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 4,
+    "frequency_rank": 3800,
+    "tags": [
+      "food",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɡluːtn̩/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/gluten-us.mp3"
+  },
+  {
+    "word": "calorie",
+    "meaning_vn": "calo",
+    "definition_vn": "Đơn vị đo năng lượng trong thực phẩm.",
+    "definition_en": "A unit of energy in food.",
+    "example": "This snack contains 200 calories.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 2900,
+    "tags": [
+      "food",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkæləɹi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/calorie-us.mp3"
+  },
+  {
+    "word": "protein",
+    "meaning_vn": "chất đạm",
+    "definition_vn": "Một chất dinh dưỡng cần thiết cho sự phát triển và sửa chữa của cơ thể.",
+    "definition_en": "A nutrient essential for the growth and repair of the body.",
+    "example": "Meat, fish, and beans are good sources of protein.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 2700,
+    "tags": [
+      "food",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈpɹəʊti.ɪn/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/protein-us.mp3"
+  },
+  {
+    "word": "carbohydrate",
+    "meaning_vn": "carbohydrate, tinh bột",
+    "definition_vn": "Một loại chất dinh dưỡng cung cấp năng lượng cho cơ thể.",
+    "definition_en": "A type of nutrient that provides energy for the body.",
+    "example": "Bread and pasta are rich in carbohydrates.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 3100,
+    "tags": [
+      "food",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kɑːbəʊˈhaɪdɹeɪt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/carbohydrate-us.mp3"
+  },
+  {
+    "word": "fiber",
+    "meaning_vn": "chất xơ",
+    "definition_vn": "Một loại carbohydrate không tiêu hóa được có trong thực phẩm thực vật.",
+    "definition_en": "A type of carbohydrate that cannot be digested, found in plant foods.",
+    "example": "Fruits and vegetables are good sources of fiber.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Food",
+    "difficulty": 3,
+    "frequency_rank": 3300,
+    "tags": [
+      "food",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈfaɪ.bə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/fiber-us.mp3"
   },
   {
     "word": "diet",
@@ -1368,6 +2991,281 @@
     "phonetic": "/ˈsɜːvə/"
   },
   {
+    "word": "cloud computing",
+    "meaning_vn": "điện toán đám mây",
+    "definition_vn": "Sử dụng mạng lưới máy chủ từ xa để lưu trữ, quản lý và xử lý dữ liệu thay vì máy tính cá nhân.",
+    "definition_en": "The practice of using a network of remote servers hosted on the Internet to store, manage, and process data.",
+    "example": "Many businesses are moving their data to cloud computing services for better scalability.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 4,
+    "frequency_rank": 3600,
+    "tags": [
+      "technology",
+      "internet"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "artificial intelligence",
+    "meaning_vn": "trí tuệ nhân tạo",
+    "definition_vn": "Khả năng của máy móc để thực hiện các nhiệm vụ thông minh như con người.",
+    "definition_en": "The ability of machines to perform tasks that typically require human intelligence.",
+    "example": "Artificial intelligence is being used in various industries to improve efficiency.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 5,
+    "frequency_rank": 3700,
+    "tags": [
+      "technology",
+      "AI"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "data",
+    "meaning_vn": "dữ liệu",
+    "definition_vn": "Thông tin được thu thập và phân tích để đưa ra quyết định.",
+    "definition_en": "Information collected and analyzed to make decisions.",
+    "example": "The company collects data on customer preferences to improve its products.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 3,
+    "frequency_rank": 1500,
+    "tags": [
+      "technology",
+      "information"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈdaetə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/data-au-nz.mp3"
+  },
+  {
+    "word": "debug",
+    "meaning_vn": "gỡ lỗi",
+    "definition_vn": "Quá trình tìm và sửa lỗi trong phần mềm hoặc hệ thống máy tính.",
+    "definition_en": "The process of finding and fixing errors in software or computer systems.",
+    "example": "The developer spent hours debugging the code to fix the issue.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "technology",
+      "programming"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/diːˈbʌɡ/"
+  },
+  {
+    "word": "download",
+    "meaning_vn": "tải xuống",
+    "definition_vn": "Chuyển dữ liệu từ một hệ thống máy tính từ xa về máy tính của bạn.",
+    "definition_en": "To transfer data from a remote computer system to your own computer.",
+    "example": "I need to download the latest software update.",
+    "level": "A2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 2,
+    "frequency_rank": 1000,
+    "tags": [
+      "technology",
+      "action"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ˈdaʊnˌləʊd/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/download-us.mp3"
+  },
+  {
+    "word": "upload",
+    "meaning_vn": "tải lên",
+    "definition_vn": "Chuyển dữ liệu từ máy tính của bạn lên một hệ thống máy tính từ xa.",
+    "definition_en": "To transfer data from your own computer to a remote computer system.",
+    "example": "Please upload the file to the shared drive.",
+    "level": "A2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 2,
+    "frequency_rank": 1100,
+    "tags": [
+      "technology",
+      "action"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/əpˈləʊd/"
+  },
+  {
+    "word": "streaming",
+    "meaning_vn": "phát trực tuyến",
+    "definition_vn": "Truyền tải dữ liệu âm thanh hoặc video qua internet để xem hoặc nghe ngay lập tức.",
+    "definition_en": "Transmitting audio or video data over the internet to be viewed or listened to immediately.",
+    "example": "Many people prefer streaming movies instead of downloading them.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "technology",
+      "entertainment"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈstɹiːmɪŋ/"
+  },
+  {
+    "word": "virtual reality",
+    "meaning_vn": "thực tế ảo",
+    "definition_vn": "Một môi trường mô phỏng được tạo ra bằng công nghệ máy tính, nơi người dùng có thể tương tác như thể họ đang ở đó.",
+    "definition_en": "A computer-generated simulation of a three-dimensional environment that can be interacted with in a seemingly real way.",
+    "example": "Virtual reality is being used for gaming and training simulations.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "technology",
+      "VR"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "augmented reality",
+    "meaning_vn": "thực tế tăng cường",
+    "definition_vn": "Một công nghệ cho phép chồng hình ảnh hoặc thông tin kỹ thuật số lên thế giới thực.",
+    "definition_en": "A technology that overlays digital images or information onto the real world.",
+    "example": "Augmented reality apps can help you visualize furniture in your home before buying.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 5,
+    "frequency_rank": 4300,
+    "tags": [
+      "technology",
+      "AR"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "hacker",
+    "meaning_vn": "tin tặc",
+    "definition_vn": "Người sử dụng kỹ năng máy tính để truy cập trái phép vào hệ thống hoặc dữ liệu.",
+    "definition_en": "A person who uses computer skills to gain unauthorized access to systems or data.",
+    "example": "The company suffered a data breach due to a hacker attack.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 4,
+    "frequency_rank": 3600,
+    "tags": [
+      "technology",
+      "security"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/hækə(ɹ)/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/hacker-uk.mp3"
+  },
+  {
+    "word": "malware",
+    "meaning_vn": "phần mềm độc hại",
+    "definition_vn": "Phần mềm được thiết kế để gây hại hoặc truy cập trái phép vào hệ thống máy tính.",
+    "definition_en": "Software designed to cause harm or unauthorized access to computer systems.",
+    "example": "The antivirus software detected and removed the malware from the computer.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 4,
+    "frequency_rank": 3700,
+    "tags": [
+      "technology",
+      "security"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmæl.weə(ɹ)/"
+  },
+  {
+    "word": "phishing",
+    "meaning_vn": "lừa đảo qua email",
+    "definition_vn": "Hình thức lừa đảo trực tuyến nhằm đánh cắp thông tin cá nhân bằng cách giả mạo một tổ chức đáng tin cậy.",
+    "definition_en": "A form of online fraud that aims to steal personal information by impersonating a trustworthy organization.",
+    "example": "Be cautious of phishing emails that ask for your password.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 4,
+    "frequency_rank": 3800,
+    "tags": [
+      "technology",
+      "security"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈfɪʃɪŋ/"
+  },
+  {
+    "word": "firewall",
+    "meaning_vn": "tường lửa",
+    "definition_vn": "Hệ thống bảo mật mạng được thiết kế để ngăn chặn truy cập trái phép.",
+    "definition_en": "A network security system designed to prevent unauthorized access.",
+    "example": "The company installed a new firewall to protect against cyber attacks.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 4,
+    "frequency_rank": 3900,
+    "tags": [
+      "technology",
+      "security"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈfaɪ.əˌwɔːl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/firewall-us.mp3"
+  },
+  {
+    "word": "backup",
+    "meaning_vn": "sao lưu",
+    "definition_vn": "Sao chép dữ liệu để phòng trường hợp mất mát hoặc hỏng hóc.",
+    "definition_en": "A copy of data made in case the original is lost or damaged.",
+    "example": "Make sure to backup your important files regularly.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "technology",
+      "data"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈbækˌʌp/"
+  },
+  {
+    "word": "bug",
+    "meaning_vn": "lỗi (phần mềm)",
+    "definition_vn": "Một lỗi hoặc vấn đề trong phần mềm máy tính.",
+    "definition_en": "An error or flaw in computer software.",
+    "example": "The developer fixed the bug that was causing the app to crash.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Technology",
+    "difficulty": 4,
+    "frequency_rank": 4100,
+    "tags": [
+      "technology",
+      "programming"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/bʌɡ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/bug-us.mp3"
+  },
+  {
     "word": "academic",
     "meaning_vn": "học thuật",
     "definition_vn": "Liên quan đến giáo dục và học thuật.",
@@ -1643,6 +3541,406 @@
     ],
     "partOfSpeech": "noun",
     "phonetic": "/əˈlʌmnaɪ/"
+  },
+  {
+    "word": "mentor",
+    "meaning_vn": "người hướng dẫn, cố vấn",
+    "definition_vn": "Một người có kinh nghiệm cung cấp lời khuyên và hỗ trợ cho người khác.",
+    "definition_en": "An experienced person who gives advice and support to someone else.",
+    "example": "She found a mentor to help her navigate her career path.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmɛn.tɔː/"
+  },
+  {
+    "word": "seminar",
+    "meaning_vn": "hội thảo",
+    "definition_vn": "Một cuộc họp nhỏ để thảo luận về một chủ đề cụ thể.",
+    "definition_en": "A small group meeting for discussion on a specific topic.",
+    "example": "The professor held a seminar on climate change research.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "education",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "lecture",
+    "meaning_vn": "bài giảng",
+    "definition_vn": "Một bài nói chuyện chính thức về một chủ đề học thuật.",
+    "definition_en": "A formal talk on a serious subject given to students or an audience.",
+    "example": "The professor's lecture on ancient history was fascinating.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "education",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlɛk.t͡ʃə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/lecture-us.mp3"
+  },
+  {
+    "word": "graduate",
+    "meaning_vn": "tốt nghiệp",
+    "definition_vn": "Hoàn thành một khóa học hoặc chương trình học và nhận bằng cấp.",
+    "definition_en": "To complete a course of study and receive a degree or diploma.",
+    "example": "She will graduate from university next year.",
+    "level": "A2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 2,
+    "frequency_rank": 1500,
+    "tags": [
+      "education",
+      "action"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": ""
+  },
+  {
+    "word": "undergraduate",
+    "meaning_vn": "sinh viên đại học",
+    "definition_vn": "Sinh viên đang theo học chương trình đại học.",
+    "definition_en": "A student who is studying for their first degree at a university.",
+    "example": "He is an undergraduate majoring in computer science.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 2600,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "postgraduate",
+    "meaning_vn": "sinh viên sau đại học",
+    "definition_vn": "Sinh viên đang theo học chương trình sau đại học như thạc sĩ hoặc tiến sĩ.",
+    "definition_en": "A student who is studying for a degree after completing an undergraduate degree, such as a master's or doctoral degree.",
+    "example": "She is a postgraduate student researching renewable energy.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "faculty",
+    "meaning_vn": "khoa (trường đại học)",
+    "definition_vn": "Một bộ phận của một trường đại học chuyên về một lĩnh vực học thuật cụ thể.",
+    "definition_en": "A division of a university specializing in a particular academic discipline.",
+    "example": "The Faculty of Arts offers courses in literature and history.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 2800,
+    "tags": [
+      "education",
+      "university"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈfæ.kəl.ti/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/faculty-us.mp3"
+  },
+  {
+    "word": "dean",
+    "meaning_vn": "trưởng khoa",
+    "definition_vn": "Người đứng đầu một khoa trong trường đại học.",
+    "definition_en": "The head of a faculty in a university.",
+    "example": "The dean of the business school announced new scholarship opportunities.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/diːn/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/dean-us.mp3"
+  },
+  {
+    "word": "professor",
+    "meaning_vn": "giáo sư",
+    "definition_vn": "Một học giả cao cấp giảng dạy tại một trường đại học.",
+    "definition_en": "A senior academic who teaches at a university.",
+    "example": "The professor is an expert in medieval literature.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 2700,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/pɹəˈfɛsə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/professor-uk.mp3"
+  },
+  {
+    "word": "researcher",
+    "meaning_vn": "nhà nghiên cứu",
+    "definition_vn": "Một người thực hiện nghiên cứu để khám phá hoặc giải thích một chủ đề.",
+    "definition_en": "A person who conducts research to discover or explain a subject.",
+    "example": "The researcher published a groundbreaking study on climate change.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 2900,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "academic integrity",
+    "meaning_vn": "chính trực học thuật",
+    "definition_vn": "Nguyên tắc trung thực và đạo đức trong học tập và nghiên cứu.",
+    "definition_en": "The principle of honesty and ethical behavior in academic work and research.",
+    "example": "Maintaining academic integrity is essential for a fair learning environment.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 5,
+    "frequency_rank": 4300,
+    "tags": [
+      "education",
+      "academic"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic advisor",
+    "meaning_vn": "cố vấn học tập",
+    "definition_vn": "Một người giúp sinh viên lập kế hoạch học tập và lựa chọn khóa học.",
+    "definition_en": "A person who helps students plan their studies and choose courses.",
+    "example": "The academic advisor can help you select the right classes for your major.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 3100,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic conference",
+    "meaning_vn": "hội nghị học thuật",
+    "definition_vn": "Một cuộc họp nơi các học giả trình bày và thảo luận về nghiên cứu của họ.",
+    "definition_en": "A meeting where scholars present and discuss their research.",
+    "example": "The academic conference attracted researchers from around the world.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "education",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic journal",
+    "meaning_vn": "tạp chí học thuật",
+    "definition_vn": "Một ấn phẩm chuyên ngành nơi các nhà nghiên cứu xuất bản kết quả nghiên cứu của họ.",
+    "definition_en": "A specialized publication where researchers publish their research findings.",
+    "example": "The study was published in a prestigious academic journal.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3700,
+    "tags": [
+      "education",
+      "publication"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic performance",
+    "meaning_vn": "thành tích học tập",
+    "definition_vn": "Mức độ thành công của một sinh viên trong học tập.",
+    "definition_en": "The level of success a student achieves in their studies.",
+    "example": "The school provides support to help improve students' academic performance.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 3300,
+    "tags": [
+      "education",
+      "performance"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic year",
+    "meaning_vn": "năm học",
+    "definition_vn": "Khoảng thời gian mà các trường học tổ chức các hoạt động giảng dạy và học tập.",
+    "definition_en": "The period during which schools hold classes and academic activities.",
+    "example": "The academic year typically starts in September and ends in June.",
+    "level": "A2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 2,
+    "frequency_rank": 1400,
+    "tags": [
+      "education",
+      "time"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌæk.əˈdɛm.ɪk jɪə/"
+  },
+  {
+    "word": "academic calendar",
+    "meaning_vn": "lịch học",
+    "definition_vn": "Lịch trình các sự kiện và kỳ thi trong năm học.",
+    "definition_en": "A schedule of events and exams during the academic year.",
+    "example": "The academic calendar includes important dates for registration and exams.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "education",
+      "time"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic discipline",
+    "meaning_vn": "môn học, ngành học",
+    "definition_vn": "Một lĩnh vực nghiên cứu hoặc học tập cụ thể trong giáo dục.",
+    "definition_en": "A specific field of study or research within education.",
+    "example": "She is an expert in the academic discipline of psychology.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3600,
+    "tags": [
+      "education",
+      "field"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic institution",
+    "meaning_vn": "cơ sở giáo dục",
+    "definition_vn": "Một tổ chức cung cấp giáo dục và nghiên cứu, như trường đại học hoặc cao đẳng.",
+    "definition_en": "An organization that provides education and research, such as a university or college.",
+    "example": "The academic institution is known for its strong engineering program.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 3000,
+    "tags": [
+      "education",
+      "institution"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic research",
+    "meaning_vn": "nghiên cứu học thuật",
+    "definition_vn": "Quá trình điều tra và phân tích để tạo ra kiến thức mới trong một lĩnh vực học thuật.",
+    "definition_en": "The process of investigation and analysis to create new knowledge in an academic field.",
+    "example": "The university is conducting academic research on renewable energy sources.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3800,
+    "tags": [
+      "education",
+      "research"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic staff",
+    "meaning_vn": "giảng viên, nhân viên học thuật",
+    "definition_vn": "Những người làm việc trong một tổ chức giáo dục, bao gồm giảng viên và nhân viên hỗ trợ.",
+    "definition_en": "People who work in an educational institution, including lecturers and support staff.",
+    "example": "The academic staff at the university are highly qualified.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 3,
+    "frequency_rank": 3500,
+    "tags": [
+      "education",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "academic excellence",
+    "meaning_vn": "sự xuất sắc học thuật",
+    "definition_vn": "Mức độ cao của thành tích học tập và nghiên cứu trong giáo dục.",
+    "definition_en": "A high level of achievement in academic performance and research.",
+    "example": "The school is known for its commitment to academic excellence.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Education",
+    "difficulty": 4,
+    "frequency_rank": 3900,
+    "tags": [
+      "education",
+      "performance"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
   },
   {
     "word": "agenda",
@@ -2068,6 +4366,277 @@
     "phonetic": ""
   },
   {
+    "word": "climate change",
+    "meaning_vn": "biến đổi khí hậu",
+    "definition_vn": "Sự thay đổi lâu dài về thời tiết và khí hậu trên Trái Đất.",
+    "definition_en": "A long-term change in the Earth's weather and climate.",
+    "example": "Climate change is causing more frequent extreme weather events.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "environment",
+      "climate"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "deforestation",
+    "meaning_vn": "phá rừng",
+    "definition_vn": "Sự chặt phá rừng để sử dụng đất cho mục đích khác.",
+    "definition_en": "The clearing of trees, transforming a forest into cleared land.",
+    "example": "Deforestation contributes to climate change and loss of biodiversity.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "environment",
+      "nature"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/dɪˌfɒɹɪsˈteɪʃən/"
+  },
+  {
+    "word": "carbon footprint",
+    "meaning_vn": "dấu chân carbon",
+    "definition_vn": "Tổng lượng khí nhà kính mà một cá nhân hoặc tổ chức tạo ra.",
+    "definition_en": "The total amount of greenhouse gases produced by an individual or organization.",
+    "example": "Reducing your carbon footprint can help combat climate change.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "environment",
+      "climate"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "sustainability",
+    "meaning_vn": "sự bền vững",
+    "definition_vn": "Khả năng duy trì một hoạt động hoặc trạng thái trong thời gian dài mà không gây hại cho môi trường.",
+    "definition_en": "The ability to maintain an activity or state over the long term without harming the environment.",
+    "example": "Sustainability is a key consideration in modern business practices.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 3600,
+    "tags": [
+      "environment",
+      "sustainability"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/səsˌteɪnəˈbɪlɪti/"
+  },
+  {
+    "word": "greenhouse gas",
+    "meaning_vn": "khí nhà kính",
+    "definition_vn": "Khí trong khí quyển có khả năng giữ nhiệt, góp phần vào hiệu ứng nhà kính.",
+    "definition_en": "A gas in the atmosphere that traps heat, contributing to the greenhouse effect.",
+    "example": "Carbon dioxide is a major greenhouse gas responsible for global warming.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 3300,
+    "tags": [
+      "environment",
+      "climate"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "recycle",
+    "meaning_vn": "tái chế",
+    "definition_vn": "Quá trình biến đổi chất thải thành vật liệu có thể sử dụng lại.",
+    "definition_en": "The process of converting waste into reusable material.",
+    "example": "We should recycle paper, plastic, and glass to reduce waste.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 3,
+    "frequency_rank": 2100,
+    "tags": [
+      "environment",
+      "waste"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɹiˈsaɪkəl/"
+  },
+  {
+    "word": "compost",
+    "meaning_vn": "phân hữu cơ",
+    "definition_vn": "Vật liệu hữu cơ phân hủy được sử dụng để cải thiện đất.",
+    "definition_en": "Decomposed organic material used to improve soil.",
+    "example": "Compost is made from food scraps and yard waste.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "environment",
+      "nature"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkɒmpɒst/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/compost-uk.mp3"
+  },
+  {
+    "word": "environmental impact",
+    "meaning_vn": "tác động môi trường",
+    "definition_vn": "Ảnh hưởng của một hoạt động hoặc sự kiện đối với môi trường tự nhiên.",
+    "definition_en": "The effect of an activity or event on the natural environment.",
+    "example": "The environmental impact of deforestation is significant.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 3700,
+    "tags": [
+      "environment",
+      "impact"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "sustainable development",
+    "meaning_vn": "phát triển bền vững",
+    "definition_vn": "Phát triển đáp ứng nhu cầu hiện tại mà không làm tổn hại khả năng của các thế hệ tương lai.",
+    "definition_en": "Development that meets the needs of the present without compromising the ability of future generations to meet their own needs.",
+    "example": "Sustainable development is essential for preserving our planet for future generations.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 3800,
+    "tags": [
+      "environment",
+      "development"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "carbon offset",
+    "meaning_vn": "bù đắp carbon",
+    "definition_vn": "Hành động bù đắp lượng khí nhà kính bằng cách đầu tư vào các dự án giảm phát thải.",
+    "definition_en": "An action taken to compensate for greenhouse gas emissions by investing in projects that reduce emissions.",
+    "example": "Many companies purchase carbon offsets to mitigate their environmental impact.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 3900,
+    "tags": [
+      "environment",
+      "climate"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "green energy",
+    "meaning_vn": "năng lượng xanh",
+    "definition_vn": "Năng lượng được sản xuất từ các nguồn tái tạo và thân thiện với môi trường.",
+    "definition_en": "Energy produced from renewable and environmentally friendly sources.",
+    "example": "Green energy sources include solar, wind, and hydro power.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "environment",
+      "energy"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "carbon neutral",
+    "meaning_vn": "trung hòa carbon",
+    "definition_vn": "Trạng thái khi lượng khí nhà kính phát ra bằng với lượng khí được hấp thụ hoặc bù đắp.",
+    "definition_en": "The state of having a net zero carbon footprint, where the amount of greenhouse gases emitted is balanced by the amount absorbed or offset.",
+    "example": "The company aims to become carbon neutral by 2030.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "environment",
+      "climate"
+    ],
+    "partOfSpeech": "adjective",
+    "audio_url": ""
+  },
+  {
+    "word": "zero waste",
+    "meaning_vn": "không chất thải",
+    "definition_vn": "Một phong cách sống hoặc phương pháp sản xuất nhằm giảm thiểu lượng chất thải được gửi đến bãi rác.",
+    "definition_en": "A lifestyle or production method aimed at minimizing the amount of waste sent to landfills.",
+    "example": "The zero waste movement encourages people to reduce, reuse, and recycle.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 4100,
+    "tags": [
+      "environment",
+      "waste"
+    ],
+    "partOfSpeech": "adjective",
+    "audio_url": ""
+  },
+  {
+    "word": "environmental policy",
+    "meaning_vn": "chính sách môi trường",
+    "definition_vn": "Các quy định và biện pháp được chính phủ hoặc tổ chức áp dụng để bảo vệ môi trường.",
+    "definition_en": "Regulations and measures adopted by a government or organization to protect the environment.",
+    "example": "The new environmental policy aims to reduce plastic waste.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 4,
+    "frequency_rank": 4200,
+    "tags": [
+      "environment",
+      "policy"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "environmental awareness",
+    "meaning_vn": "nhận thức về môi trường",
+    "definition_vn": "Sự hiểu biết và quan tâm đến các vấn đề môi trường.",
+    "definition_en": "Understanding and concern about environmental issues.",
+    "example": "Environmental awareness is crucial for encouraging sustainable behavior.",
+    "level": "B1",
+    "source": "IELTS Core",
+    "topic": "Environment",
+    "difficulty": 3,
+    "frequency_rank": 4300,
+    "tags": [
+      "environment",
+      "awareness"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
     "word": "symptom",
     "meaning_vn": "triệu chứng",
     "definition_vn": "Dấu hiệu vật lý hoặc tinh thần của một căn bệnh.",
@@ -2252,6 +4821,44 @@
     "partOfSpeech": "adjective",
     "phonetic": "/ˈkɹɒnɪk/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/chronic-au.mp3"
+  },
+  {
+    "word": "acute",
+    "meaning_vn": "cấp tính",
+    "definition_vn": "Tình trạng nghiêm trọng và đột ngột.",
+    "definition_en": "(Of a disease or its symptoms) severe but of short duration.",
+    "example": "She was admitted to the hospital with acute appendicitis.",
+    "level": "C1",
+    "source": "Oxford 5000",
+    "topic": "Health",
+    "difficulty": 5,
+    "frequency_rank": 4000,
+    "tags": [
+      "health",
+      "medical"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/acute-au.mp3"
+  },
+  {
+    "word": "epidemic",
+    "meaning_vn": "dịch bệnh",
+    "definition_vn": "Sự bùng phát nhanh chóng của một căn bệnh trong một khu vực cụ thể.",
+    "definition_en": "A widespread occurrence of an infectious disease in a community at a particular time.",
+    "example": "The city is taking measures to control the epidemic.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Health",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "health",
+      "disease"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌɛpɪˈdɛmɪk/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/epidemic.mp3"
   },
   {
     "word": "exhibition",
@@ -2485,6 +5092,343 @@
     "partOfSpeech": "verb",
     "phonetic": "",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/evoke-au.mp3"
+  },
+  {
+    "word": "aesthetic",
+    "meaning_vn": "thẩm mỹ, có tính thẩm mỹ",
+    "definition_vn": "Liên quan đến vẻ đẹp hoặc nghệ thuật.",
+    "definition_en": "Concerned with beauty or the appreciation of beauty.",
+    "example": "The aesthetic appeal of the painting is undeniable.",
+    "level": "C1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "art",
+      "beauty"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/iːs.ˈθe.tɪk/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/aesthetic-us.mp3"
+  },
+  {
+    "word": "genre",
+    "meaning_vn": "thể loại",
+    "definition_vn": "Một loại hình nghệ thuật, văn học hoặc âm nhạc đặc trưng bởi một phong cách hoặc chủ đề cụ thể.",
+    "definition_en": "A category of artistic composition characterized by a particular style, form, or content.",
+    "example": "She enjoys reading books in the science fiction genre.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "art",
+      "literature",
+      "music"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/(d)ʒɒn.ɹə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/genre-uk.mp3"
+  },
+  {
+    "word": "melody",
+    "meaning_vn": "giai điệu",
+    "definition_vn": "Chuỗi các nốt nhạc tạo thành một đoạn nhạc dễ nhớ.",
+    "definition_en": "A sequence of single notes that is musically satisfying.",
+    "example": "The melody of the song is very catchy.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 3,
+    "frequency_rank": 2200,
+    "tags": [
+      "art",
+      "music"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmel.ə.di/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/melody-us.mp3"
+  },
+  {
+    "word": "lyric",
+    "meaning_vn": "lời bài hát",
+    "definition_vn": "Lời của một bài hát.",
+    "definition_en": "The words of a song.",
+    "example": "The lyrics of the song are very meaningful.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "art",
+      "music"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlɪɹ.ɪk/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/lyric-uk.mp3"
+  },
+  {
+    "word": "orchestra",
+    "meaning_vn": "dàn nhạc",
+    "definition_vn": "Một nhóm lớn các nhạc sĩ chơi các loại nhạc cụ khác nhau cùng nhau.",
+    "definition_en": "A large group of musicians who play together on various instruments.",
+    "example": "The orchestra performed a beautiful symphony.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "art",
+      "music"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɔːkəstɹə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/orchestra-uk.mp3"
+  },
+  {
+    "word": "symphony",
+    "meaning_vn": "bản giao hưởng",
+    "definition_vn": "Một tác phẩm âm nhạc lớn thường được chơi bởi một dàn nhạc.",
+    "definition_en": "A long piece of music for an orchestra, typically in four movements.",
+    "example": "Beethoven's Ninth Symphony is one of the most famous symphonies in the world.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "art",
+      "music"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsɪm.fə.ni/"
+  },
+  {
+    "word": "opera",
+    "meaning_vn": "nhạc kịch",
+    "definition_vn": "Một hình thức nghệ thuật kết hợp âm nhạc, hát và diễn xuất.",
+    "definition_en": "A dramatic work in which music is a fundamental component and singers perform a dramatic role.",
+    "example": "The opera was performed at the grand theater.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "art",
+      "music",
+      "performance"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɒp.əɹ.ə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/opera-us.mp3"
+  },
+  {
+    "word": "canvas",
+    "meaning_vn": "vải bạt, tranh vẽ trên vải bạt",
+    "definition_vn": "Một loại vải dày được sử dụng để vẽ tranh.",
+    "definition_en": "A strong, heavy cloth used for making sails, tents, and as a surface for oil painting.",
+    "example": "The artist painted a beautiful landscape on the canvas.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "art",
+      "painting"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkæn.vəs/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/canvas-us.mp3"
+  },
+  {
+    "word": "portrait",
+    "meaning_vn": "chân dung",
+    "definition_vn": "Một bức tranh hoặc bức ảnh của một người, đặc biệt là khuôn mặt.",
+    "definition_en": "A painting, drawing, photograph, or engraving of a person, especially one depicting only the face or head and shoulders.",
+    "example": "The portrait of the queen was displayed in the museum.",
+    "level": "B1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 3,
+    "frequency_rank": 3100,
+    "tags": [
+      "art",
+      "painting",
+      "photography"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈpɔːtɹeɪt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/portrait-us.mp3"
+  },
+  {
+    "word": "abstract",
+    "meaning_vn": "trừu tượng",
+    "definition_vn": "Không đại diện cho hình ảnh thực tế, mà chỉ thể hiện ý tưởng hoặc cảm xúc.",
+    "definition_en": "Existing in thought or as an idea but not having a physical or concrete existence.",
+    "example": "The artist is known for his abstract paintings.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 4,
+    "frequency_rank": 3600,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈæbˌstɹækt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/abstract-uk.mp3"
+  },
+  {
+    "word": "realism",
+    "meaning_vn": "chủ nghĩa hiện thực",
+    "definition_vn": "Một phong cách nghệ thuật tập trung vào việc miêu tả cuộc sống một cách chính xác và trung thực.",
+    "definition_en": "The attitude or practice of accepting a situation as it is and being prepared to deal with it accordingly.",
+    "example": "The novel is praised for its realism in depicting everyday life.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 4,
+    "frequency_rank": 3700,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ɹi.əlɪzm/"
+  },
+  {
+    "word": "surrealism",
+    "meaning_vn": "chủ nghĩa siêu thực",
+    "definition_vn": "Một phong cách nghệ thuật tập trung vào việc thể hiện những hình ảnh và ý tưởng phi lý và mơ mộng.",
+    "definition_en": "A 20th-century avant-garde movement in art and literature that sought to release the creative potential of the unconscious mind.",
+    "example": "The artist's surrealism paintings are filled with bizarre and dreamlike imagery.",
+    "level": "C1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/səˈɹiː(.ə)l.ɪz.əm/"
+  },
+  {
+    "word": "impressionism",
+    "meaning_vn": "chủ nghĩa ấn tượng",
+    "definition_vn": "Một phong cách nghệ thuật tập trung vào việc thể hiện ánh sáng và màu sắc một cách tự nhiên và thoáng qua.",
+    "definition_en": "A style of painting that seeks to capture a feeling or experience rather than to achieve accurate depiction.",
+    "example": "The impressionism movement was characterized by small, thin brush strokes and an emphasis on light.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "cubism",
+    "meaning_vn": "chủ nghĩa lập thể",
+    "definition_vn": "Một phong cách nghệ thuật tập trung vào việc thể hiện các đối tượng từ nhiều góc độ khác nhau cùng một lúc.",
+    "definition_en": "An early 20th-century style of art in which perspective with a single viewpoint was abandoned and use was made of simple geometric shapes, interlocking planes, and collage.",
+    "example": "The cubism movement was pioneered by artists like Picasso and Braque.",
+    "level": "C1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 5,
+    "frequency_rank": 4800,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkjuː.bɪz.əm/"
+  },
+  {
+    "word": "renaissance",
+    "meaning_vn": "phục hưng",
+    "definition_vn": "Một thời kỳ trong lịch sử châu Âu được biết đến với sự phát triển mạnh mẽ của nghệ thuật, văn hóa và khoa học.",
+    "definition_en": "A period in European history marking the transition from the Middle Ages to modernity, characterized by a revival of art, culture, and intellectual pursuit.",
+    "example": "The Renaissance produced some of the most famous artworks in history.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 4,
+    "frequency_rank": 4200,
+    "tags": [
+      "art",
+      "history"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɹɛnəˌsɑns/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/renaissance-us.mp3"
+  },
+  {
+    "word": "baroque",
+    "meaning_vn": "baroque",
+    "definition_vn": "Một phong cách nghệ thuật và kiến trúc châu Âu đặc trưng bởi sự phức tạp và chi tiết.",
+    "definition_en": "A style of European architecture, music, and art of the 17th and 18th centuries that is characterized by ornate detail.",
+    "example": "The baroque style is known for its grandeur and richness.",
+    "level": "C1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/bæˈɹɒk/"
+  },
+  {
+    "word": "gothic",
+    "meaning_vn": "gothic",
+    "definition_vn": "Một phong cách nghệ thuật và kiến trúc châu Âu đặc trưng bởi sự tối tăm và huyền bí.",
+    "definition_en": "A style of architecture and art that flourished in Europe during the High and Late Middle Ages, characterized by pointed arches, rib vaults, and flying buttresses.",
+    "example": "The gothic architecture of the cathedral is breathtaking.",
+    "level": "C1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 5,
+    "frequency_rank": 4700,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": ""
+  },
+  {
+    "word": "minimalism",
+    "meaning_vn": "chủ nghĩa tối giản",
+    "definition_vn": "Một phong cách nghệ thuật tập trung vào sự đơn giản và loại bỏ các yếu tố không cần thiết.",
+    "definition_en": "A style or technique that is characterized by extreme spareness and simplicity.",
+    "example": "The minimalist design of the building emphasizes clean lines and open spaces.",
+    "level": "C1",
+    "source": "Cambridge B1/B2",
+    "topic": "Arts",
+    "difficulty": 5,
+    "frequency_rank": 4800,
+    "tags": [
+      "art",
+      "style"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
   },
   {
     "word": "grateful",
@@ -2732,6 +5676,82 @@
     "phonetic": ""
   },
   {
+    "word": "overwhelmed",
+    "meaning_vn": "choáng ngợp, quá tải",
+    "definition_vn": "Cảm thấy quá nhiều cảm xúc hoặc trách nhiệm đến mức không thể xử lý được.",
+    "definition_en": "Feeling a strong emotional effect or being too much to handle.",
+    "example": "She was overwhelmed with joy when she won the award.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Emotions",
+    "difficulty": 4,
+    "frequency_rank": 3600,
+    "tags": [
+      "emotion",
+      "feeling"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˌəʊvəˈwɛlmd/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/overwhelmed-us.mp3"
+  },
+  {
+    "word": "melancholy",
+    "meaning_vn": "buồn bã, u sầu",
+    "definition_vn": "Cảm thấy buồn bã và suy tư.",
+    "definition_en": "A feeling of pensive sadness, typically with no obvious cause.",
+    "example": "The melancholy music made her feel nostalgic.",
+    "level": "C1",
+    "source": "Oxford 3000",
+    "topic": "Emotions",
+    "difficulty": 5,
+    "frequency_rank": 4800,
+    "tags": [
+      "emotion",
+      "sadness"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈmelənkəli/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/melancholy-us.mp3"
+  },
+  {
+    "word": "ecstatic",
+    "meaning_vn": "phấn khích, vô cùng hạnh phúc",
+    "definition_vn": "Cảm thấy hoặc thể hiện sự vui mừng tột độ.",
+    "definition_en": "Feeling or expressing overwhelming happiness or joyful excitement.",
+    "example": "She was ecstatic about the news of her promotion.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Emotions",
+    "difficulty": 4,
+    "frequency_rank": 3700,
+    "tags": [
+      "emotion",
+      "happiness"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɛkˈstætɪk/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/ecstatic-us.mp3"
+  },
+  {
+    "word": "indignant",
+    "meaning_vn": "phẫn nộ, tức giận vì bị đối xử bất công",
+    "definition_vn": "Cảm thấy tức giận hoặc khó chịu vì cho rằng có sự bất công.",
+    "definition_en": "Feeling or showing anger or annoyance at what is perceived as unfair treatment.",
+    "example": "He was indignant about the way he was treated by the manager.",
+    "level": "C1",
+    "source": "Oxford 3000",
+    "topic": "Emotions",
+    "difficulty": 5,
+    "frequency_rank": 4600,
+    "tags": [
+      "emotion",
+      "anger"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɪnˈdɪɡ.nənt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/indignant-us.mp3"
+  },
+  {
     "word": "particle",
     "meaning_vn": "hạt, phân tử nhỏ",
     "definition_vn": "Một phần rất nhỏ của vật chất.",
@@ -2938,6 +5958,118 @@
     "partOfSpeech": "noun",
     "phonetic": "/ˈvɛəɹ.i.ə.bl̩/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/variable-us.mp3"
+  },
+  {
+    "word": "theory",
+    "meaning_vn": "lý thuyết",
+    "definition_vn": "Một hệ thống các ý tưởng được sử dụng để giải thích một hiện tượng.",
+    "definition_en": "A supposition or a system of ideas intended to explain something.",
+    "example": "The theory of relativity was developed by Einstein.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Science",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "science",
+      "concept"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈθiːəɹi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/theory-us.mp3"
+  },
+  {
+    "word": "data",
+    "meaning_vn": "dữ liệu",
+    "definition_vn": "Thông tin thu thập được từ nghiên cứu hoặc thí nghiệm.",
+    "definition_en": "Facts and statistics collected together for reference or analysis.",
+    "example": "The data from the experiment was analyzed to draw conclusions.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Science",
+    "difficulty": 3,
+    "frequency_rank": 2800,
+    "tags": [
+      "science",
+      "information"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈdaetə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/data-au-nz.mp3"
+  },
+  {
+    "word": "analysis",
+    "meaning_vn": "phân tích",
+    "definition_vn": "Quá trình xem xét dữ liệu hoặc thông tin để hiểu rõ hơn về nó.",
+    "definition_en": "Detailed examination of the elements or structure of something.",
+    "example": "The analysis of the results revealed some interesting patterns.",
+    "level": "C1",
+    "source": "Oxford 5000",
+    "topic": "Science",
+    "difficulty": 5,
+    "frequency_rank": 4300,
+    "tags": [
+      "science",
+      "research"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/əˈnælɪsɪs/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/analysis-us.mp3"
+  },
+  {
+    "word": "conclusion",
+    "meaning_vn": "kết luận",
+    "definition_vn": "Một quyết định hoặc ý kiến được đưa ra sau khi xem xét tất cả các yếu tố.",
+    "definition_en": "A judgment or decision reached after considering the relevant facts and evidence.",
+    "example": "The conclusion of the study was that the new drug is safe.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Science",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "science",
+      "result"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kənˈkluːʒən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/conclusion-us.mp3"
+  },
+  {
+    "word": "researcher",
+    "meaning_vn": "nhà nghiên cứu",
+    "definition_vn": "Người thực hiện nghiên cứu khoa học.",
+    "definition_en": "A person who conducts research.",
+    "example": "The researcher published her findings in a scientific journal.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Science",
+    "difficulty": 3,
+    "frequency_rank": 2900,
+    "tags": [
+      "science",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "scientist",
+    "meaning_vn": "nhà khoa học",
+    "definition_vn": "Người chuyên nghiên cứu và làm việc trong lĩnh vực khoa học.",
+    "definition_en": "A person who is studying or has expert knowledge of one or more of the natural or physical sciences.",
+    "example": "The scientist made a groundbreaking discovery in physics.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Science",
+    "difficulty": 3,
+    "frequency_rank": 2700,
+    "tags": [
+      "science",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsaɪ.ən.tɪst/"
   },
   {
     "word": "athlete",
@@ -3165,6 +6297,135 @@
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/equipment-us.mp3"
   },
   {
+    "word": "athletic",
+    "meaning_vn": "thuộc về thể thao, khỏe mạnh",
+    "definition_vn": "Liên quan đến thể thao hoặc có thân hình khỏe mạnh.",
+    "definition_en": "Physically strong, fit, and active.",
+    "example": "She has an athletic build from years of playing sports.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Sports",
+    "difficulty": 3,
+    "frequency_rank": 3000,
+    "tags": [
+      "sports",
+      "adjective"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/æθˈlɛt.ɪk/"
+  },
+  {
+    "word": "teamwork",
+    "meaning_vn": "làm việc nhóm",
+    "definition_vn": "Sự hợp tác giữa các thành viên trong một nhóm để đạt được mục tiêu chung.",
+    "definition_en": "The combined action of a group, especially when effective and efficient.",
+    "example": "Teamwork is essential for the success of any project.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Sports",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "sports",
+      "collaboration"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "league",
+    "meaning_vn": "giải đấu, liên đoàn",
+    "definition_vn": "Một tổ chức hoặc nhóm các đội thể thao thi đấu với nhau.",
+    "definition_en": "A collection of sports teams that compete against each other.",
+    "example": "The football league consists of 20 teams.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Sports",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "sports",
+      "competition"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/liːɡ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/league-us.mp3"
+  },
+  {
+    "word": "athletics",
+    "meaning_vn": "điền kinh",
+    "definition_vn": "Các môn thể thao liên quan đến chạy, nhảy, và ném.",
+    "definition_en": "Physical sports and games of any kind.",
+    "example": "She excels in athletics, especially in sprinting.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Sports",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "sports",
+      "category"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/æθˈlɛtɪks/"
+  },
+  {
+    "word": "olympics",
+    "meaning_vn": "thế vận hội",
+    "definition_vn": "Một sự kiện thể thao quốc tế lớn diễn ra mỗi bốn năm một lần.",
+    "definition_en": "A major international sporting event held every four years, featuring summer and winter sports competitions.",
+    "example": "The Olympics bring together athletes from around the world.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Sports",
+    "difficulty": 3,
+    "frequency_rank": 2600,
+    "tags": [
+      "sports",
+      "event"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "gymnasium",
+    "meaning_vn": "phòng tập thể dục",
+    "definition_vn": "Một tòa nhà hoặc phòng được trang bị cho việc tập thể dục và thể thao.",
+    "definition_en": "A room or building equipped for gymnastics, games, and other physical exercise.",
+    "example": "The school has a large gymnasium for students to use during PE classes.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Sports",
+    "difficulty": 3,
+    "frequency_rank": 2900,
+    "tags": [
+      "sports",
+      "places"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/dʒɪmˈneɪ.zi.əm/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/gymnasium-us.mp3"
+  },
+  {
+    "word": "swimming",
+    "meaning_vn": "bơi lội",
+    "definition_vn": "Hoạt động di chuyển trong nước bằng cách sử dụng tay và chân.",
+    "definition_en": "The sport or activity of propelling oneself through water using the limbs.",
+    "example": "Swimming is a great way to stay fit and cool off in the summer.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Sports",
+    "difficulty": 3,
+    "frequency_rank": 2800,
+    "tags": [
+      "sports",
+      "activity"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈswɪmɪŋ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/swimming-us.mp3"
+  },
+  {
     "word": "broadcast",
     "meaning_vn": "phát sóng",
     "definition_vn": "Truyền chương trình qua đài phát thanh hoặc truyền hình.",
@@ -3389,6 +6650,565 @@
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/circulation-us.mp3"
   },
   {
+    "word": "investigate",
+    "meaning_vn": "điều tra",
+    "definition_vn": "Tìm hiểu sự thật về một sự việc, thường là tội phạm hoặc vấn đề nghiêm trọng.",
+    "definition_en": "Carry out a systematic or formal inquiry to discover and examine the facts of an incident.",
+    "example": "The police are investigating the cause of the fire.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "media",
+      "crime"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "[ɪn.ˈves.tɪ.ɡeɪ̯t]",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/investigate-us.mp3"
+  },
+  {
+    "word": "scoop",
+    "meaning_vn": "tin độc quyền",
+    "definition_vn": "Một tin tức quan trọng được một tờ báo hoặc phóng viên công bố trước các đối thủ.",
+    "definition_en": "A piece of news published by a newspaper or broadcast by a television station in advance of its rivals.",
+    "example": "The newspaper got the scoop on the celebrity's secret wedding.",
+    "level": "C1",
+    "source": "Cambridge B2",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4200,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/skuːp/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/scoop-us.mp3"
+  },
+  {
+    "word": "editor",
+    "meaning_vn": "biên tập viên",
+    "definition_vn": "Người chịu trách nhiệm chỉnh sửa và quyết định nội dung của một tờ báo hoặc tạp chí.",
+    "definition_en": "A person who is in charge of and determines the final content of a newspaper, magazine, or other publication.",
+    "example": "The editor decided to feature the story on the front page.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɛdɪtə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/editor-uk.mp3"
+  },
+  {
+    "word": "headline",
+    "meaning_vn": "tiêu đề (báo)",
+    "definition_vn": "Dòng chữ lớn ở đầu một bài báo.",
+    "definition_en": "A heading at the top of an article or page in a newspaper or magazine.",
+    "example": "The scandal made front-page headlines.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "media",
+      "reading"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈhɛd.laɪn/"
+  },
+  {
+    "word": "newsworthy",
+    "meaning_vn": "đáng đưa tin",
+    "definition_vn": "Đủ quan trọng hoặc thú vị để được báo chí đưa tin.",
+    "definition_en": "Interesting enough to be reported in a newspaper or news program.",
+    "example": "The discovery of the new species was considered newsworthy by scientists.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4400,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": ""
+  },
+  {
+    "word": "sensation",
+    "meaning_vn": "cảm giác, sự giật gân",
+    "definition_vn": "Một cảm giác mạnh mẽ hoặc một sự kiện gây chú ý lớn, thường là tin tức giật gân.",
+    "definition_en": "A physical feeling or perception resulting from something that happens to or comes into contact with the body; also, an event that causes great public excitement.",
+    "example": "The celebrity's scandal became a sensation in the media.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/sɛnˈseɪʃən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/sensation-us.mp3"
+  },
+  {
+    "word": "exclusive",
+    "meaning_vn": "độc quyền",
+    "definition_vn": "Chỉ dành riêng cho một tờ báo hoặc phương tiện truyền thông nào đó.",
+    "definition_en": "Restricted to the person, group, or area concerned.",
+    "example": "The magazine published an exclusive interview with the celebrity.",
+    "level": "B2",
+    "source": "Cambridge B2",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɪkˈsklu.sɪv/"
+  },
+  {
+    "word": "media",
+    "meaning_vn": "truyền thông",
+    "definition_vn": "Các phương tiện truyền thông như báo chí, truyền hình, internet.",
+    "definition_en": "The main means of mass communication (broadcasting, publishing, and the internet) regarded collectively.",
+    "example": "The media plays a crucial role in shaping public opinion.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 1800,
+    "tags": [
+      "media",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈmiːdɪə/"
+  },
+  {
+    "word": "news",
+    "meaning_vn": "tin tức",
+    "definition_vn": "Thông tin về các sự kiện hiện tại hoặc gần đây.",
+    "definition_en": "Newly received or noteworthy information, especially about recent events.",
+    "example": "The news of the election results spread quickly.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Media",
+    "difficulty": 2,
+    "frequency_rank": 1000,
+    "tags": [
+      "media",
+      "information"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/njuːz/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/news.mp3"
+  },
+  {
+    "word": "report",
+    "meaning_vn": "báo cáo, đưa tin",
+    "definition_vn": "Cung cấp thông tin về một sự kiện hoặc tình huống.",
+    "definition_en": "Give a spoken or written account of something that one has observed, heard, done, or investigated.",
+    "example": "The journalist will report on the event live from the scene.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 1700,
+    "tags": [
+      "media",
+      "communication"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɹəˈpoːt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/report-us.mp3"
+  },
+  {
+    "word": "interview",
+    "meaning_vn": "phỏng vấn",
+    "definition_vn": "Cuộc trò chuyện giữa một người phỏng vấn và một người được phỏng vấn để thu thập thông tin.",
+    "definition_en": "A meeting of people face to face, especially for consultation.",
+    "example": "The job candidate had a successful interview with the hiring manager.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 1600,
+    "tags": [
+      "media",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɪntəvjuː/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/interview-us.mp3"
+  },
+  {
+    "word": "headline",
+    "meaning_vn": "tiêu đề (báo)",
+    "definition_vn": "Dòng chữ lớn ở đầu một bài báo.",
+    "definition_en": "A heading at the top of an article or page in a newspaper or magazine.",
+    "example": "The scandal made front-page headlines.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "media",
+      "reading"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈhɛd.laɪn/"
+  },
+  {
+    "word": "anchor",
+    "meaning_vn": "người dẫn chương trình",
+    "definition_vn": "Người dẫn chương trình tin tức trên truyền hình hoặc đài phát thanh.",
+    "definition_en": "A person who presents and coordinates a live television or radio news program.",
+    "example": "The anchor delivered the evening news with professionalism.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 2100,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈæŋ.kə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/anchor-us.mp3"
+  },
+  {
+    "word": "correspondent",
+    "meaning_vn": "phóng viên thường trú",
+    "definition_vn": "Người đưa tin từ một địa điểm cụ thể, thường là nước ngoài.",
+    "definition_en": "A person employed to report news from a particular place or on a particular subject.",
+    "example": "The correspondent reported live from the scene of the disaster.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌkɒɹɪˈspɒndənt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/correspondent-us.mp3"
+  },
+  {
+    "word": "editorial",
+    "meaning_vn": "bài xã luận",
+    "definition_vn": "Bài viết thể hiện quan điểm chính thức của ban biên tập một tờ báo.",
+    "definition_en": "A newspaper article written by or on behalf of an editor that gives an opinion on a topical issue.",
+    "example": "The newspaper published a strong editorial criticizing the new policy.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 4100,
+    "tags": [
+      "media",
+      "opinion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌɛdɪˈtɔːɹɪəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/editorial-us.mp3"
+  },
+  {
+    "word": "columnist",
+    "meaning_vn": "cây bút chuyên mục",
+    "definition_vn": "Người viết bài thường xuyên cho một tờ báo hoặc tạp chí về một chủ đề cụ thể.",
+    "definition_en": "A journalist who writes a regular column in a newspaper or magazine.",
+    "example": "The columnist is known for her witty and insightful commentary.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkɒ.lə.mɪst/"
+  },
+  {
+    "word": "tabloid",
+    "meaning_vn": "báo lá cải, báo khổ nhỏ",
+    "definition_vn": "Loại báo thường tập trung vào những tin tức giật gân, giải trí.",
+    "definition_en": "A type of popular newspaper with small pages that has many pictures and short, simple reports.",
+    "example": "He sued the tabloid for publishing false rumors about his personal life.",
+    "level": "C1",
+    "source": "Cambridge B2",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4300,
+    "tags": [
+      "media",
+      "reading"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈtæblɔɪd/"
+  },
+  {
+    "word": "censorship",
+    "meaning_vn": "sự kiểm duyệt",
+    "definition_vn": "Việc kiểm soát hoặc cấm thông tin truyền thông.",
+    "definition_en": "The suppression or prohibition of any parts of books, films, news, etc.",
+    "example": "The internet in that country is subject to strict censorship.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4800,
+    "tags": [
+      "media",
+      "politics"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsɛnsəˌʃɪp/"
+  },
+  {
+    "word": "propaganda",
+    "meaning_vn": "sự tuyên truyền",
+    "definition_vn": "Thông tin thường mang tính thiên vị nhằm định hướng dư luận, chính trị.",
+    "definition_en": "Information, especially of a biased or misleading nature, used to promote a political cause.",
+    "example": "The government was accused of spreading propaganda during the war.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4600,
+    "tags": [
+      "media",
+      "politics"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "[ˌpɹɒp.ə.ˈɡæn.də]",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/propaganda-us.mp3"
+  },
+  {
+    "word": "newsworthy",
+    "meaning_vn": "đáng đưa tin",
+    "definition_vn": "Đủ quan trọng hoặc thú vị để được báo chí đưa tin.",
+    "definition_en": "Interesting enough to be reported in a newspaper or news program.",
+    "example": "The discovery of the new species was considered newsworthy by scientists.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4400,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": ""
+  },
+  {
+    "word": "sensation",
+    "meaning_vn": "cảm giác, sự giật gân",
+    "definition_vn": "Một cảm giác mạnh mẽ hoặc một sự kiện gây chú ý lớn, thường là tin tức giật gân.",
+    "definition_en": "A physical feeling or perception resulting from something that happens to or comes into contact with the body; also, an event that causes great public excitement.",
+    "example": "The celebrity's scandal became a sensation in the media.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/sɛnˈseɪʃən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/sensation-us.mp3"
+  },
+  {
+    "word": "exclusive",
+    "meaning_vn": "độc quyền",
+    "definition_vn": "Chỉ dành riêng cho một tờ báo hoặc phương tiện truyền thông nào đó.",
+    "definition_en": "Restricted to the person, group, or area concerned.",
+    "example": "The magazine published an exclusive interview with the celebrity.",
+    "level": "B2",
+    "source": "Cambridge B2",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɪkˈsklu.sɪv/"
+  },
+  {
+    "word": "circulation",
+    "meaning_vn": "lượng phát hành",
+    "definition_vn": "Số lượng bản sao của một tờ báo hoặc tạp chí được bán ra.",
+    "definition_en": "The number of copies of a newspaper or magazine that are distributed.",
+    "example": "The daily newspaper has a weekly circulation of over 100,000 copies.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 3900,
+    "tags": [
+      "media",
+      "business"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌsɜː(ɹ).kjʊˈleɪ.ʃən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/circulation-us.mp3"
+  },
+  {
+    "word": "investigate",
+    "meaning_vn": "điều tra",
+    "definition_vn": "Tìm hiểu sự thật về một sự việc, thường là tội phạm hoặc vấn đề nghiêm trọng.",
+    "definition_en": "Carry out a systematic or formal inquiry to discover and examine the facts of an incident.",
+    "example": "The police are investigating the cause of the fire.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "media",
+      "crime"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "[ɪn.ˈves.tɪ.ɡeɪ̯t]",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/investigate-us.mp3"
+  },
+  {
+    "word": "scoop",
+    "meaning_vn": "tin độc quyền",
+    "definition_vn": "Một tin tức quan trọng được một tờ báo hoặc phóng viên công bố trước các đối thủ.",
+    "definition_en": "A piece of news published by a newspaper or broadcast by a television station in advance of its rivals.",
+    "example": "The newspaper got the scoop on the celebrity's secret wedding.",
+    "level": "C1",
+    "source": "Cambridge B2",
+    "topic": "Media",
+    "difficulty": 5,
+    "frequency_rank": 4200,
+    "tags": [
+      "media",
+      "news"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/skuːp/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/scoop-us.mp3"
+  },
+  {
+    "word": "editor",
+    "meaning_vn": "biên tập viên",
+    "definition_vn": "Người chịu trách nhiệm chỉnh sửa và quyết định nội dung của một tờ báo hoặc tạp chí.",
+    "definition_en": "A person who is in charge of and determines the final content of a newspaper, magazine, or other publication.",
+    "example": "The editor decided to feature the story on the front page.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɛdɪtə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/editor-uk.mp3"
+  },
+  {
+    "word": "anchor",
+    "meaning_vn": "người dẫn chương trình",
+    "definition_vn": "Người dẫn chương trình tin tức trên truyền hình hoặc đài phát thanh.",
+    "definition_en": "A person who presents and coordinates a live television or radio news program.",
+    "example": "The anchor delivered the evening news with professionalism.",
+    "level": "B1",
+    "source": "Oxford 5000",
+    "topic": "Media",
+    "difficulty": 3,
+    "frequency_rank": 2100,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈæŋ.kə/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/anchor-us.mp3"
+  },
+  {
+    "word": "correspondent",
+    "meaning_vn": "phóng viên thường trú",
+    "definition_vn": "Người đưa tin từ một địa điểm cụ thể, thường là nước ngoài.",
+    "definition_en": "A person employed to report news from a particular place or on a particular subject.",
+    "example": "The correspondent reported live from the scene of the disaster.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌkɒɹɪˈspɒndənt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/correspondent-us.mp3"
+  },
+  {
+    "word": "editorial",
+    "meaning_vn": "bài xã luận",
+    "definition_vn": "Bài viết thể hiện quan điểm chính thức của ban biên tập một tờ báo.",
+    "definition_en": "A newspaper article written by or on behalf of an editor that gives an opinion on a topical issue.",
+    "example": "The newspaper published a strong editorial criticizing the new policy.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 4100,
+    "tags": [
+      "media",
+      "opinion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌɛdɪˈtɔːɹɪəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/editorial-us.mp3"
+  },
+  {
+    "word": "columnist",
+    "meaning_vn": "cây bút chuyên mục",
+    "definition_vn": "Người viết bài thường xuyên cho một tờ báo hoặc tạp chí về một chủ đề cụ thể.",
+    "definition_en": "A journalist who writes a regular column in a newspaper or magazine.",
+    "example": "The columnist is known for her witty and insightful commentary.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Media",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "media",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkɒ.lə.mɪst/"
+  },
+  {
     "word": "evidence",
     "meaning_vn": "bằng chứng",
     "definition_vn": "Thông tin chứng minh điều gì đó là đúng hay sai.",
@@ -3575,6 +7395,229 @@
     ],
     "partOfSpeech": "verb",
     "phonetic": "/ˈtɛstɪfaɪ/"
+  },
+  {
+    "word": "sentence",
+    "meaning_vn": "bản án, tuyên án",
+    "definition_vn": "Hình phạt được tòa án áp đặt cho một người bị kết tội.",
+    "definition_en": "The punishment assigned to a defendant found guilty by a court.",
+    "example": "The judge sentenced him to five years in prison.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Law",
+    "difficulty": 3,
+    "frequency_rank": 2200,
+    "tags": [
+      "law",
+      "court"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "[ˈsɛntn̩t͡s]",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/sentence-us.mp3"
+  },
+  {
+    "word": "appeal",
+    "meaning_vn": "kháng cáo",
+    "definition_vn": "Yêu cầu một tòa án cao hơn xem xét lại quyết định của tòa án thấp hơn.",
+    "definition_en": "Apply to a higher court for a reversal of the decision of a lower court.",
+    "example": "The defendant plans to appeal the conviction.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4800,
+    "tags": [
+      "law",
+      "court"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/əˈpiːl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/appeal-au.mp3"
+  },
+  {
+    "word": "prosecution",
+    "meaning_vn": "sự truy tố",
+    "definition_vn": "Quá trình pháp lý trong đó một người bị buộc tội trước tòa án.",
+    "definition_en": "The institution and conducting of legal proceedings against someone in respect of a criminal charge.",
+    "example": "The prosecution presented strong evidence against the defendant.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4700,
+    "tags": [
+      "law",
+      "court"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌpɹɑ.səˈkju.ʃən/"
+  },
+  {
+    "word": "defendant",
+    "meaning_vn": "bị cáo",
+    "definition_vn": "Người bị buộc tội trong một vụ kiện.",
+    "definition_en": "An individual, company, or institution sued or accused in a court of law.",
+    "example": "The defendant pleaded not guilty to the charges.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "law",
+      "court"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/dɪˈfɛnd.ənt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/defendant-us.mp3"
+  },
+  {
+    "word": "jury",
+    "meaning_vn": "bồi thẩm đoàn",
+    "definition_vn": "Nhóm người được chọn để đánh giá bằng chứng và đưa ra phán quyết trong một vụ kiện.",
+    "definition_en": "A body of people sworn to give a verdict in a legal case on the basis of evidence submitted to them.",
+    "example": "The jury found the defendant guilty after deliberating for two days.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "law",
+      "court"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈd͡ʒʊə.ɹi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/jury-us.mp3"
+  },
+  {
+    "word": "corruption",
+    "meaning_vn": "tham nhũng",
+    "definition_vn": "Hành vi lạm dụng quyền lực để trục lợi cá nhân.",
+    "definition_en": "Dishonest or fraudulent conduct by those in power, typically involving bribery.",
+    "example": "The government has launched a campaign to fight corruption.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4800,
+    "tags": [
+      "law",
+      "politics"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kəˈɹʌpʃən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/corruption-us.mp3"
+  },
+  {
+    "word": "bribery",
+    "meaning_vn": "hối lộ",
+    "definition_vn": "Hành vi đưa hoặc nhận tiền hoặc quà tặng để đổi lấy sự ưu ái hoặc hành động không công bằng.",
+    "definition_en": "The giving or receiving of a bribe.",
+    "example": "The official was arrested for accepting bribery from a construction company.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4700,
+    "tags": [
+      "law",
+      "crime"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈbɹaɪbəɹi/"
+  },
+  {
+    "word": "embezzlement",
+    "meaning_vn": "tham ô, biển thủ",
+    "definition_vn": "Hành vi chiếm đoạt tài sản của người khác một cách bất hợp pháp.",
+    "definition_en": "Theft or misappropriation of funds placed in one's trust or belonging to one's employer.",
+    "example": "The accountant was charged with embezzlement after stealing company funds.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4600,
+    "tags": [
+      "law",
+      "crime"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌəmˈbɛzəlmənt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/embezzlement-us.mp3"
+  },
+  {
+    "word": "homicide",
+    "meaning_vn": "tội giết người",
+    "definition_vn": "Hành vi giết người một cách bất hợp pháp.",
+    "definition_en": "The deliberate and unlawful killing of one person by another.",
+    "example": "The detective is investigating a homicide case.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "law",
+      "crime"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈhɒmɪsaɪd/"
+  },
+  {
+    "word": "manslaughter",
+    "meaning_vn": "tội ngộ sát",
+    "definition_vn": "Hành vi giết người nhưng không có ý định trước.",
+    "definition_en": "The unlawful killing of a human being without malice aforethought.",
+    "example": "He was charged with manslaughter after the fatal car accident.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4400,
+    "tags": [
+      "law",
+      "crime"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "kidnapping",
+    "meaning_vn": "tội bắt cóc",
+    "definition_vn": "Hành vi bắt cóc người khác để đòi tiền chuộc hoặc mục đích xấu khác.",
+    "definition_en": "The unlawful carrying away of a person against their will, usually to hold them for ransom.",
+    "example": "The child was rescued after a kidnapping incident.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4300,
+    "tags": [
+      "law",
+      "crime"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "robbery",
+    "meaning_vn": "tội cướp",
+    "definition_vn": "Hành vi lấy đi tài sản của người khác bằng vũ lực hoặc đe dọa.",
+    "definition_en": "The unlawful taking of property from a person or place by force or threat of force.",
+    "example": "The bank was the target of a robbery last night.",
+    "level": "C1",
+    "source": "IELTS Core",
+    "topic": "Law",
+    "difficulty": 5,
+    "frequency_rank": 4200,
+    "tags": [
+      "law",
+      "crime"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɹɒbəɹi/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/robbery-us.mp3"
   },
   {
     "word": "cognitive",
@@ -3797,6 +7840,97 @@
     "partOfSpeech": "adjective",
     "phonetic": "/ˈkɒn.ʃəs/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/conscious-us.mp3"
+  },
+  {
+    "word": "depression",
+    "meaning_vn": "trầm cảm",
+    "definition_vn": "Một rối loạn tâm lý nghiêm trọng gây ra cảm giác buồn bã, mất hứng thú và các vấn đề về sức khỏe tâm thần khác.",
+    "definition_en": "A mental health disorder characterized by persistently depressed mood or loss of interest in activities.",
+    "example": "She has been diagnosed with clinical depression and is receiving treatment.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Psychology",
+    "difficulty": 4,
+    "frequency_rank": 2700,
+    "tags": [
+      "psychology",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/dɪˈpɹɛʃən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/depression-us.mp3"
+  },
+  {
+    "word": "phobia",
+    "meaning_vn": "nỗi sợ hãi",
+    "definition_vn": "Một nỗi sợ hãi mạnh mẽ và không hợp lý đối với một đối tượng hoặc tình huống cụ thể.",
+    "definition_en": "An extreme or irrational fear of or aversion to something.",
+    "example": "She has a phobia of spiders and can't even look at pictures of them.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Psychology",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "psychology",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈfəʊbi.ə/"
+  },
+  {
+    "word": "obsession",
+    "meaning_vn": "sự ám ảnh",
+    "definition_vn": "Một ý nghĩ, hình ảnh hoặc cảm xúc lặp đi lặp lại và không mong muốn.",
+    "definition_en": "An idea or thought that continually preoccupies or intrudes on a person's mind.",
+    "example": "He has an obsession with cleanliness and washes his hands constantly.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Psychology",
+    "difficulty": 4,
+    "frequency_rank": 3300,
+    "tags": [
+      "psychology",
+      "mind"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/əbˈsɛʃən/"
+  },
+  {
+    "word": "compulsion",
+    "meaning_vn": "sự ép buộc",
+    "definition_vn": "Một hành động hoặc hành vi mà một người cảm thấy bị ép buộc phải thực hiện, thường là không mong muốn.",
+    "definition_en": "An irresistible urge to behave in a certain way, especially against one's conscious wishes.",
+    "example": "She has a compulsion to check the locks on the doors multiple times before leaving the house.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Psychology",
+    "difficulty": 4,
+    "frequency_rank": 3400,
+    "tags": [
+      "psychology",
+      "mind"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kəmˈpʌl.ʃən/"
+  },
+  {
+    "word": "addiction",
+    "meaning_vn": "sự nghiện ngập",
+    "definition_vn": "Tình trạng bị lệ thuộc vào một chất hoặc hành vi nào đó, thường là có hại.",
+    "definition_en": "The fact or condition of being addicted to a particular substance or activity.",
+    "example": "He is seeking treatment for his addiction to alcohol.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Psychology",
+    "difficulty": 4,
+    "frequency_rank": 3600,
+    "tags": [
+      "psychology",
+      "health"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/əˈdɪkʃən/"
   },
   {
     "word": "infrastructure",
@@ -4039,6 +8173,245 @@
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/pavement-uk.mp3"
   },
   {
+    "word": "alley",
+    "meaning_vn": "hẻm, ngõ",
+    "definition_vn": "Một con đường nhỏ hẹp giữa các tòa nhà, thường là nơi để xe hoặc đi bộ.",
+    "definition_en": "A narrow passageway between or behind buildings.",
+    "example": "The café is located down a quiet alley in the city center.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "City",
+    "difficulty": 4,
+    "frequency_rank": 4700,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈæ.li/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/alley-us.mp3"
+  },
+  {
+    "word": "public transport",
+    "meaning_vn": "phương tiện giao thông công cộng",
+    "definition_vn": "Hệ thống phương tiện giao thông được sử dụng chung bởi công chúng, như xe buýt, tàu điện ngầm.",
+    "definition_en": "A system of transport for passengers by group travel systems available for use by the general public.",
+    "example": "Many people in the city rely on public transport to get to work.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/public%20transport-au.mp3"
+  },
+  {
+    "word": "traffic jam",
+    "meaning_vn": "tắc đường",
+    "definition_vn": "Một tình trạng giao thông bị tắc nghẽn do quá nhiều xe cộ trên đường.",
+    "definition_en": "A line or lines of stationary or very slow-moving traffic.",
+    "example": "We were stuck in a traffic jam for over an hour.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "city",
+      "traffic"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "commuter",
+    "meaning_vn": "người đi làm",
+    "definition_vn": "Người thường xuyên di chuyển từ nhà đến nơi làm việc và ngược lại.",
+    "definition_en": "A person who travels some distance to work on a regular basis.",
+    "example": "The train is crowded with commuters during rush hour.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 2600,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "downtown",
+    "meaning_vn": "trung tâm thành phố",
+    "definition_vn": "Khu vực trung tâm thương mại hoặc kinh doanh chính của một thành phố.",
+    "definition_en": "In, to, or toward the central area or main business and commercial area of a city.",
+    "example": "We are planning to open a new branch in downtown Chicago.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 2300,
+    "tags": [
+      "city",
+      "business"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "subway",
+    "meaning_vn": "tàu điện ngầm",
+    "definition_vn": "Hệ thống tàu điện chạy dưới lòng đất trong thành phố.",
+    "definition_en": "An underground electric railway system used for mass transit in urban areas.",
+    "example": "The subway is the fastest way to get around the city during rush hour.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 2700,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsʌbˌweɪ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/subway-us.mp3"
+  },
+  {
+    "word": "bus stop",
+    "meaning_vn": "trạm xe buýt",
+    "definition_vn": "Nơi mà xe buýt dừng để đón và trả khách.",
+    "definition_en": "A designated place where a bus regularly stops to pick up or drop off passengers.",
+    "example": "The bus stop is just around the corner from my house.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 2800,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "taxi",
+    "meaning_vn": "xe taxi",
+    "definition_vn": "Một loại xe dịch vụ chở khách có tính phí theo quãng đường hoặc thời gian.",
+    "definition_en": "A car licensed to transport passengers in return for payment of a fare.",
+    "example": "I took a taxi to the airport because I had a lot of luggage.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 2900,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈtæk.si/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/taxi-uk.mp3"
+  },
+  {
+    "word": "parking lot",
+    "meaning_vn": "bãi đậu xe",
+    "definition_vn": "Một khu vực được chỉ định để đậu xe ô tô.",
+    "definition_en": "An area or building where vehicles may be left temporarily.",
+    "example": "The shopping mall has a large parking lot for customers.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 3000,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "crosswalk",
+    "meaning_vn": "vạch qua đường",
+    "definition_vn": "Khu vực được đánh dấu trên đường dành cho người đi bộ qua đường an toàn.",
+    "definition_en": "A marked part of a road where pedestrians have right of way to cross.",
+    "example": "Always use the crosswalk when crossing the street.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "City",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "roundabout",
+    "meaning_vn": "vòng xuyến",
+    "definition_vn": "Một giao lộ hình tròn nơi các phương tiện di chuyển xung quanh một đảo trung tâm.",
+    "definition_en": "A circular junction in which road traffic flows almost continuously in one direction around a central island.",
+    "example": "Take the second exit at the roundabout to get to the shopping center.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "City",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "city",
+      "transport"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/roundabout-au.mp3"
+  },
+  {
+    "word": "high-rise",
+    "meaning_vn": "cao tầng",
+    "definition_vn": "Một tòa nhà có nhiều tầng, thường là hơn 12 tầng.",
+    "definition_en": "A building with many stories.",
+    "example": "The city skyline is dominated by high-rise buildings.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "City",
+    "difficulty": 4,
+    "frequency_rank": 4200,
+    "tags": [
+      "city",
+      "architecture"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": ""
+  },
+  {
+    "word": "gentrification",
+    "meaning_vn": "sự đô thị hóa, sự làm đẹp khu phố",
+    "definition_vn": "Quá trình cải tạo một khu vực đô thị cũ kỹ để thu hút cư dân giàu có hơn, thường dẫn đến việc đẩy đuổi cư dân gốc.",
+    "definition_en": "The process of renovating and improving a house or district so that it conforms to middle-class taste.",
+    "example": "Gentrification has led to rising property prices in the neighborhood.",
+    "level": "C1",
+    "source": "Oxford 5000",
+    "topic": "City",
+    "difficulty": 5,
+    "frequency_rank": 4800,
+    "tags": [
+      "city",
+      "society"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/dʒɛntɹɪfɪˈkeɪʃən/"
+  },
+  {
     "word": "acquaintance",
     "meaning_vn": "người quen",
     "definition_vn": "Người mà bạn biết nhưng không phải là bạn thân.",
@@ -4264,6 +8637,548 @@
     "phonetic": "/ɪntəɹˈækt/"
   },
   {
+    "word": "compassion",
+    "meaning_vn": "lòng trắc ẩn",
+    "definition_vn": "Sự cảm thông và mong muốn giúp đỡ người khác khi họ đang gặp khó khăn.",
+    "definition_en": "Sympathetic pity and concern for the sufferings or misfortunes of others.",
+    "example": "She showed great compassion for the homeless people in her city.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4300,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kəmˈpæʃ.ən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/compassion-us.mp3"
+  },
+  {
+    "word": "loyalty",
+    "meaning_vn": "sự trung thành",
+    "definition_vn": "Sự trung thành và cam kết đối với một người, nhóm hoặc nguyên tắc nào đó.",
+    "definition_en": "A strong feeling of support or allegiance.",
+    "example": "His loyalty to his friends is unwavering.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4400,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlɔɪəlti/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/loyalty-us.mp3"
+  },
+  {
+    "word": "empathy",
+    "meaning_vn": "sự đồng cảm",
+    "definition_vn": "Khả năng hiểu và chia sẻ cảm xúc của người khác.",
+    "definition_en": "The ability to understand and share the feelings of another.",
+    "example": "Empathy is an important quality for anyone working in healthcare.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4500,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɛmpəθi/"
+  },
+  {
+    "word": "companion",
+    "meaning_vn": "người đồng hành",
+    "definition_vn": "Một người đi cùng hoặc dành nhiều thời gian với ai đó.",
+    "definition_en": "A person with whom one spends a lot of time or with whom one travels.",
+    "example": "He was my travelling companion in Europe.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3100,
+    "tags": [
+      "social",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kəmˈpænjən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/companion-us.mp3"
+  },
+  {
+    "word": "compromise",
+    "meaning_vn": "thỏa hiệp",
+    "definition_vn": "Đạt được thỏa thuận bằng cách mỗi bên nhượng bộ một chút.",
+    "definition_en": "An agreement reached by each side making concessions.",
+    "example": "We need to reach a compromise on this issue.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 2400,
+    "tags": [
+      "social",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkɒmpɹəˌmaɪz/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/compromise-uk.mp3"
+  },
+  {
+    "word": "acquaintance",
+    "meaning_vn": "người quen",
+    "definition_vn": "Người mà bạn biết nhưng không phải là bạn thân.",
+    "definition_en": "A person one knows slightly, but who is not a close friend.",
+    "example": "She is just a business acquaintance.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "social",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/əˈkweɪntəns/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/acquaintance-us.mp3"
+  },
+  {
+    "word": "loyalty",
+    "meaning_vn": "sự trung thành",
+    "definition_vn": "Sự trung thành và cam kết đối với một người, nhóm hoặc nguyên tắc nào đó.",
+    "definition_en": "A strong feeling of support or allegiance.",
+    "example": "His loyalty to his friends is unwavering.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4400,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlɔɪəlti/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/loyalty-us.mp3"
+  },
+  {
+    "word": "empathy",
+    "meaning_vn": "sự đồng cảm",
+    "definition_vn": "Khả năng hiểu và chia sẻ cảm xúc của người khác.",
+    "definition_en": "The ability to understand and share the feelings of another.",
+    "example": "Empathy is an important quality for anyone working in healthcare.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4500,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɛmpəθi/"
+  },
+  {
+    "word": "compassion",
+    "meaning_vn": "lòng trắc ẩn",
+    "definition_vn": "Sự cảm thông và mong muốn giúp đỡ người khác khi họ đang gặp khó khăn.",
+    "definition_en": "Sympathetic pity and concern for the sufferings or misfortunes of others.",
+    "example": "She showed great compassion for the homeless people in her city.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4300,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kəmˈpæʃ.ən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/compassion-us.mp3"
+  },
+  {
+    "word": "interact",
+    "meaning_vn": "tương tác",
+    "definition_vn": "Giao tiếp hoặc tham gia trực tiếp với những người khác.",
+    "definition_en": "Communicate or be involved directly.",
+    "example": "Teachers observe how the children interact with each other in groups.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 2500,
+    "tags": [
+      "social",
+      "communication"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɪntəɹˈækt/"
+  },
+  {
+    "word": "sibling",
+    "meaning_vn": "anh chị em ruột",
+    "definition_vn": "Người có chung một hoặc cả hai cha mẹ với bạn.",
+    "definition_en": "Each of two or more children or offspring having one or both parents in common.",
+    "example": "He has no siblings and grew up as an only child.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4100,
+    "tags": [
+      "social",
+      "family"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsɪblɪŋ/"
+  },
+  {
+    "word": "trust",
+    "meaning_vn": "sự tin tưởng",
+    "definition_vn": "Niềm tin vững chắc vào sự đáng tin cậy hoặc sự thật của ai đó.",
+    "definition_en": "Firm belief in the reliability, truth, ability, or strength of someone.",
+    "example": "Trust is the absolute foundation of any successful marriage.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 3,
+    "frequency_rank": 1300,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/trʊst/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/trust-us.mp3"
+  },
+  {
+    "word": "respect",
+    "meaning_vn": "sự tôn trọng",
+    "definition_vn": "Sự ngưỡng mộ sâu sắc đối với ai đó vì phẩm chất của họ.",
+    "definition_en": "A feeling of deep admiration for someone elicited by their abilities or qualities.",
+    "example": "A healthy relationship is built on mutual respect.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 3,
+    "frequency_rank": 1500,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ɹɪˈspɛkt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/respect-uk.mp3"
+  },
+  {
+    "word": "intimate",
+    "meaning_vn": "thân mật, gần gũi",
+    "definition_vn": "Rất quen thuộc và gắn bó mật thiết với ai đó.",
+    "definition_en": "Closely acquainted; familiar, close.",
+    "example": "They have had an intimate friendship since childhood.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3700,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈɪn.tɪ.mət/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/intimate-us.mp3"
+  },
+  {
+    "word": "supportive",
+    "meaning_vn": "mang tính hỗ trợ, thông cảm",
+    "definition_vn": "Cung cấp sự khuyến khích hoặc giúp đỡ về mặt tinh thần.",
+    "definition_en": "Providing encouragement or emotional help.",
+    "example": "I am lucky to have such a supportive family.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/səˈpɔːtɪv/"
+  },
+  {
+    "word": "reliable",
+    "meaning_vn": "đáng tin cậy",
+    "definition_vn": "Có thể tin tưởng hoặc dựa vào vì luôn cư xử đúng mực.",
+    "definition_en": "Consistently good in quality or performance; able to be trusted.",
+    "example": "She is a very reliable friend who is always there for me.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 3,
+    "frequency_rank": 2100,
+    "tags": [
+      "social",
+      "personality"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ɹɪˈlaɪəbəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/reliable-us.mp3"
+  },
+  {
+    "word": "conflict",
+    "meaning_vn": "xung đột, sự mâu thuẫn",
+    "definition_vn": "Sự bất đồng nghiêm trọng hoặc cãi vã.",
+    "definition_en": "A serious disagreement or argument.",
+    "example": "It is normal for couples to have occasional conflicts.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 1900,
+    "tags": [
+      "social",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kənˈflɪkt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/conflict-us.mp3"
+  },
+  {
+    "word": "companion",
+    "meaning_vn": "người đồng hành",
+    "definition_vn": "Một người đi cùng hoặc dành nhiều thời gian với ai đó.",
+    "definition_en": "A person with whom one spends a lot of time or with whom one travels.",
+    "example": "He was my travelling companion in Europe.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3100,
+    "tags": [
+      "social",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kəmˈpænjən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/companion-us.mp3"
+  },
+  {
+    "word": "compromise",
+    "meaning_vn": "thỏa hiệp",
+    "definition_vn": "Đạt được thỏa thuận bằng cách mỗi bên nhượng bộ một chút.",
+    "definition_en": "An agreement reached by each side making concessions.",
+    "example": "We need to reach a compromise on this issue.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 2400,
+    "tags": [
+      "social",
+      "communication"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkɒmpɹəˌmaɪz/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/compromise-uk.mp3"
+  },
+  {
+    "word": "acquaintance",
+    "meaning_vn": "người quen",
+    "definition_vn": "Người mà bạn biết nhưng không phải là bạn thân.",
+    "definition_en": "A person one knows slightly, but who is not a close friend.",
+    "example": "She is just a business acquaintance.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3200,
+    "tags": [
+      "social",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/əˈkweɪntəns/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/acquaintance-us.mp3"
+  },
+  {
+    "word": "loyalty",
+    "meaning_vn": "sự trung thành",
+    "definition_vn": "Sự trung thành và cam kết đối với một người, nhóm hoặc nguyên tắc nào đó.",
+    "definition_en": "A strong feeling of support or allegiance.",
+    "example": "His loyalty to his friends is unwavering.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4400,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlɔɪəlti/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/loyalty-us.mp3"
+  },
+  {
+    "word": "empathy",
+    "meaning_vn": "sự đồng cảm",
+    "definition_vn": "Khả năng hiểu và chia sẻ cảm xúc của người khác.",
+    "definition_en": "The ability to understand and share the feelings of another.",
+    "example": "Empathy is an important quality for anyone working in healthcare.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4500,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɛmpəθi/"
+  },
+  {
+    "word": "compassion",
+    "meaning_vn": "lòng trắc ẩn",
+    "definition_vn": "Sự cảm thông và mong muốn giúp đỡ người khác khi họ đang gặp khó khăn.",
+    "definition_en": "Sympathetic pity and concern for the sufferings or misfortunes of others.",
+    "example": "She showed great compassion for the homeless people in her city.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4300,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/kəmˈpæʃ.ən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/compassion-us.mp3"
+  },
+  {
+    "word": "interact",
+    "meaning_vn": "tương tác",
+    "definition_vn": "Giao tiếp hoặc tham gia trực tiếp với những người khác.",
+    "definition_en": "Communicate or be involved directly.",
+    "example": "Teachers observe how the children interact with each other in groups.",
+    "level": "B2",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 2500,
+    "tags": [
+      "social",
+      "communication"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɪntəɹˈækt/"
+  },
+  {
+    "word": "sibling",
+    "meaning_vn": "anh chị em ruột",
+    "definition_vn": "Người có chung một hoặc cả hai cha mẹ với bạn.",
+    "definition_en": "Each of two or more children or offspring having one or both parents in common.",
+    "example": "He has no siblings and grew up as an only child.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 4100,
+    "tags": [
+      "social",
+      "family"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsɪblɪŋ/"
+  },
+  {
+    "word": "trust",
+    "meaning_vn": "sự tin tưởng",
+    "definition_vn": "Niềm tin vững chắc vào sự đáng tin cậy hoặc sự thật của ai đó.",
+    "definition_en": "Firm belief in the reliability, truth, ability, or strength of someone.",
+    "example": "Trust is the absolute foundation of any successful marriage.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 3,
+    "frequency_rank": 1300,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/trʊst/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/trust-us.mp3"
+  },
+  {
+    "word": "respect",
+    "meaning_vn": "sự tôn trọng",
+    "definition_vn": "Sự ngưỡng mộ sâu sắc đối với ai đó vì phẩm chất của họ.",
+    "definition_en": "A feeling of deep admiration for someone elicited by their abilities or qualities.",
+    "example": "A healthy relationship is built on mutual respect.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Relationships",
+    "difficulty": 3,
+    "frequency_rank": 1500,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ɹɪˈspɛkt/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/respect-uk.mp3"
+  },
+  {
+    "word": "intimate",
+    "meaning_vn": "thân mật, gần gũi",
+    "definition_vn": "Rất quen thuộc và gắn bó mật thiết với ai đó.",
+    "definition_en": "Closely acquainted; familiar, close.",
+    "example": "They have had an intimate friendship since childhood.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3700,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈɪn.tɪ.mət/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/intimate-us.mp3"
+  },
+  {
+    "word": "supportive",
+    "meaning_vn": "mang tính hỗ trợ, thông cảm",
+    "definition_vn": "Cung cấp sự khuyến khích hoặc giúp đỡ về mặt tinh thần.",
+    "definition_en": "Providing encouragement or emotional help.",
+    "example": "I am lucky to have such a supportive family.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Relationships",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "social",
+      "emotion"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/səˈpɔːtɪv/"
+  },
+  {
     "word": "investment",
     "meaning_vn": "sự đầu tư",
     "definition_vn": "Việc đưa tiền vào để kiếm lợi nhuận.",
@@ -4485,6 +9400,60 @@
     "partOfSpeech": "noun",
     "phonetic": "/tɹænˈzækʃən/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/transaction-us.mp3"
+  },
+  {
+    "word": "liquidity",
+    "meaning_vn": "tính thanh khoản",
+    "definition_vn": "Khả năng chuyển đổi tài sản thành tiền mặt một cách nhanh chóng mà không làm giảm giá trị.",
+    "definition_en": "The availability of liquid assets to a market or company.",
+    "example": "The company is facing liquidity issues due to delayed payments from clients.",
+    "level": "C1",
+    "source": "TOEIC Core",
+    "topic": "Finance",
+    "difficulty": 5,
+    "frequency_rank": 4300,
+    "tags": [
+      "finance",
+      "investment"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/lɪkˈwɪdəti/"
+  },
+  {
+    "word": "equity",
+    "meaning_vn": "vốn chủ sở hữu",
+    "definition_vn": "Giá trị của cổ phần trong một công ty hoặc tài sản sau khi trừ đi nợ.",
+    "definition_en": "The value of the shares issued by a company.",
+    "example": "She owns 20% equity in the business.",
+    "level": "C1",
+    "source": "TOEIC Core",
+    "topic": "Finance",
+    "difficulty": 5,
+    "frequency_rank": 4400,
+    "tags": [
+      "finance",
+      "investment"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɛk.wɪ.ti/"
+  },
+  {
+    "word": "diversification",
+    "meaning_vn": "sự đa dạng hóa",
+    "definition_vn": "Chiến lược đầu tư nhằm giảm rủi ro bằng cách phân bổ tài sản vào nhiều loại đầu tư khác nhau.",
+    "definition_en": "A risk management strategy that mixes a wide variety of investments within a portfolio.",
+    "example": "Diversification can help reduce the overall risk of your investment portfolio.",
+    "level": "C1",
+    "source": "TOEIC Core",
+    "topic": "Finance",
+    "difficulty": 5,
+    "frequency_rank": 4500,
+    "tags": [
+      "finance",
+      "investment"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/daɪˌvɜːsɪfɪˈkeɪʃən/"
   },
   {
     "word": "landscape",
@@ -4941,6 +9910,211 @@
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/shift-ca.mp3"
   },
   {
+    "word": "overtime",
+    "meaning_vn": "làm thêm giờ",
+    "definition_vn": "Thời gian làm việc vượt quá giờ làm việc bình thường.",
+    "definition_en": "Time worked beyond the usual working hours.",
+    "example": "I had to work overtime to finish the project on time.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Work",
+    "difficulty": 3,
+    "frequency_rank": 2200,
+    "tags": [
+      "work",
+      "time"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈoʊvɚˌtaɪm/"
+  },
+  {
+    "word": "freelance",
+    "meaning_vn": "làm việc tự do",
+    "definition_vn": "Làm việc cho nhiều công ty hoặc khách hàng khác nhau thay vì làm việc cố định cho một công ty.",
+    "definition_en": "Working for different companies at different times rather than being permanently employed by one company.",
+    "example": "She works as a freelance graphic designer.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Work",
+    "difficulty": 4,
+    "frequency_rank": 3500,
+    "tags": [
+      "work",
+      "career"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈfɹiːlɑːns/"
+  },
+  {
+    "word": "entrepreneur",
+    "meaning_vn": "doanh nhân",
+    "definition_vn": "Người sáng lập và điều hành một doanh nghiệp, thường là với rủi ro tài chính.",
+    "definition_en": "A person who organizes and operates a business, taking on financial risks to do so.",
+    "example": "The entrepreneur started his own tech company at the age of 25.",
+    "level": "B2",
+    "source": "Oxford 5000",
+    "topic": "Work",
+    "difficulty": 4,
+    "frequency_rank": 4000,
+    "tags": [
+      "work",
+      "business"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˌɒn.tɹə.pɹəˈnɜː/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/entrepreneur-us.mp3"
+  },
+  {
+    "word": "internship",
+    "meaning_vn": "thực tập",
+    "definition_vn": "Một vị trí làm việc tạm thời, thường dành cho sinh viên hoặc người mới tốt nghiệp để có kinh nghiệm.",
+    "definition_en": "A temporary position with an emphasis on on-the-job training rather than merely employment.",
+    "example": "She completed a summer internship at a law firm.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Work",
+    "difficulty": 3,
+    "frequency_rank": 2700,
+    "tags": [
+      "work",
+      "career"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈɪntɝnʃɪp/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/internship-us.mp3"
+  },
+  {
+    "word": "boss",
+    "meaning_vn": "sếp",
+    "definition_vn": "Người quản lý hoặc người đứng đầu một tổ chức hoặc công ty.",
+    "definition_en": "A person in charge of a worker or organization.",
+    "example": "My boss is very supportive and encourages me to grow professionally.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Work",
+    "difficulty": 2,
+    "frequency_rank": 1000,
+    "tags": [
+      "work",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/bɑs/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/boss-uk.mp3"
+  },
+  {
+    "word": "employee",
+    "meaning_vn": "nhân viên",
+    "definition_vn": "Người làm việc cho một công ty hoặc tổ chức và nhận lương.",
+    "definition_en": "A person employed for wages or salary, especially at non-executive level.",
+    "example": "The company has over 500 employees worldwide.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Work",
+    "difficulty": 2,
+    "frequency_rank": 1100,
+    "tags": [
+      "work",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/(ˌ)ɪm-/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/employee-us.mp3"
+  },
+  {
+    "word": "employer",
+    "meaning_vn": "người sử dụng lao động",
+    "definition_vn": "Một người hoặc tổ chức thuê người khác để làm việc cho họ.",
+    "definition_en": "A person or organization that employs people.",
+    "example": "The employer is responsible for providing a safe working environment.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Work",
+    "difficulty": 2,
+    "frequency_rank": 900,
+    "tags": [
+      "work",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ɛmplɔɪˈə/"
+  },
+  {
+    "word": "workplace",
+    "meaning_vn": "nơi làm việc",
+    "definition_vn": "Nơi mà mọi người làm việc, chẳng hạn như văn phòng hoặc nhà máy.",
+    "definition_en": "A place where people work, such as an office or factory.",
+    "example": "The company has a modern workplace with open spaces and collaborative areas.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Work",
+    "difficulty": 3,
+    "frequency_rank": 2000,
+    "tags": [
+      "work",
+      "environment"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": ""
+  },
+  {
+    "word": "colleague",
+    "meaning_vn": "đồng nghiệp",
+    "definition_vn": "Người làm việc cùng bạn trong một nghề hoặc công ty.",
+    "definition_en": "A person with whom one works in a profession or business.",
+    "example": "I am having lunch with a colleague today.",
+    "level": "A2",
+    "source": "Oxford 3000",
+    "topic": "Work",
+    "difficulty": 2,
+    "frequency_rank": 1500,
+    "tags": [
+      "work",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈkɒliːɡ/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/colleague-us.mp3"
+  },
+  {
+    "word": "promotion",
+    "meaning_vn": "sự thăng tiến, khuyến mãi",
+    "definition_vn": "Sự nâng lên một vị trí hoặc cấp bậc cao hơn.",
+    "definition_en": "The action of promoting someone or something to a higher position.",
+    "example": "She worked hard and earned a promotion.",
+    "level": "B1",
+    "source": "TOEIC Core",
+    "topic": "Work",
+    "difficulty": 3,
+    "frequency_rank": 2200,
+    "tags": [
+      "work",
+      "career"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/pɹəˈməʊʃən/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/promotion-us.mp3"
+  },
+  {
+    "word": "resign",
+    "meaning_vn": "từ chức",
+    "definition_vn": "Tự nguyện rời khỏi một công việc hoặc chức vụ.",
+    "definition_en": "Voluntarily leave a job or other position.",
+    "example": "He plans to resign from the company next month.",
+    "level": "B2",
+    "source": "TOEIC Core",
+    "topic": "Work",
+    "difficulty": 4,
+    "frequency_rank": 3000,
+    "tags": [
+      "work",
+      "career"
+    ],
+    "partOfSpeech": "verb",
+    "phonetic": "/ɹɪˈzaɪn/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/resign-1-uk.mp3"
+  },
+  {
     "word": "heritage",
     "meaning_vn": "di sản",
     "definition_vn": "Tài sản, truyền thống hoặc văn hóa truyền lại từ quá khứ.",
@@ -5165,5 +10339,245 @@
     "partOfSpeech": "noun",
     "phonetic": "/ɛksɪˈbɪʃən/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/exhibition-us.mp3"
+  },
+  {
+    "word": "festival",
+    "meaning_vn": "lễ hội",
+    "definition_vn": "Một sự kiện đặc biệt được tổ chức để kỷ niệm một dịp hoặc truyền thống cụ thể.",
+    "definition_en": "A day or period of celebration, typically for religious reasons.",
+    "example": "The city hosts an annual music festival that attracts thousands of visitors.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Culture",
+    "difficulty": 3,
+    "frequency_rank": 2400,
+    "tags": [
+      "culture",
+      "event"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈfɛstəvəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/festival-us.mp3"
+  },
+  {
+    "word": "ceremony",
+    "meaning_vn": "lễ nghi, nghi thức",
+    "definition_vn": "Một sự kiện chính thức được tổ chức để kỷ niệm một dịp đặc biệt hoặc để thực hiện một nghi thức.",
+    "definition_en": "A formal event held on a special occasion.",
+    "example": "The graduation ceremony will take place in the university auditorium.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Culture",
+    "difficulty": 3,
+    "frequency_rank": 2800,
+    "tags": [
+      "culture",
+      "event"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈsɛɹɪməni/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/ceremony-us.mp3"
+  },
+  {
+    "word": "legend",
+    "meaning_vn": "truyền thuyết",
+    "definition_vn": "Một câu chuyện dân gian được truyền lại qua nhiều thế hệ, thường có yếu tố huyền bí hoặc siêu nhiên.",
+    "definition_en": "A traditional story sometimes popularly regarded as historical but unauthenticated.",
+    "example": "The legend of King Arthur has been told for centuries.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "Culture",
+    "difficulty": 4,
+    "frequency_rank": 4300,
+    "tags": [
+      "culture",
+      "literature"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/ˈlɛdʒ.ənd/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/legend-au.mp3"
+  },
+  {
+    "word": "cultural",
+    "meaning_vn": "thuộc về văn hóa",
+    "definition_vn": "Liên quan đến văn hóa, bao gồm nghệ thuật, truyền thống và các giá trị của một xã hội.",
+    "definition_en": "Relating to the ideas, customs, and social behavior of a society.",
+    "example": "The city is known for its rich cultural heritage and vibrant arts scene.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "Culture",
+    "difficulty": 3,
+    "frequency_rank": 3200,
+    "tags": [
+      "culture",
+      "society"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/ˈkʌlt͡ʃəɹəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/cultural-us.mp3"
+  },
+  {
+    "word": "historical",
+    "meaning_vn": "thuộc về lịch sử",
+    "definition_vn": "Liên quan đến lịch sử hoặc quá khứ.",
+    "definition_en": "Of or concerning history; concerning past events.",
+    "example": "The historical novel is set in 18th century France.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "History",
+    "difficulty": 3,
+    "frequency_rank": 3300,
+    "tags": [
+      "history",
+      "literature"
+    ],
+    "partOfSpeech": "adjective",
+    "phonetic": "/hɪˈstɒɹɪkəl/",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/historical-us.mp3"
+  },
+  {
+    "word": "archaeologist",
+    "meaning_vn": "nhà khảo cổ học",
+    "definition_vn": "Một người chuyên nghiên cứu lịch sử và tiền sử của con người thông qua việc khai quật các di tích và hiện vật.",
+    "definition_en": "A person who studies human history and prehistory through the excavation of sites and the analysis of artifacts and other physical remains.",
+    "example": "The archaeologist discovered ancient pottery at the excavation site.",
+    "level": "B2",
+    "source": "IELTS Core",
+    "topic": "History",
+    "difficulty": 4,
+    "frequency_rank": 4600,
+    "tags": [
+      "history",
+      "science"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "",
+    "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/archaeologist-us.mp3"
+  },
+  {
+    "word": "cultural heritage",
+    "meaning_vn": "di sản văn hóa",
+    "definition_vn": "Các giá trị, truyền thống, và tài sản văn hóa được truyền lại từ thế hệ này sang thế hệ khác.",
+    "definition_en": "The legacy of physical artifacts and intangible attributes of a group or society that are inherited from past generations.",
+    "example": "The UNESCO World Heritage List includes many sites of cultural heritage around the world.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Culture",
+    "difficulty": 4,
+    "frequency_rank": 4400,
+    "tags": [
+      "culture",
+      "heritage"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "historian",
+    "meaning_vn": "nhà sử học",
+    "definition_vn": "Một người chuyên nghiên cứu và viết về lịch sử.",
+    "definition_en": "A person who studies or writes about history.",
+    "example": "The historian published a new book on the history of the Renaissance.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "History",
+    "difficulty": 4,
+    "frequency_rank": 4500,
+    "tags": [
+      "history",
+      "people"
+    ],
+    "partOfSpeech": "noun",
+    "phonetic": "/hɪˈstɔəɹɪən/"
+  },
+  {
+    "word": "cultural exchange",
+    "meaning_vn": "giao lưu văn hóa",
+    "definition_vn": "Sự trao đổi ý tưởng, giá trị, và truyền thống giữa các nền văn hóa khác nhau.",
+    "definition_en": "The sharing of ideas, values, and traditions between different cultures.",
+    "example": "The cultural exchange program allows students to experience life in a different country.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Culture",
+    "difficulty": 4,
+    "frequency_rank": 4700,
+    "tags": [
+      "culture",
+      "exchange"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "historical site",
+    "meaning_vn": "di tích lịch sử",
+    "definition_vn": "Một địa điểm có ý nghĩa lịch sử, thường được bảo tồn và mở cửa cho công chúng tham quan.",
+    "definition_en": "A location that has historical significance, often preserved and open to the public for visitation.",
+    "example": "The historical site of the ancient city attracts many tourists every year.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "History",
+    "difficulty": 3,
+    "frequency_rank": 3700,
+    "tags": [
+      "history",
+      "tourism"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "cultural identity",
+    "meaning_vn": "bản sắc văn hóa",
+    "definition_vn": "Cảm giác thuộc về một nhóm văn hóa cụ thể, dựa trên các giá trị, truyền thống và niềm tin chung.",
+    "definition_en": "The feeling of belonging to a specific cultural group, based on shared values, traditions, and beliefs.",
+    "example": "The festival celebrates the cultural identity of the local community.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Culture",
+    "difficulty": 4,
+    "frequency_rank": 4800,
+    "tags": [
+      "culture",
+      "identity"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "historical event",
+    "meaning_vn": "sự kiện lịch sử",
+    "definition_vn": "Một sự kiện quan trọng đã xảy ra trong quá khứ và có ảnh hưởng đến lịch sử.",
+    "definition_en": "An important occurrence that has happened in the past and has had an impact on history.",
+    "example": "The signing of the Declaration of Independence is a significant historical event in American history.",
+    "level": "B1",
+    "source": "Oxford 3000",
+    "topic": "History",
+    "difficulty": 3,
+    "frequency_rank": 4000,
+    "tags": [
+      "history",
+      "event"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
+  },
+  {
+    "word": "cultural diversity",
+    "meaning_vn": "đa dạng văn hóa",
+    "definition_vn": "Sự tồn tại của nhiều nền văn hóa khác nhau trong một xã hội hoặc cộng đồng.",
+    "definition_en": "The existence of a variety of cultural or  ethnic groups within a society or community.",
+    "example": "The city is known for its cultural diversity, with people from all over the world living there.",
+    "level": "B2",
+    "source": "Cambridge B1/B2",
+    "topic": "Culture",
+    "difficulty": 4,
+    "frequency_rank": 4900,
+    "tags": [
+      "culture",
+      "diversity"
+    ],
+    "partOfSpeech": "noun",
+    "audio_url": ""
   }
 ]
