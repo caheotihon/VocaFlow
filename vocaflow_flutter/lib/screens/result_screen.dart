@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/word_provider.dart';
+import '../providers/learn_provider.dart';
 import '../core/constants/app_constants.dart';
 import 'widgets/shared_widgets.dart';
 
@@ -15,6 +16,7 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
   late AnimationController _itemsCtrl;
   late Animation<double> _circleAnim;
   late Animation<double> _itemsFade;
+  bool _showTranslation = false;
 
   @override
   void initState() {
@@ -102,6 +104,8 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
                           _buildStatsContent(correct, wrong, xpEarned, streak, total),
                         ],
                       ),
+                  const SizedBox(height: 32),
+                  _buildAiStoryCard(context),
                   const SizedBox(height: 40),
                   _buildActionButtons(context, isWide),
                 ],
@@ -351,6 +355,160 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildAiStoryCard(BuildContext context) {
+    final lp = context.watch<LearnProvider>();
+    final wordIds = lp.session?.words.map((w) => w.id).toList() ?? [];
+
+    if (wordIds.isEmpty) return const SizedBox.shrink();
+
+    return FadeTransition(
+      opacity: _itemsFade,
+      child: AppCard(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Text('✨', style: TextStyle(fontSize: 24)),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'AI MEMORY STORY',
+                        style: AppTextStyles.label.copyWith(color: AppColors.secondary, letterSpacing: 1.2),
+                      ),
+                      const Text(
+                        'Connect Words in a Story',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textPrimary),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            if (lp.isLoadingStory)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(color: AppColors.secondary),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Gemini AI is crafting a custom story for you...',
+                        style: TextStyle(fontStyle: FontStyle.italic, color: AppColors.textSecondary, fontSize: 13),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            else if (lp.aiStoryEn == null)
+              Center(
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.secondary.withOpacity(0.1),
+                    foregroundColor: AppColors.secondary,
+                    elevation: 0,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    side: const BorderSide(color: AppColors.secondary),
+                  ),
+                  icon: const Icon(Icons.auto_awesome_rounded),
+                  label: const Text('Generate Custom Story', style: TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: () => lp.generateAiStory(wordIds),
+                ),
+              )
+            else ...[
+              // Story Container
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: AppColors.secondary.withOpacity(0.2)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _renderParsedHtmlText(lp.aiStoryEn!),
+                    if (_showTranslation && lp.aiStoryVi != null) ...[
+                      const Divider(height: 20),
+                      Text(
+                        lp.aiStoryVi!,
+                        style: AppTextStyles.body.copyWith(
+                          color: AppColors.textSecondary,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              // Translate toggle button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton.icon(
+                    style: TextButton.styleFrom(foregroundColor: AppColors.secondary),
+                    icon: Icon(_showTranslation ? Icons.translate_rounded : Icons.g_translate_rounded),
+                    label: Text(_showTranslation ? 'Hide Translation' : 'Translate to Vietnamese',
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                    onPressed: () {
+                      setState(() {
+                        _showTranslation = !_showTranslation;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Helper to parse basic <b>text</b> tags into RichText widget
+  Widget _renderParsedHtmlText(String text) {
+    final List<TextSpan> spans = [];
+    final regExp = RegExp(r'<b>(.*?)</b>');
+    int start = 0;
+
+    for (final match in regExp.allMatches(text)) {
+      if (match.start > start) {
+        spans.add(TextSpan(
+          text: text.substring(start, match.start),
+          style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+        ));
+      }
+      spans.add(TextSpan(
+        text: match.group(1),
+        style: AppTextStyles.body.copyWith(
+          color: AppColors.secondary,
+          fontWeight: FontWeight.w900,
+        ),
+      ));
+      start = match.end;
+    }
+
+    if (start < text.length) {
+      spans.add(TextSpan(
+        text: text.substring(start),
+        style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+      ));
+    }
+
+    return RichText(
+      text: TextSpan(children: spans),
     );
   }
 }

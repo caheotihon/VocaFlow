@@ -23,6 +23,8 @@ dependencies:
 
   # Audio
   audioplayers: ^6.0.0
+  flutter_tts: ^4.1.0
+  speech_to_text: any
 
   # UI
   google_fonts: ^6.2.1

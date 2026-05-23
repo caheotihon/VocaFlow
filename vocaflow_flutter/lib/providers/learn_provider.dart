@@ -16,6 +16,11 @@ class LearnProvider extends ChangeNotifier {
   List<WordModel> _todayCorrectWords = [];
   List<WordModel> _todayWrongWords = [];
 
+  // AI Story state
+  bool _isLoadingStory = false;
+  String? _aiStoryEn;
+  String? _aiStoryVi;
+
   // Selected learn flow state
   String? selectedSource;
   String? selectedLevel;
@@ -32,6 +37,10 @@ class LearnProvider extends ChangeNotifier {
   Map<String, dynamic>? get todayStats => _todayStats;
   List<WordModel> get todayCorrectWords => _todayCorrectWords;
   List<WordModel> get todayWrongWords => _todayWrongWords;
+
+  bool get isLoadingStory => _isLoadingStory;
+  String? get aiStoryEn => _aiStoryEn;
+  String? get aiStoryVi => _aiStoryVi;
 
   Future<bool> fetchTodayHistory() async {
     _setLoading(true);
@@ -170,8 +179,14 @@ class LearnProvider extends ChangeNotifier {
       );
     } catch (_) { /* Fire and forget */ }
 
-    _session!.nextWord();
     notifyListeners();
+  }
+
+  void nextWord() {
+    if (_session != null) {
+      _session!.nextWord();
+      notifyListeners();
+    }
   }
 
   Future<Map<String, dynamic>?> completeSession() async {
@@ -192,9 +207,35 @@ class LearnProvider extends ChangeNotifier {
     return null;
   }
 
+  Future<bool> generateAiStory(List<String> wordIds) async {
+    _isLoadingStory = true;
+    _aiStoryEn = null;
+    _aiStoryVi = null;
+    _error = null;
+    notifyListeners();
+    try {
+      final res = await _api.generateAiStory(wordIds);
+      if (res.data['success'] == true) {
+        final data = res.data['data'];
+        _aiStoryEn = data['storyEn'];
+        _aiStoryVi = data['storyVi'];
+        notifyListeners();
+        return true;
+      }
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _isLoadingStory = false;
+      notifyListeners();
+    }
+    return false;
+  }
+
   void resetSession() {
     _session = null;
     _sessionResult = null;
+    _aiStoryEn = null;
+    _aiStoryVi = null;
     notifyListeners();
   }
 

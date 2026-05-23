@@ -44,6 +44,13 @@ class ChooseModeScreen extends StatelessWidget {
       'color': Color(0xFFF59E0B),
     },
     {
+      'id':    'speech',
+      'label': 'AI Speech Practice',
+      'icon':  Icons.mic_none_rounded,
+      'desc':  'Speak the word and get AI grading',
+      'color': Color(0xFF0EA5E9),
+    },
+    {
       'id':    'mixed',
       'label': 'Mixed Challenge',
       'icon':  Icons.shuffle_rounded,
@@ -144,11 +151,11 @@ class ChooseModeScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Start button - Căn giữa và giới hạn độ rộng trên Desktop
+                // Start button - Căn giữa và giới hạn độ rộng
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 400),
+                    constraints: const BoxConstraints(maxWidth: 340),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
                       child: GradientButton(
@@ -191,6 +198,7 @@ class ChooseModeScreen extends StatelessWidget {
       case 'listening':     return '/practice/listening';
       case 'reverse_recall':return '/practice/reverse';
       case 'fill_blank':    return '/practice/fill-blank';
+      case 'speech':        return '/practice/speech';
       case 'mixed':         return '/practice/mixed';
       default:              return '/practice/flashcard';
     }

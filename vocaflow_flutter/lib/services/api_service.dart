@@ -90,6 +90,9 @@ class ApiService {
   Future<Response> getTopics({String? source, String? level}) =>
       _dio.get('/words/topics/list', queryParameters: {'source': source, 'level': level});
 
+  Future<Response> generateAIDeck(String topic, {String? level}) =>
+      _dio.post('/words/ai-generate', data: {'topic': topic, 'level': level});
+
   // ── Learn ──────────────────────────────────────────────────────────
   Future<Response> startSession(String source, String mode,
           {String? level, String? topic, int count = 10}) =>
@@ -115,6 +118,8 @@ class ApiService {
   Future<Response> getReviewToday() => _dio.get('/learn/review-today');
   Future<Response> getTodayHistory() => _dio.get('/learn/today-history');
   Future<Response> getLastActiveSession() => _dio.get('/learn/last-active');
+  Future<Response> generateAiStory(List<String> wordIds) =>
+      _dio.post('/learn/ai-story', data: {'word_ids': wordIds});
 
   // ── Favorites ─────────────────────────────────────────────────────
   Future<Response> getFavorites() => _dio.get('/favorite');

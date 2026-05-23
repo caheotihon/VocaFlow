@@ -2,6 +2,7 @@ const Word = require('../models/Word');
 const Progress = require('../models/Progress');
 const Session = require('../models/Session');
 const User = require('../models/User');
+const geminiService = require('../services/gemini.service');
 const { successResponse, errorResponse, calcXP } = require('../utils/helpers');
 
 /**
@@ -87,6 +88,7 @@ exports.startSession = async (req, res) => {
       const filter = { source };
       if (level) filter.level = level;
       if (topic) filter.topic = topic;
+      filter.user = source === 'AI Generated' ? req.user._id : null;
 
       // Get words the user needs to review OR hasn't seen yet
       const allWords = await Word.find(filter).limit(200);
@@ -460,6 +462,33 @@ exports.getTodayHistory = async (req, res) => {
     }, 'Today history retrieved');
   } catch (err) {
     console.error('[Learn/today-history]', err.message);
+    return errorResponse(res, 'Server error', 500);
+  }
+};
+
+/**
+ * POST /api/learn/ai-story
+ * Generate an AI memory story containing the list of studied words
+ */
+exports.generateAiStory = async (req, res) => {
+  try {
+    const { word_ids } = req.body;
+    if (!word_ids || !Array.isArray(word_ids) || word_ids.length === 0) {
+      return errorResponse(res, 'word_ids array is required', 400);
+    }
+
+    // Fetch word details
+    const words = await Word.find({ _id: { $in: word_ids } });
+    if (words.length === 0) {
+      return errorResponse(res, 'No words found matching the provided IDs', 404);
+    }
+
+    // Generate story from Gemini service
+    const storyData = await geminiService.generateStoryFromWords(words);
+
+    return successResponse(res, storyData, 'AI story generated successfully');
+  } catch (err) {
+    console.error('[Learn/ai-story]', err.message);
     return errorResponse(res, 'Server error', 500);
   }
 };

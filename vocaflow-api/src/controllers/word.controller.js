@@ -1,5 +1,6 @@
 const Word = require('../models/Word');
 const Progress = require('../models/Progress');
+const geminiService = require('../services/gemini.service');
 const { successResponse, errorResponse } = require('../utils/helpers');
 
 /**
@@ -12,8 +13,9 @@ exports.getAllWords = async (req, res) => {
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
 
-    const words = await Word.find().skip(skip).limit(limit).sort({ frequency_rank: 1 });
-    const total = await Word.countDocuments();
+    const filter = { user: req.user ? { $in: [null, req.user._id] } : null };
+    const words = await Word.find(filter).skip(skip).limit(limit).sort({ frequency_rank: 1 });
+    const total = await Word.countDocuments(filter);
     return successResponse(res, { words, total, page, pages: Math.ceil(total / limit) });
   } catch (err) {
     return errorResponse(res, 'Server error', 500);
@@ -44,12 +46,15 @@ exports.searchWords = async (req, res) => {
     const q = req.query.q || '';
     if (!q) return errorResponse(res, 'Query parameter q is required', 400);
 
-    const words = await Word.find({
+    const filter = {
       $or: [
         { word: { $regex: q, $options: 'i' } },
         { meaning_vn: { $regex: q, $options: 'i' } },
       ],
-    }).limit(30);
+      user: req.user ? { $in: [null, req.user._id] } : null
+    };
+
+    const words = await Word.find(filter).limit(30);
 
     return successResponse(res, { words, total: words.length });
   } catch (err) {
@@ -80,6 +85,7 @@ exports.getBySource = async (req, res) => {
     const filter = { source: decodeURIComponent(source) };
     if (level) filter.level = level;
     if (topic) filter.topic = topic;
+    filter.user = req.user ? { $in: [null, req.user._id] } : null;
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const words = await Word.find(filter).skip(skip).limit(parseInt(limit)).sort({ frequency_rank: 1 });
@@ -101,6 +107,7 @@ exports.getByTopic = async (req, res) => {
     const filter = { topic: decodeURIComponent(topic) };
     if (level) filter.level = level;
     if (source) filter.source = source;
+    filter.user = req.user ? { $in: [null, req.user._id] } : null;
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const words = await Word.find(filter).skip(skip).limit(parseInt(limit));
@@ -134,6 +141,7 @@ exports.getTopics = async (req, res) => {
     const filter = {};
     if (source) filter.source = source;
     if (level) filter.level = level;
+    filter.user = req.user ? { $in: [null, req.user._id] } : null;
 
     const topics = await Word.aggregate([
       { $match: filter },
@@ -195,6 +203,7 @@ exports.getSources = async (req, res) => {
     if (level) {
       matchStage.level = level;
     }
+    matchStage.user = req.user ? { $in: [null, req.user._id] } : null;
 
     const sources = await Word.aggregate([
       { $match: matchStage },
@@ -237,6 +246,50 @@ exports.getSources = async (req, res) => {
 
     return successResponse(res, { sources: enriched });
   } catch (err) {
+    return errorResponse(res, 'Server error', 500);
+  }
+};
+
+/**
+ * POST /api/words/ai-generate
+ * Generate a deck of vocabulary words using Gemini and save it for the user
+ */
+exports.generateAIDeck = async (req, res) => {
+  try {
+    const { topic, level = 'B2' } = req.body;
+    if (!topic) return errorResponse(res, 'topic is required', 400);
+
+    // Call Gemini to generate words
+    const wordsData = await geminiService.generateAIDeck(topic, level);
+
+    const savedWords = [];
+    for (const wData of wordsData) {
+      // Avoid duplicating existing words for the same user in this topic
+      const existing = await Word.findOne({
+        word: wData.word.toLowerCase().trim(),
+        user: req.user._id,
+        topic: topic
+      });
+
+      if (existing) {
+        savedWords.push(existing);
+      } else {
+        const newWord = await Word.create({
+          ...wData,
+          word: wData.word.toLowerCase().trim(),
+          source: 'AI Generated',
+          topic: topic,
+          user: req.user._id,
+          audio_url: '', // TTS generated on client side
+          image_url: ''
+        });
+        savedWords.push(newWord);
+      }
+    }
+
+    return successResponse(res, { words: savedWords, total: savedWords.length }, 'AI deck generated and saved successfully');
+  } catch (err) {
+    console.error('[Word/ai-generate]', err.message);
     return errorResponse(res, 'Server error', 500);
   }
 };

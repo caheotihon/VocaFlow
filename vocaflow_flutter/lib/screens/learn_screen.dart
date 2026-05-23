@@ -5,6 +5,7 @@ import '../providers/auth_provider.dart';
 import '../providers/learn_provider.dart';
 import '../providers/word_provider.dart';
 import '../core/constants/app_constants.dart';
+import '../services/api_service.dart';
 import 'widgets/shared_widgets.dart';
 
 class LearnScreen extends StatefulWidget {
@@ -94,6 +95,10 @@ class _LearnScreenState extends State<LearnScreen> {
                             },
                           )).toList(),
                         ),
+                        const SizedBox(height: 24),
+
+                        // ── AI Deck Generator Banner ────────────────────
+                        _buildAIDeckBanner(context),
                         const SizedBox(height: 32),
 
                         // ── Choose Source ──────────────────────────────
@@ -121,23 +126,22 @@ GridView(
     crossAxisCount: isDesktop ? 3 : (isTablet ? 2 : 1),
     crossAxisSpacing: 16,
     mainAxisSpacing: 16,
-    // SỬ DỤNG MAIN AXIS EXTENT ĐỂ CỐ ĐỊNH CHIỀU CAO CARD
-    mainAxisExtent: 190, // Chiều cao cố định 190px (hoặc tùy chỉnh 180-200)
+    mainAxisExtent: 190,
   ),
-  children: _sourceIcons.keys.map((src) {
-    final srcData = wordP.sources.firstWhere(
-      (s) => s['source'] == src,
-      orElse: () => {'source': src, 'total': 0, 'mastered': 0, 'percentage': 0},
-    );
+  children: wordP.sources.map((srcData) {
+    final src = srcData['source'] as String;
     final isSelected = learnP.selectedSource == src;
     final total      = srcData['total'] ?? 0;
     final learned    = srcData['learned'] ?? 0;
     final pct        = srcData['percentage'] ?? 0;
 
+    final icon = _sourceIcons[src] ?? Icons.auto_awesome_rounded;
+    final desc = _sourceDescriptions[src] ?? 'AI-generated personalized deck';
+
     return _SourceCard(
       source:      src,
-      description: _sourceDescriptions[src]!,
-      icon:        _sourceIcons[src]!,
+      description: desc,
+      icon:        icon,
       totalWords:  total,
       masteredWords:  learned,
       percentage:  pct,
@@ -164,11 +168,11 @@ GridView(
                 constraints: const BoxConstraints(maxWidth: 1100),
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                  // Trên Desktop/Tablet căn nút sang phải, Mobile full width
+                  // Trên Desktop/Tablet căn nút sang phải, Mobile căn giữa gọn gàng
                   alignment: isDesktop || isTablet ? Alignment.centerRight : Alignment.center,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxWidth: isDesktop || isTablet ? 280 : double.infinity,
+                      maxWidth: isDesktop || isTablet ? 280 : 340,
                     ),
                     child: GradientButton(
                       text: 'Continue Learning',
@@ -183,6 +187,241 @@ GridView(
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildAIDeckBanner(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF4F46E5), Color(0xFF06B6D4)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF4F46E5).withOpacity(0.25),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Row(
+                  children: [
+                    Text('✨', style: TextStyle(fontSize: 22)),
+                    SizedBox(width: 8),
+                    Text(
+                      'AI DECK GENERATOR',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Tạo bộ từ vựng thông minh bằng AI',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Nhập chủ đề bất kỳ (ví dụ: Space exploration, Cooking...) để AI soạn riêng cho bạn.',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.85),
+                    fontSize: 13,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          GestureDetector(
+            onTap: () => _showAIDeckDialog(context),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(AppRadius.full),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 6,
+                  ),
+                ],
+              ),
+              child: const Text(
+                'Tạo ngay',
+                style: TextStyle(
+                  color: Color(0xFF4F46E5),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showAIDeckDialog(BuildContext context) {
+    final topicCtrl = TextEditingController();
+    String selectedLvl = _selectedLevel;
+    bool isGenerating = false;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          if (isGenerating) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 20),
+                  const CircularProgressIndicator(color: AppColors.primary),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'AI đang biên soạn từ vựng... ✨',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Đang phân tích chủ đề "${topicCtrl.text.trim()}" và thiết kế 8 thẻ học chuẩn CEFR $selectedLvl. Vui lòng đợi trong giây lát!',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              ),
+            );
+          }
+
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: const Row(
+              children: [
+                Text('✨', style: TextStyle(fontSize: 22)),
+                SizedBox(width: 8),
+                Text('Tạo bộ từ vựng AI', style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Chủ đề muốn học:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textSecondary)),
+                const SizedBox(height: 8),
+                TextField(
+                  controller: topicCtrl,
+                  decoration: InputDecoration(
+                    hintText: 'ví dụ: Space exploration, Cooking...',
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text('Trình độ (CEFR):', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textSecondary)),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: _levels.map((lvl) {
+                    final isSel = selectedLvl == lvl;
+                    return GestureDetector(
+                      onTap: () => setDialogState(() => selectedLvl = lvl),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: isSel ? AppColors.primary : Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(AppRadius.md),
+                          border: Border.all(color: isSel ? AppColors.primary : Colors.grey.shade200),
+                        ),
+                        child: Text(
+                          lvl,
+                          style: TextStyle(color: isSel ? Colors.white : AppColors.textSecondary, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Hủy'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final topic = topicCtrl.text.trim();
+                  if (topic.isEmpty) return;
+                  
+                  setDialogState(() {
+                    isGenerating = true;
+                  });
+
+                  try {
+                    final apiService = ApiService();
+                    final response = await apiService.generateAIDeck(topic, level: selectedLvl);
+                    
+                    if (response.statusCode == 200 || response.statusCode == 201) {
+                      if (context.mounted) {
+                        Navigator.pop(context); // Close dialog
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Tạo bộ từ vựng AI thành công! 🎉'), backgroundColor: AppColors.success),
+                        );
+                        // Reload sources for current level
+                        setState(() {
+                          _selectedLevel = selectedLvl;
+                        });
+                        context.read<LearnProvider>().selectLevel(selectedLvl);
+                        await context.read<WordProvider>().loadSources(level: selectedLvl);
+                        
+                        // Auto-select the newly generated AI deck
+                        context.read<LearnProvider>().selectSource('AI Generated');
+                      }
+                    } else {
+                      throw Exception('Failed to generate');
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      Navigator.pop(context); // Close dialog
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Không thể kết nối hoặc tạo từ vựng AI.'), backgroundColor: AppColors.error),
+                      );
+                    }
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
+                ),
+                child: const Text('Tạo ngay'),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

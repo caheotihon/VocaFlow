@@ -13,7 +13,7 @@ const sessionSchema = new mongoose.Schema(
     topic: { type: String },
     mode: {
       type: String,
-      enum: ['flashcard', 'typing', 'listening', 'reverse_recall', 'fill_blank', 'mixed'],
+      enum: ['flashcard', 'typing', 'listening', 'reverse_recall', 'fill_blank', 'speech', 'mixed'],
       required: true,
     },
 
