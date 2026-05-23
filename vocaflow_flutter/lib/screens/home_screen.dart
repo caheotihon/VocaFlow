@@ -70,7 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   _buildResumeCard(context, dash),
-                                  const SizedBox(height: 32),
+                                  const SizedBox(height: 16),
+                                  _buildAiStoryCard(context),
+                                  const SizedBox(height: 24),
                                   _buildQuickActions(context, crossAxisCount: 4, aspectRatio: 1.8),
                                 ],
                               ),
@@ -98,7 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             _buildDailyStats(user, dash),
                             const SizedBox(height: 16),
                             _buildDailyProgress(user, dash),
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 16),
+                            _buildAiStoryCard(context),
+                            const SizedBox(height: 16),
                             _buildQuickActions(
                               context, 
                               crossAxisCount: isTablet ? 4 : 2, 
@@ -558,9 +562,110 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.pinkAccent,
               onTap: () => Navigator.pushNamed(context, '/favorites'),
             ),
+            _QuickActionCard(
+              icon: Icons.history_edu_rounded,
+              label: 'Story History',
+              color: Color(0xFF6366F1),
+              onTap: () => Navigator.pushNamed(context, '/story/history'),
+            ),
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildAiStoryCard(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF8B5CF6).withOpacity(0.3),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          )
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => Navigator.pushNamed(context, '/story/select-words'),
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(AppRadius.sm),
+                        ),
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('✨', style: TextStyle(fontSize: 12, color: Colors.white)),
+                            SizedBox(width: 4),
+                            Text(
+                              'AI POWERED',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 10,
+                                letterSpacing: 1.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Smart Story Generator',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Weave your vocab list into an elegant English story!',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.85),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.auto_stories_rounded,
+                    color: Color(0xFF6366F1),
+                    size: 28,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

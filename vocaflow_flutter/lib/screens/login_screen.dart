@@ -2,11 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../providers/auth_provider.dart';
 import '../core/constants/app_constants.dart';
 import 'widgets/shared_widgets.dart';
 
-final _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
+// Use explicit web clientId when running on web to avoid missing-client errors
+final _googleSignIn = kIsWeb
+  ? GoogleSignIn(
+    clientId:
+      '773388708674-odfas8cf0mqg4327pick68j3sep7rv30.apps.googleusercontent.com',
+    scopes: ['email', 'profile'],
+    )
+  : GoogleSignIn(scopes: ['email', 'profile']);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

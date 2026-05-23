@@ -10,6 +10,7 @@ import 'providers/word_provider.dart';
 import 'providers/learn_provider.dart';
 import 'providers/stats_provider.dart';
 import 'providers/favorite_provider.dart';
+import 'providers/story_provider.dart';
 
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
@@ -27,6 +28,10 @@ import 'screens/practice/reverse_recall_screen.dart';
 import 'screens/practice/fill_blank_screen.dart';
 import 'screens/practice/mixed_challenge_screen.dart';
 import 'screens/practice/review_history_screen.dart';
+import 'screens/story_select_words_screen.dart';
+import 'screens/story_view_screen.dart';
+import 'screens/story_quiz_screen.dart';
+import 'screens/story_history_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +63,7 @@ class LingoProApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LearnProvider()),
         ChangeNotifierProvider(create: (_) => StatsProvider()),
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (_) => StoryProvider()),
       ],
       child: MaterialApp(
         title: 'LingoPro',
@@ -109,6 +115,10 @@ class LingoProApp extends StatelessWidget {
           '/favorites':     (_) => const FavoritesScreen(),
           '/leaderboard':   (_) => const LeaderboardScreen(),
           '/review/history': (_) => const ReviewHistoryScreen(),
+          '/story/select-words': (_) => const StorySelectWordsScreen(),
+          '/story/view':         (_) => const StoryViewScreen(),
+          '/story/quiz':         (_) => const StoryQuizScreen(),
+          '/story/history':      (_) => const StoryHistoryScreen(),
 
           // Practice modes
           '/practice/flashcard':  (_) => const FlashcardScreen(),

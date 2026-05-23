@@ -29,6 +29,7 @@ app.use('/api/words',     require('./routes/word.routes'));
 app.use('/api/learn',     require('./routes/learn.routes'));
 app.use('/api/favorite',  require('./routes/favorite.routes'));
 app.use('/api/stats',     require('./routes/stats.routes'));
+app.use('/api/stories',   require('./routes/story.routes'));
 
 // ─── Health check ────────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {
@@ -52,6 +53,14 @@ app.use((err, req, res, next) => {
 // ─── Database + Server ───────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/lingopro';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+// Log environment status at startup
+if (!GEMINI_API_KEY || GEMINI_API_KEY === 'your_gemini_api_key_here') {
+  console.warn('⚠️ [Startup] GEMINI_API_KEY is NOT configured. Story generation will use fallback (generic stories).');
+} else {
+  console.log('✅ [Startup] GEMINI_API_KEY is configured. AI story generation enabled.');
+}
 
 mongoose
   .connect(MONGO_URI)

@@ -1,5 +1,6 @@
 // LingoPro — API Service using Dio
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
@@ -33,6 +34,10 @@ class ApiService {
       },
     ));
   }
+
+  /// Test constructor — accepts a pre-configured [Dio] instance for unit testing.
+  @visibleForTesting
+  ApiService.withDio(Dio dio) : _dio = dio;
 
   // ── Auth ───────────────────────────────────────────────────────────
   Future<Response> register(String name, String email, String password) =>
@@ -126,4 +131,16 @@ class ApiService {
   Future<Response> getDashboard() => _dio.get('/stats/dashboard');
   Future<Response> getLeaderboard({String type = 'streak'}) =>
       _dio.get('/stats/leaderboard', queryParameters: {'type': type});
+
+  // ── Stories (AI Story Generator) ──────────────────────────────────
+  Future<Response> generateStory(List<String> wordIds) =>
+      _dio.post('/stories/generate', data: {'wordIds': wordIds});
+
+  Future<Response> getStories() => _dio.get('/stories');
+
+  Future<Response> getStoryById(String id) => _dio.get('/stories/$id');
+
+  Future<Response> completeStoryQuiz(String id) => _dio.post('/stories/$id/complete');
+
+  Future<Response> deleteStory(String id) => _dio.delete('/stories/$id');
 }
