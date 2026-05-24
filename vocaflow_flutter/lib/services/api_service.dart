@@ -164,4 +164,12 @@ class ApiService {
   Future<Response> completeStoryQuiz(String id) => _dio.post('/stories/$id/complete');
 
   Future<Response> deleteStory(String id) => _dio.delete('/stories/$id');
+
+  // ── Admin ──────────────────────────────────────────────────────────
+  Future<Response> getAdminStats() => _dio.get('/admin/stats');
+  Future<Response> getAdminUsers() => _dio.get('/admin/users');
+  Future<Response> toggleUserStatus(String id) => _dio.post('/admin/users/$id/toggle');
+  Future<Response> adminCreateWord(Map<String, dynamic> data) => _dio.post('/admin/words', data: data);
+  Future<Response> adminUpdateWord(String id, Map<String, dynamic> data) => _dio.put('/admin/words/$id', data: data);
+  Future<Response> adminDeleteWord(String id) => _dio.delete('/admin/words/$id');
 }

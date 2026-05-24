@@ -20,6 +20,7 @@ class AuthProvider extends ChangeNotifier {
   String? get errorMessage => _errorMessage;
   bool get isLoading => _isLoading;
   bool get isAuthenticated => _status == AuthStatus.authenticated;
+  bool get isAdmin => _user?.role == 'admin';
 
   /// Try to restore session from secure storage
   Future<void> tryAutoLogin() async {

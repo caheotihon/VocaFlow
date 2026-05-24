@@ -62,7 +62,13 @@ class _LoginScreenState extends State<LoginScreen>
     } else {
       ok = await auth.login(_emailCtrl.text.trim(), _passCtrl.text);
     }
-    if (ok && mounted) Navigator.pushReplacementNamed(context, '/home');
+    if (ok && mounted) {
+      if (auth.isAdmin) {
+        Navigator.pushReplacementNamed(context, '/admin');
+      } else {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    }
   }
 
   Future<void> _signInWithGoogle() async {
@@ -83,7 +89,11 @@ class _LoginScreenState extends State<LoginScreen>
       );
 
       if (ok && mounted) {
-        Navigator.pushReplacementNamed(context, '/home');
+        if (auth.isAdmin) {
+          Navigator.pushReplacementNamed(context, '/admin');
+        } else {
+          Navigator.pushReplacementNamed(context, '/home');
+        }
       }
     } catch (e) {
       if (mounted) {
@@ -102,184 +112,329 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
+    final width = MediaQuery.of(context).size.width;
+    final isWide = width >= 900;
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 480),
-            child: AnimatedBuilder(
-              animation: _slideAnim,
-              builder: (_, child) => Transform.translate(
-                offset: Offset(0, _slideAnim.value),
-                child: child,
-              ),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+    Widget formContent(double horizontalPadding) {
+      return AnimatedBuilder(
+        animation: _slideAnim,
+        builder: (_, child) => Transform.translate(
+          offset: Offset(0, _slideAnim.value),
+          child: child,
+        ),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // ── Logo ──────────────────────────────────────────────
+              Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // ── Logo ──────────────────────────────────────────────
-                    Center(
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 80, height: 80,
-                            decoration: BoxDecoration(
-                              gradient: AppColors.primaryGradient,
-                              borderRadius: BorderRadius.circular(22),
-                              boxShadow: [
-                                BoxShadow(color: AppColors.primary.withOpacity(0.3),
-                                    blurRadius: 16, offset: const Offset(0, 6)),
-                              ],
-                            ),
-                            child: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 44),
-                          ),
-                          const SizedBox(height: 16),
-                          const Text('LingoPro',
-                              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800,
-                                  color: AppColors.primary)),
-                          const SizedBox(height: 4),
-                          Text(
-                            _isRegister ? 'Create your account' : 'Welcome back!',
-                            style: AppTextStyles.bodySmall,
-                          ),
+                    Container(
+                      width: 80, height: 80,
+                      decoration: BoxDecoration(
+                        gradient: AppColors.primaryGradient,
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: [
+                          BoxShadow(color: AppColors.primary.withOpacity(0.3),
+                              blurRadius: 16, offset: const Offset(0, 6)),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 40),
-
-                    // ── Form ──────────────────────────────────────────────
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          if (_isRegister) ...[
-                            _InputField(
-                              ctrl: _nameCtrl,
-                              label: 'Full Name',
-                              icon: Icons.person_outline,
-                              textInputAction: TextInputAction.next,
-                              validator: (v) => (v == null || v.isEmpty) ? 'Enter your name' : null,
-                            ),
-                            const SizedBox(height: 16),
-                          ],
-                          _InputField(
-                            ctrl: _emailCtrl,
-                            label: 'Email',
-                            icon: Icons.email_outlined,
-                            keyboardType: TextInputType.emailAddress,
-                            textInputAction: TextInputAction.next,
-                            validator: (v) => (v == null || !v.contains('@')) ? 'Enter valid email' : null,
-                          ),
-                          const SizedBox(height: 16),
-                          _InputField(
-                            ctrl: _passCtrl,
-                            label: 'Password',
-                            icon: Icons.lock_outline,
-                            obscure: _obscurePass,
-                            textInputAction: TextInputAction.done,
-                            onFieldSubmitted: (_) => _submit(),
-                            suffix: IconButton(
-                              icon: Icon(_obscurePass ? Icons.visibility_off : Icons.visibility,
-                                  color: AppColors.textSecondary),
-                              onPressed: () => setState(() => _obscurePass = !_obscurePass),
-                            ),
-                            validator: (v) =>
-                                (v == null || v.length < 6) ? 'Min 6 characters' : null,
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // ── Error ─────────────────────────────────────────────
-                    if (auth.errorMessage != null) ...[
-                      const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.error.withOpacity(0.08),
-                          borderRadius: BorderRadius.circular(AppRadius.md),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.error_outline, color: AppColors.error, size: 18),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(auth.errorMessage!,
-                                  style: const TextStyle(color: AppColors.error, fontSize: 13)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: 28),
-
-                    // ── Submit ────────────────────────────────────────────
-                    GradientButton(
-                      text: _isRegister ? 'Create Account' : 'Sign In',
-                      onTap: _submit,
-                      isLoading: auth.isLoading,
-                      icon: _isRegister ? Icons.person_add : Icons.login,
+                      child: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 44),
                     ),
                     const SizedBox(height: 16),
-
-                    // ── Divider ───────────────────────────────────────────
-                    Row(
-                      children: [
-                        Expanded(child: Divider(color: Colors.grey.shade200)),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 14),
-                          child: Text('OR', style: AppTextStyles.bodySmall),
-                        ),
-                        Expanded(child: Divider(color: Colors.grey.shade200)),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-
-                    // ── Google Sign-In ─────────────────────────────────────
-                    _GoogleSignInButton(
-                      isLoading: _googleLoading,
-                      onTap: _signInWithGoogle,
-                    ),
-                    const SizedBox(height: 20),
-
-                    // ── Toggle ────────────────────────────────────────────
-                    Center(
-                      child: MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () => setState(() => _isRegister = !_isRegister),
-                          behavior: HitTestBehavior.opaque,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: RichText(
-                              text: TextSpan(
-                                text: _isRegister
-                                    ? 'Already have an account? '
-                                    : "Don't have an account? ",
-                                style: AppTextStyles.bodySmall,
-                                children: [
-                                  TextSpan(
-                                    text: _isRegister ? 'Sign In' : 'Sign Up',
-                                    style: const TextStyle(
-                                      color: AppColors.primary, fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                    const Text('VocaFlow',
+                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800,
+                            color: AppColors.primary)),
+                    const SizedBox(height: 4),
+                    Text(
+                      _isRegister ? 'Create your account' : 'Welcome back!',
+                      style: AppTextStyles.bodySmall,
                     ),
                   ],
                 ),
               ),
-            ),
+              const SizedBox(height: 40),
+
+              // ── Form ──────────────────────────────────────────────
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    if (_isRegister) ...[
+                      _InputField(
+                        ctrl: _nameCtrl,
+                        label: 'Full Name',
+                        icon: Icons.person_outline,
+                        textInputAction: TextInputAction.next,
+                        validator: (v) => (v == null || v.isEmpty) ? 'Enter your name' : null,
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                    _InputField(
+                      ctrl: _emailCtrl,
+                      label: 'Email',
+                      icon: Icons.email_outlined,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: (v) => (v == null || !v.contains('@')) ? 'Enter valid email' : null,
+                    ),
+                    const SizedBox(height: 16),
+                    _InputField(
+                      ctrl: _passCtrl,
+                      label: 'Password',
+                      icon: Icons.lock_outline,
+                      obscure: _obscurePass,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _submit(),
+                      suffix: IconButton(
+                        icon: Icon(_obscurePass ? Icons.visibility_off : Icons.visibility,
+                            color: AppColors.textSecondary),
+                        onPressed: () => setState(() => _obscurePass = !_obscurePass),
+                      ),
+                      validator: (v) =>
+                          (v == null || v.length < 6) ? 'Min 6 characters' : null,
+                    ),
+                  ],
+                ),
+              ),
+
+              // ── Error ─────────────────────────────────────────────
+              if (auth.errorMessage != null) ...[
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(AppRadius.md),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.error_outline, color: AppColors.error, size: 18),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(auth.errorMessage!,
+                            style: const TextStyle(color: AppColors.error, fontSize: 13)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              const SizedBox(height: 28),
+
+              // ── Submit ────────────────────────────────────────────
+              GradientButton(
+                text: _isRegister ? 'Create Account' : 'Sign In',
+                onTap: _submit,
+                isLoading: auth.isLoading,
+                icon: _isRegister ? Icons.person_add : Icons.login,
+              ),
+              const SizedBox(height: 16),
+
+              // ── Divider ───────────────────────────────────────────
+              Row(
+                children: [
+                  Expanded(child: Divider(color: Colors.grey.shade200)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: Text('OR', style: AppTextStyles.bodySmall),
+                  ),
+                  Expanded(child: Divider(color: Colors.grey.shade200)),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              // ── Google Sign-In ─────────────────────────────────────
+              _GoogleSignInButton(
+                isLoading: _googleLoading,
+                onTap: _signInWithGoogle,
+              ),
+              const SizedBox(height: 20),
+
+              // ── Toggle ────────────────────────────────────────────
+              Center(
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () => setState(() => _isRegister = !_isRegister),
+                    behavior: HitTestBehavior.opaque,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RichText(
+                        text: TextSpan(
+                          text: _isRegister
+                              ? 'Already have an account? '
+                              : "Don't have an account? ",
+                          style: AppTextStyles.bodySmall,
+                          children: [
+                            TextSpan(
+                              text: _isRegister ? 'Sign In' : 'Sign Up',
+                              style: const TextStyle(
+                                color: AppColors.primary, fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+        ),
+      );
+    }
+
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: isWide
+            ? Row(
+                children: [
+                  // Left decorative panel
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: AppColors.primaryGradient,
+                      ),
+                      child: Center(
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.all(40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.15),
+                                  borderRadius: BorderRadius.circular(AppRadius.full),
+                                  border: Border.all(color: Colors.white.withOpacity(0.2)),
+                                ),
+                                child: const Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 16),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      'SMART LEARNING PLATFORM',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 11,
+                                        letterSpacing: 1.2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              const Text(
+                                'Empower Your Vocabulary Flow\nWith AI Technology.',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 36,
+                                  height: 1.25,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Experience a premium way to master English vocabulary. VocaFlow combines intelligent spacing algorithms, real-time AI speech evaluation, and contextual story generation tailored perfectly to your target CEFR levels.',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 15,
+                                  height: 1.5,
+                                ),
+                              ),
+                              const SizedBox(height: 40),
+                              // Features list in glassmorphic cards
+                              Row(
+                                children: [
+                                  _buildGlassCard(Icons.mic_none_rounded, 'AI Speech Practice', 'Speak words, get accurate real-time feedback.'),
+                                  const SizedBox(width: 16),
+                                  _buildGlassCard(Icons.auto_stories_rounded, 'Story Generator', 'Learn words within interactive context generated by AI.'),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  _buildGlassCard(Icons.shuffle_rounded, 'Mixed Challenges', 'Test yourself across 6 cognitive practice modes.'),
+                                  const SizedBox(width: 16),
+                                  _buildGlassCard(Icons.trending_up_rounded, 'CEFR Alignment', 'Learn standard Cambridge and Oxford core vocabularies.'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Right authentication form
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      color: Colors.white,
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 440),
+                          child: formContent(36),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: formContent(24),
+                ),
+              ),
+      ),
+    );
+  }
+
+  Widget _buildGlassCard(IconData icon, String title, String subtitle) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        height: 128,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          border: Border.all(color: Colors.white.withOpacity(0.12)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, color: Colors.white, size: 18),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              subtitle,
+              style: const TextStyle(color: Colors.white60, fontSize: 11, height: 1.3),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
         ),
       ),
     );

@@ -10,7 +10,15 @@ import '../widgets/shared_widgets.dart';
 import '../widgets/pronunciation_widget.dart';
 
 class FlashcardScreen extends StatefulWidget {
-  const FlashcardScreen({super.key});
+  final bool isMixedMode;
+  final Function(bool)? onAnswer;
+
+  const FlashcardScreen({
+    super.key,
+    this.isMixedMode = false,
+    this.onAnswer,
+  });
+
   @override
   State<FlashcardScreen> createState() => _FlashcardScreenState();
 }
@@ -52,9 +60,26 @@ class _FlashcardScreenState extends State<FlashcardScreen>
     if (_answering) return;
     setState(() => _answering = true);
     final ms = DateTime.now().difference(_startTime).inMilliseconds;
-    await context.read<LearnProvider>().submitAnswer(correct, timeTakenMs: ms);
-
     final lp = context.read<LearnProvider>();
+    final word = lp.currentWord;
+
+    if (widget.isMixedMode) {
+      if (widget.onAnswer != null) {
+        widget.onAnswer!(correct);
+      }
+      return;
+    }
+
+    await lp.submitAnswer(
+      correct,
+      timeTakenMs: ms,
+      userAnswer: correct ? 'Got it' : 'Didn\'t know',
+      correctAnswer: word?.meaningVn ?? '',
+      prompt: word?.word ?? '',
+      mode: 'flashcard',
+      advance: false,
+    );
+
     lp.nextWord();
     if (lp.isSessionComplete) {
       final result = await lp.completeSession();
@@ -78,6 +103,129 @@ class _FlashcardScreenState extends State<FlashcardScreen>
     final total   = lp.session?.words.length ?? 1;
     final current = lp.session?.currentIndex ?? 0;
     final progress = current / total;
+
+    Widget content = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          // Progress
+          if (!widget.isMixedMode) ...[
+            AppProgressBar(value: progress, height: 6),
+            const SizedBox(height: 24),
+          ],
+
+          // Flip card
+          GestureDetector(
+            onTap: _flip,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 320),
+              child: AnimatedBuilder(
+                animation: _flipAnim,
+                builder: (_, child) {
+                  final angle = _flipAnim.value;
+                  final isFront = angle < math.pi / 2;
+                  return Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(angle),
+                    child: isFront
+                        ? _CardFace(
+                            word: word.word,
+                            partOfSpeech: word.partOfSpeech,
+                            pronunciation: word.pronunciation,
+                            tags: word.tags,
+                          )
+                        : Transform(
+                            alignment: Alignment.center,
+                            transform: Matrix4.identity()..rotateY(math.pi),
+                            child: _CardBack(
+                              word:         word.word,
+                              meaningVn:    word.meaningVn,
+                              definitionVn: word.definitionVn,
+                              definitionEn: word.definitionEn,
+                              example:      word.example,
+                            ),
+                          ),
+                  );
+                },
+              ),
+            ),
+          ),
+
+          // Hint text
+          if (!_showBack) ...[
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.touch_app, color: AppColors.textHint, size: 16),
+                const SizedBox(width: 6),
+                Text('Tap card to reveal meaning',
+                    style: AppTextStyles.bodySmall),
+              ],
+            ),
+          ],
+
+          // Answer buttons
+          if (_showBack) ...[
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: _answering ? null : () => _answer(false),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: BoxDecoration(
+                        color: AppColors.error.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(AppRadius.lg),
+                        border: Border.all(color: AppColors.error.withOpacity(0.3)),
+                      ),
+                      child: const Column(
+                        children: [
+                          Icon(Icons.close_rounded, color: AppColors.error, size: 28),
+                          SizedBox(height: 4),
+                          Text('Didn\'t know',
+                              style: TextStyle(color: AppColors.error, fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: _answering ? null : () => _answer(true),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: BoxDecoration(
+                        color: AppColors.success.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(AppRadius.lg),
+                        border: Border.all(color: AppColors.success.withOpacity(0.3)),
+                      ),
+                      child: const Column(
+                        children: [
+                          Icon(Icons.check_rounded, color: AppColors.success, size: 28),
+                          SizedBox(height: 4),
+                          Text('Got it!',
+                              style: TextStyle(color: AppColors.success, fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          const SizedBox(height: 28),
+        ],
+      ),
+    );
+
+    if (widget.isMixedMode) {
+      return content;
+    }
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -115,124 +263,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                     minHeight: constraints.maxHeight,
                   ),
                   child: IntrinsicHeight(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          // Progress
-                          AppProgressBar(value: progress, height: 6),
-                          const SizedBox(height: 24),
-
-                          // Flip card
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: _flip,
-                              child: ConstrainedBox(
-                                constraints: const BoxConstraints(minHeight: 320),
-                                child: AnimatedBuilder(
-                                  animation: _flipAnim,
-                                  builder: (_, child) {
-                                    final angle = _flipAnim.value;
-                                    final isFront = angle < math.pi / 2;
-                                    return Transform(
-                                      alignment: Alignment.center,
-                                      transform: Matrix4.identity()
-                                        ..setEntry(3, 2, 0.001)
-                                        ..rotateY(angle),
-                                      child: isFront
-                                          ? _CardFace(
-                                              word: word.word,
-                                              partOfSpeech: word.partOfSpeech,
-                                              pronunciation: word.pronunciation,
-                                              tags: word.tags,
-                                            )
-                                          : Transform(
-                                              alignment: Alignment.center,
-                                              transform: Matrix4.identity()..rotateY(math.pi),
-                                              child: _CardBack(
-                                                word:         word.word,
-                                                meaningVn:    word.meaningVn,
-                                                definitionVn: word.definitionVn,
-                                                definitionEn: word.definitionEn,
-                                                example:      word.example,
-                                              ),
-                                            ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          // Hint text
-                          if (!_showBack) ...[
-                            const SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.touch_app, color: AppColors.textHint, size: 16),
-                                const SizedBox(width: 6),
-                                Text('Tap card to reveal meaning',
-                                    style: AppTextStyles.bodySmall),
-                              ],
-                            ),
-                          ],
-
-                          // Answer buttons
-                          if (_showBack) ...[
-                            const SizedBox(height: 20),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: _answering ? null : () => _answer(false),
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(vertical: 16),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.error.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(AppRadius.lg),
-                                        border: Border.all(color: AppColors.error.withOpacity(0.3)),
-                                      ),
-                                      child: const Column(
-                                        children: [
-                                          Icon(Icons.close_rounded, color: AppColors.error, size: 28),
-                                          SizedBox(height: 4),
-                                          Text('Didn\'t know',
-                                              style: TextStyle(color: AppColors.error, fontWeight: FontWeight.w600)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 12),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: _answering ? null : () => _answer(true),
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(vertical: 16),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.success.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(AppRadius.lg),
-                                        border: Border.all(color: AppColors.success.withOpacity(0.3)),
-                                      ),
-                                      child: const Column(
-                                        children: [
-                                          Icon(Icons.check_rounded, color: AppColors.success, size: 28),
-                                          SizedBox(height: 4),
-                                          Text('Got it!',
-                                              style: TextStyle(color: AppColors.success, fontWeight: FontWeight.w600)),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                          const SizedBox(height: 28),
-                        ],
-                      ),
-                    ),
+                    child: content,
                   ),
                 ),
               );

@@ -31,13 +31,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         w.meaningVn.toLowerCase().contains(_search.toLowerCase())).toList();
 
     final canPop = Navigator.canPop(context);
+    final width = MediaQuery.of(context).size.width;
+    final isWide = width >= 600;
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         // ── Responsive Layout ────────────────────────────────────────────────
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
+            constraints: BoxConstraints(maxWidth: isWide ? 1024 : 800),
             child: Column(
               children: [
                 // ── Header with optional Back button ──────────────────────
@@ -121,86 +123,101 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                 ],
                               ),
                             )
-                          : ListView.separated(
-                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                              itemCount: words.length,
-                              separatorBuilder: (_, __) => const SizedBox(height: 10),
-                              itemBuilder: (_, i) {
-                                final word = words[i];
-                                return Dismissible(
-                                  key: Key(word.id),
-                                  direction: DismissDirection.endToStart,
-                                  background: Container(
-                                    alignment: Alignment.centerRight,
-                                    padding: const EdgeInsets.only(right: 20),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.error.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(AppRadius.lg),
-                                    ),
-                                    child: const Icon(Icons.delete_outline,
-                                        color: AppColors.error, size: 26),
+                          : isWide
+                              ? GridView.builder(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: width >= 900 ? 3 : 2,
+                                    crossAxisSpacing: 16,
+                                    mainAxisSpacing: 16,
+                                    mainAxisExtent: 120,
                                   ),
-                                  onDismissed: (_) => favP.toggleFavorite(word),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(AppRadius.lg),
-                                      border: Border.all(color: Colors.grey.shade100),
-                                      boxShadow: [
-                                        BoxShadow(color: Colors.black.withOpacity(0.04),
-                                            blurRadius: 8, offset: const Offset(0, 2)),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        // Level badge
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 4),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.primary.withOpacity(0.08),
-                                            borderRadius: BorderRadius.circular(AppRadius.full),
-                                          ),
-                                          child: Text(word.level,
-                                              style: const TextStyle(
-                                                  color: AppColors.primary,
-                                                  fontWeight: FontWeight.w700, fontSize: 12)),
+                                  itemCount: words.length,
+                                  itemBuilder: (_, i) {
+                                    final word = words[i];
+                                    return _buildFavoriteCard(word, favP);
+                                  },
+                                )
+                              : ListView.separated(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                  itemCount: words.length,
+                                  separatorBuilder: (_, __) => const SizedBox(height: 10),
+                                  itemBuilder: (_, i) {
+                                    final word = words[i];
+                                    return Dismissible(
+                                      key: Key(word.id),
+                                      direction: DismissDirection.endToStart,
+                                      background: Container(
+                                        alignment: Alignment.centerRight,
+                                        padding: const EdgeInsets.only(right: 20),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.error.withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(AppRadius.lg),
                                         ),
-                                        const SizedBox(width: 14),
-                                        // Word info
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(word.word,
+                                        child: const Icon(Icons.delete_outline,
+                                            color: AppColors.error, size: 26),
+                                      ),
+                                      onDismissed: (_) => favP.toggleFavorite(word),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(AppRadius.lg),
+                                          border: Border.all(color: Colors.grey.shade100),
+                                          boxShadow: [
+                                            BoxShadow(color: Colors.black.withOpacity(0.04),
+                                                blurRadius: 8, offset: const Offset(0, 2)),
+                                          ],
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            // Level badge
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 4),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.primary.withOpacity(0.08),
+                                                borderRadius: BorderRadius.circular(AppRadius.full),
+                                              ),
+                                              child: Text(word.level,
                                                   style: const TextStyle(
-                                                      fontSize: 17, fontWeight: FontWeight.w700)),
-                                              const SizedBox(height: 2),
-                                              Text(word.meaningVn,
-                                                  style: AppTextStyles.bodySmall),
-                                              if (word.partOfSpeech.isNotEmpty)
-                                                Text(word.partOfSpeech,
-                                                    style: const TextStyle(
-                                                        fontSize: 11,
-                                                        color: AppColors.textSecondary,
-                                                        fontStyle: FontStyle.italic)),
-                                            ],
-                                          ),
+                                                      color: AppColors.primary,
+                                                      fontWeight: FontWeight.w700, fontSize: 12)),
+                                            ),
+                                            const SizedBox(width: 14),
+                                            // Word info
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(word.word,
+                                                      style: const TextStyle(
+                                                          fontSize: 17, fontWeight: FontWeight.w700)),
+                                                  const SizedBox(height: 2),
+                                                  Text(word.meaningVn,
+                                                      style: AppTextStyles.bodySmall),
+                                                  if (word.partOfSpeech.isNotEmpty)
+                                                    Text(word.partOfSpeech,
+                                                        style: const TextStyle(
+                                                            fontSize: 11,
+                                                            color: AppColors.textSecondary,
+                                                            fontStyle: FontStyle.italic)),
+                                                ],
+                                              ),
+                                            ),
+                                            // Favorite button
+                                            IconButton(
+                                              icon: const Icon(Icons.favorite,
+                                                  color: Colors.pinkAccent),
+                                              onPressed: () => favP.toggleFavorite(word),
+                                              mouseCursor: SystemMouseCursors.click,
+                                            ),
+                                          ],
                                         ),
-                                        // Favorite button
-                                        IconButton(
-                                          icon: const Icon(Icons.favorite,
-                                              color: Colors.pinkAccent),
-                                          onPressed: () => favP.toggleFavorite(word),
-                                          mouseCursor: SystemMouseCursors.click, // Tối ưu cho Web
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                                      ),
+                                    );
+                                  },
+                                ),
                 ),
               ],
             ),
@@ -219,6 +236,72 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
             )
           : null,
+    );
+  }
+
+  Widget _buildFavoriteCard(word, favP) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+        border: Border.all(color: Colors.grey.shade100),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.04),
+              blurRadius: 8, offset: const Offset(0, 2)),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(AppRadius.full),
+                      ),
+                      child: Text(word.level,
+                          style: const TextStyle(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w700, fontSize: 11)),
+                    ),
+                    if (word.partOfSpeech.isNotEmpty) ...[
+                      const SizedBox(width: 8),
+                      Text(word.partOfSpeech,
+                          style: const TextStyle(
+                              fontSize: 11,
+                              color: AppColors.textSecondary,
+                              fontStyle: FontStyle.italic)),
+                    ],
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(word.word,
+                    maxLines: 1, overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w700)),
+                const SizedBox(height: 2),
+                Text(word.meaningVn,
+                    maxLines: 1, overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.bodySmall),
+              ],
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.favorite,
+                color: Colors.pinkAccent),
+            onPressed: () => favP.toggleFavorite(word),
+            mouseCursor: SystemMouseCursors.click,
+          ),
+        ],
+      ),
     );
   }
 }

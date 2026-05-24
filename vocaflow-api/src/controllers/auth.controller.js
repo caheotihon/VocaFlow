@@ -161,5 +161,6 @@ const _safeUser = (user) => ({
   badges: user.badges,
   streakMilestonesClaimed: user.streakMilestonesClaimed || [],
   authProvider: user.authProvider,
+  role: user.role || 'user',
   createdAt: user.createdAt,
 });

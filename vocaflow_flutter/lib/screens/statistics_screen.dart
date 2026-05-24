@@ -22,7 +22,6 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
       context.read<StatsProvider>().loadDashboard();
     });
   }
-
   @override
   Widget build(BuildContext context) {
     final stats = context.watch<StatsProvider>();
@@ -33,6 +32,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     final badges   = (dash?['user']?['badges'] as List?)?.cast<String>() ?? [];
     final heatmap  = (dash?['heatmap'] as Map<String, dynamic>?)?.cast<String, dynamic>() ?? {};
 
+    final width = MediaQuery.of(context).size.width;
+    final isDesktop = width >= 900;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -41,375 +43,325 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           color: AppColors.primary,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            padding: EdgeInsets.symmetric(
+              horizontal: isDesktop ? 32 : 20,
+              vertical: isDesktop ? 24 : 16,
+            ),
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 800),
+                constraints: BoxConstraints(maxWidth: isDesktop ? 1024 : 800),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Learning Stats', style: AppTextStyles.h2),
                     Text('Your progress this week.', style: AppTextStyles.bodySmall),
                     const SizedBox(height: 24),
-
-                    // ── Weekly Bar Chart ─────────────────────────────────
-                    AppCard(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('XP Progress',
-                                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                              Text('This Week',
-                                  style: const TextStyle(
-                                    color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
-                            ],
-                          ),
-                          const SizedBox(height: 24),
-                          SizedBox(
-                            height: 140,
-                            child: stats.isLoading
-                                ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
-                                : Animate(
-                                    effects: const [
-                                      FadeEffect(duration: Duration(milliseconds: 600)),
-                                      ScaleEffect(duration: Duration(milliseconds: 500), curve: Curves.easeOutBack, begin: Offset(0.95, 0.8)),
-                                    ],
-                                    child: BarChart(
-                                      BarChartData(
-                                        alignment: BarChartAlignment.spaceAround,
-                                        maxY: weekly.isEmpty ? 10 :
-                                            (weekly.map((d) => (d['xp'] as int? ?? 0).toDouble())
-                                                .reduce((a, b) => a > b ? a : b) + 30),
-                                        barTouchData: BarTouchData(
-                                          touchTooltipData: BarTouchTooltipData(
-                                            getTooltipColor: (group) => Colors.grey.shade900,
-                                            tooltipRoundedRadius: 8,
-                                            tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                                            tooltipMargin: 6,
-                                            fitInsideHorizontally: true,
-                                            fitInsideVertically: true,
-                                            getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                                              return BarTooltipItem(
-                                                '${rod.toY.toInt()} XP',
-                                                const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        barGroups: weekly.asMap().entries.map((e) {
-                                          final today = DateTime.now();
-                                          final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][today.weekday - 1];
-                                          final isToday = e.value['day'] == dayName;
-                                          return BarChartGroupData(
-                                            x: e.key,
-                                            barRods: [
-                                              BarChartRodData(
-                                                toY: (e.value['xp'] as int? ?? 0).toDouble(),
-                                                color: isToday ? AppColors.primary : AppColors.primary.withOpacity(0.35),
-                                                width: 18,
-                                                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-                                              ),
-                                            ],
-                                          );
-                                        }).toList(),
-                                        gridData: const FlGridData(show: false),
-                                        borderData: FlBorderData(show: false),
-                                        titlesData: FlTitlesData(
-                                          leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                                          bottomTitles: AxisTitles(
-                                            sideTitles: SideTitles(
-                                              showTitles: true,
-                                              getTitlesWidget: (val, _) {
-                                                final idx = val.toInt();
-                                                final day = weekly.isNotEmpty && idx < weekly.length
-                                                    ? weekly[idx]['day'] as String? ?? '' : '';
-                                                final today = DateTime.now();
-                                                final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][today.weekday - 1];
-                                                return Padding(
-                                                  padding: const EdgeInsets.only(top: 8.0),
-                                                  child: Text(day,
-                                                      style: TextStyle(
-                                                        fontSize: 12, fontWeight: FontWeight.w600,
-                                                        color: day == dayName ? AppColors.primary : AppColors.textSecondary,
-                                                      )),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // ── Words mastered + Accuracy ─────────────────────────
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AppCard(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.school_outlined, color: AppColors.primary, size: 20),
-                                    const SizedBox(width: 6),
-                                    const Text('Words\nMastered', style: AppTextStyles.bodySmall),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  '${progress['totalMastered'] ?? 0}',
-                                  style: const TextStyle(
-                                    fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: AppCard(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.track_changes, color: AppColors.secondary, size: 20),
-                                    const SizedBox(width: 6),
-                                    const Text('Accuracy', style: AppTextStyles.bodySmall),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  '${progress['accuracy'] ?? 0}%',
-                                  style: const TextStyle(
-                                    fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
-                                ),
-                              ],
-                            ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-
-                // ── Total Study Time ──────────────────────────────────
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    gradient: AppColors.primaryGradient,
-                    borderRadius: BorderRadius.circular(AppRadius.lg),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.access_time_rounded, color: Colors.white, size: 24),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Total Study Time',
-                              style: TextStyle(color: Colors.white70, fontSize: 13)),
-                          Text('${study['totalStudyHours'] ?? 0}h',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
-                        ],
-                      ),
-                      const Spacer(),
-                      Container(
-                        width: 40, height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.trending_up_rounded,
-                            color: Colors.white, size: 22),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // ── Activity Heatmap ──────────────────────────────────
-                AppCard(
-                  padding: const EdgeInsets.all(18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Activity Heatmap',
-                              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                          Text('Last 4 Weeks', // Đổi thành 4 tuần để hiển thị dạng lưới thứ ngày chuẩn
-                              style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      // CẢI TIẾN: Component Heatmap mới dễ nhìn, có tiêu đề các ngày trong tuần
-                      _EnhancedHeatmapGrid(heatmap: heatmap),
-                      const SizedBox(height: 14),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const Text('Less', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
-                          const SizedBox(width: 6),
-                          ...List.generate(4, (i) => Container(
-                            width: 12, height: 12,
-                            margin: const EdgeInsets.only(right: 4),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withOpacity(0.15 + i * 0.25),
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                          )),
-                          const Text('More', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // ── Badges ────────────────────────────────────────────
-                if (badges.isNotEmpty) ...[
-                  AppCard(
-                    padding: const EdgeInsets.all(18),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Recent Badges',
-                            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                        const SizedBox(height: 16),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: badges.map((b) => Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: _BadgeItem(badge: b),
-                            )).toList(),
->>>>>>> main
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-
-                    // ── Total Study Time ──────────────────────────────────
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        gradient: AppColors.primaryGradient,
-                        borderRadius: BorderRadius.circular(AppRadius.lg),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.access_time_rounded, color: Colors.white, size: 24),
-                          const SizedBox(width: 12),
-                          Column(
+                    isDesktop
+                        ? Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('Total Study Time',
-                                  style: TextStyle(color: Colors.white70, fontSize: 13)),
-                              Text('${study['totalStudyHours'] ?? 0}h',
-                                  style: const TextStyle(
-                                    color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
-                            ],
-                          ),
-                          const Spacer(),
-                          Container(
-                            width: 40, height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(Icons.trending_up_rounded,
-                                color: Colors.white, size: 22),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // ── Activity Heatmap ──────────────────────────────────
-                    AppCard(
-                      padding: const EdgeInsets.all(18),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Activity Heatmap',
-                                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                              Text('Last 30 Days',
-                                  style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
-                            ],
-                          ),
-                          const SizedBox(height: 14),
-                          _HeatmapGrid(heatmap: heatmap),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              const Text('Less', style: AppTextStyles.bodySmall),
-                              const SizedBox(width: 6),
-                              ...List.generate(4, (i) => Container(
-                                width: 14, height: 14,
-                                margin: const EdgeInsets.only(right: 4),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary.withOpacity(0.15 + i * 0.25),
-                                  borderRadius: BorderRadius.circular(3),
+                              // Left column
+                              Expanded(
+                                flex: 6,
+                                child: Column(
+                                  children: [
+                                    _buildWeeklyChart(stats, weekly),
+                                    const SizedBox(height: 20),
+                                    _buildHeatmapCard(heatmap),
+                                  ],
                                 ),
-                              )),
-                              const Text('More', style: AppTextStyles.bodySmall),
+                              ),
+                              const SizedBox(width: 24),
+                              // Right column
+                              Expanded(
+                                flex: 4,
+                                child: Column(
+                                  children: [
+                                    _buildSummaryRow(progress),
+                                    const SizedBox(height: 20),
+                                    _buildStudyTime(study),
+                                    if (badges.isNotEmpty) ...[
+                                      const SizedBox(height: 20),
+                                      _buildRecentBadgesCard(badges),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildWeeklyChart(stats, weekly),
+                              const SizedBox(height: 16),
+                              _buildSummaryRow(progress),
+                              const SizedBox(height: 16),
+                              _buildStudyTime(study),
+                              const SizedBox(height: 16),
+                              _buildHeatmapCard(heatmap),
+                              if (badges.isNotEmpty) ...[
+                                const SizedBox(height: 16),
+                                _buildRecentBadgesCard(badges),
+                              ],
+                              const SizedBox(height: 80),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
-                    // ── Badges ────────────────────────────────────────────
-                    if (badges.isNotEmpty) ...[
-                      AppCard(
-                        padding: const EdgeInsets.all(18),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Recent Badges',
-                                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
-                            const SizedBox(height: 16),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Wrap(
-                                spacing: 24,
-                        SizedBox(
-                          width: double.infinity,
-                          child: Wrap(
-                            spacing: 24,
-                            runSpacing: 16,
-                            alignment: WrapAlignment.center,
-                            children: badges.map((b) => _BadgeItem(badge: b)).toList(),
+  Widget _buildWeeklyChart(stats, List<Map<String, dynamic>> weekly) {
+    return AppCard(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('XP Progress',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+              Text('This Week',
+                  style: const TextStyle(
+                    color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
+            ],
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            height: 140,
+            child: stats.isLoading
+                ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                : Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(milliseconds: 600)),
+                      ScaleEffect(duration: Duration(milliseconds: 500), curve: Curves.easeOutBack, begin: Offset(0.95, 0.8)),
+                    ],
+                    child: BarChart(
+                      BarChartData(
+                        alignment: BarChartAlignment.spaceAround,
+                        maxY: weekly.isEmpty ? 10 :
+                            (weekly.map((d) => (d['xp'] as int? ?? 0).toDouble())
+                                .reduce((a, b) => a > b ? a : b) + 30),
+                        barTouchData: BarTouchData(
+                          touchTooltipData: BarTouchTooltipData(
+                            getTooltipColor: (group) => Colors.grey.shade900,
+                            tooltipRoundedRadius: 8,
+                            tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                            tooltipMargin: 6,
+                            fitInsideHorizontally: true,
+                            fitInsideVertically: true,
+                            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                              return BarTooltipItem(
+                                '${rod.toY.toInt()} XP',
+                                const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                              );
+                            },
                           ),
                         ),
-                      ],
+                        barGroups: weekly.asMap().entries.map((e) {
+                          final today = DateTime.now();
+                          final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][today.weekday - 1];
+                          final isToday = e.value['day'] == dayName;
+                          return BarChartGroupData(
+                            x: e.key,
+                            barRods: [
+                              BarChartRodData(
+                                toY: (e.value['xp'] as int? ?? 0).toDouble(),
+                                color: isToday ? AppColors.primary : AppColors.primary.withOpacity(0.35),
+                                width: 18,
+                                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                        gridData: const FlGridData(show: false),
+                        borderData: FlBorderData(show: false),
+                        titlesData: FlTitlesData(
+                          leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: (val, _) {
+                                final idx = val.toInt();
+                                final day = weekly.isNotEmpty && idx < weekly.length
+                                    ? weekly[idx]['day'] as String? ?? '' : '';
+                                final today = DateTime.now();
+                                final dayName = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][today.weekday - 1];
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(day,
+                                      style: TextStyle(
+                                        fontSize: 12, fontWeight: FontWeight.w600,
+                                        color: day == dayName ? AppColors.primary : AppColors.textSecondary,
+                                      )),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ],
+          ),
+        ],
+      ),
+    );
+  }
 
-                const SizedBox(height: 80),
+  Widget _buildSummaryRow(progress) {
+    return Row(
+      children: [
+        Expanded(
+          child: AppCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.school_outlined, color: AppColors.primary, size: 20),
+                    const SizedBox(width: 6),
+                    const Text('Words\nMastered', style: AppTextStyles.bodySmall),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '${progress['totalMastered'] ?? 0}',
+                  style: const TextStyle(
+                    fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                ),
               ],
             ),
           ),
         ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: AppCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.track_changes, color: AppColors.secondary, size: 20),
+                    const SizedBox(width: 6),
+                    const Text('Accuracy', style: AppTextStyles.bodySmall),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '${progress['accuracy'] ?? 0}%',
+                  style: const TextStyle(
+                    fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStudyTime(study) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: AppColors.primaryGradient,
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.access_time_rounded, color: Colors.white, size: 24),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Total Study Time',
+                  style: TextStyle(color: Colors.white70, fontSize: 13)),
+              Text('${study['totalStudyHours'] ?? 0}h',
+                  style: const TextStyle(
+                      color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
+            ],
+          ),
+          const Spacer(),
+          Container(
+            width: 40, height: 40,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.trending_up_rounded,
+                color: Colors.white, size: 22),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeatmapCard(heatmap) {
+    return AppCard(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Activity Heatmap',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+              Text('Last 4 Weeks',
+                  style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _EnhancedHeatmapGrid(heatmap: heatmap),
+          const SizedBox(height: 14),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Text('Less', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+              const SizedBox(width: 6),
+              ...List.generate(4, (i) => Container(
+                width: 12, height: 12,
+                margin: const EdgeInsets.only(right: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(0.15 + i * 0.25),
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              )),
+              const Text('More', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRecentBadgesCard(List<String> badges) {
+    return AppCard(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Recent Badges',
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              spacing: 24,
+              runSpacing: 16,
+              alignment: WrapAlignment.center,
+              children: badges.map((b) => _BadgeItem(badge: b)).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
