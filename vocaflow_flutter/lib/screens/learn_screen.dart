@@ -424,7 +424,7 @@ GridView(
   }
 }
 
-class _SourceCard extends StatelessWidget {
+class _SourceCard extends StatefulWidget {
   final String source, description;
   final IconData icon;
   final int totalWords, masteredWords, percentage;
@@ -438,33 +438,47 @@ class _SourceCard extends StatelessWidget {
   });
 
   @override
+  State<_SourceCard> createState() => _SourceCardState();
+}
+
+class _SourceCardState extends State<_SourceCard> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: SystemMouseCursors.click, // Hiển thị con trỏ tay chỉ trên Web/Desktop
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
-        onTap: onTap,
+        onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
+          transform: Matrix4.identity()..scale(_isHovered ? 1.03 : 1.0),
+          transformAlignment: Alignment.center,
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(AppRadius.lg),
             border: Border.all(
-              color: isSelected ? AppColors.primary : Colors.grey.shade100,
-              width: isSelected ? 2 : 1,
+              color: widget.isSelected
+                  ? AppColors.primary
+                  : (_isHovered ? AppColors.primary.withOpacity(0.5) : Colors.grey.shade100),
+              width: widget.isSelected ? 2 : 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: isSelected
-                    ? AppColors.primary.withOpacity(0.12)
-                    : Colors.black.withOpacity(0.04),
-                blurRadius: 12, offset: const Offset(0, 4),
+                color: widget.isSelected
+                    ? AppColors.primary.withOpacity(0.15)
+                    : (_isHovered ? Colors.black.withOpacity(0.08) : Colors.black.withOpacity(0.04)),
+                blurRadius: _isHovered ? 16 : 12,
+                offset: _isHovered ? const Offset(0, 6) : const Offset(0, 4),
               ),
             ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Tối ưu phân bổ không gian trong Grid
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -477,10 +491,10 @@ class _SourceCard extends StatelessWidget {
                           color: AppColors.primary.withOpacity(0.08),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Icon(icon, color: AppColors.primary, size: 24),
+                        child: Icon(widget.icon, color: AppColors.primary, size: 24),
                       ),
                       const Spacer(),
-                      if (isSelected)
+                      if (widget.isSelected)
                         Container(
                           width: 28, height: 28,
                           decoration: BoxDecoration(
@@ -493,11 +507,11 @@ class _SourceCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  Text(source,
+                  Text(widget.source,
                       maxLines: 1, overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
                   const SizedBox(height: 2),
-                  Text(description, 
+                  Text(widget.description,
                       maxLines: 1, overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.bodySmall),
                 ],
@@ -509,23 +523,23 @@ class _SourceCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '$masteredWords / $totalWords Words',
+                        '${widget.masteredWords} / ${widget.totalWords} Words',
                         style: AppTextStyles.bodySmall,
                       ),
                       const Spacer(),
                       Text(
-                        '$percentage%',
+                        '${widget.percentage}%',
                         style: TextStyle(
                           fontSize: 13, fontWeight: FontWeight.w700,
-                          color: percentage >= 80 ? AppColors.success : AppColors.primary,
+                          color: widget.percentage >= 80 ? AppColors.success : AppColors.primary,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   AppProgressBar(
-                    value: percentage / 100,
-                    color: percentage >= 80 ? AppColors.success : AppColors.primary,
+                    value: widget.percentage / 100,
+                    color: widget.percentage >= 80 ? AppColors.success : AppColors.primary,
                   ),
                 ],
               ),

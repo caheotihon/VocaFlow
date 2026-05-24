@@ -15,6 +15,7 @@ class UserModel {
   final List<int> streakMilestonesClaimed;
   final String authProvider;
   final DateTime? createdAt;
+  final String role;
 
   UserModel({
     required this.id,
@@ -32,6 +33,7 @@ class UserModel {
     this.streakMilestonesClaimed = const [],
     this.authProvider = 'local',
     this.createdAt,
+    this.role = 'user',
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -53,6 +55,7 @@ class UserModel {
       createdAt:                json['createdAt'] != null
           ? DateTime.tryParse(json['createdAt'])
           : null,
+      role:                     json['role'] ?? 'user',
     );
   }
 
@@ -71,6 +74,7 @@ class UserModel {
     'badges':                 badges,
     'streakMilestonesClaimed': streakMilestonesClaimed,
     'authProvider':           authProvider,
+    'role':                   role,
   };
 
   UserModel copyWith({
@@ -85,6 +89,7 @@ class UserModel {
     int? dailyXP,
     List<String>? badges,
     List<int>? streakMilestonesClaimed,
+    String? role,
   }) {
     return UserModel(
       id: id,
@@ -102,6 +107,7 @@ class UserModel {
       goalAccuracy:            goalAccuracy ?? this.goalAccuracy,
       badges:                  badges ?? this.badges,
       streakMilestonesClaimed: streakMilestonesClaimed ?? this.streakMilestonesClaimed,
+      role:                    role ?? this.role,
     );
   }
 }

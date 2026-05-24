@@ -40,32 +40,41 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
         title: const Text('Leaderboard', style: TextStyle(fontWeight: FontWeight.w800)),
         backgroundColor: AppColors.background,
         elevation: 0,
-        bottom: TabBar(
-          controller: _tabCtrl,
-          labelColor: AppColors.primary,
-          unselectedLabelColor: AppColors.textSecondary,
-          indicatorColor: AppColors.primary,
-          indicatorWeight: 3,
-          labelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
-          tabs: const [
-            Tab(icon: Icon(Icons.local_fire_department_rounded), text: 'Streak'),
-            Tab(icon: Icon(Icons.bolt_rounded), text: 'XP'),
-          ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: TabBar(
+                controller: _tabCtrl,
+                labelColor: AppColors.primary,
+                unselectedLabelColor: AppColors.textSecondary,
+                indicatorColor: AppColors.primary,
+                indicatorWeight: 3,
+                labelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                tabs: const [
+                  Tab(icon: Icon(Icons.local_fire_department_rounded), text: 'Streak'),
+                  Tab(icon: Icon(Icons.bolt_rounded), text: 'XP'),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
-      body: stats.isLoading && stats.leaderboard.isEmpty
-          ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
-          : TabBarView(
-              controller: _tabCtrl,
-              children: [
-                // Note: The provider only holds one leaderboard list at a time currently
-                // Better approach would be to have separate lists in provider or load on tab change.
-                // For simplicity, let's just use the load logic in _loadAll and store them locally
-                // Or better, update provider to handle multiple boards.
-                _LeaderboardContent(type: 'streak', currentUserId: currentUserId),
-                _LeaderboardContent(type: 'xp', currentUserId: currentUserId),
-              ],
-            ),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: stats.isLoading && stats.leaderboard.isEmpty
+              ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+              : TabBarView(
+                  controller: _tabCtrl,
+                  children: [
+                    _LeaderboardContent(type: 'streak', currentUserId: currentUserId),
+                    _LeaderboardContent(type: 'xp', currentUserId: currentUserId),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 }

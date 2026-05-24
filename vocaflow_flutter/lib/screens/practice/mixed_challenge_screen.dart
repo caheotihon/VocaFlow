@@ -1,11 +1,16 @@
 // Mixed Challenge Screen — randomly picks a mode per word
-import 'dart:math';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/learn_provider.dart';
 import '../../providers/favorite_provider.dart';
 import '../../core/constants/app_constants.dart';
 import '../widgets/shared_widgets.dart';
+
+// Import individual screens for embedding
+import 'fill_blank_screen.dart';
+import 'flashcard_screen.dart';
+import 'reverse_recall_screen.dart';
 
 enum _MixedMode { flashcard, fillBlank, reverse }
 
@@ -17,12 +22,9 @@ class MixedChallengeScreen extends StatefulWidget {
 
 class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
   _MixedMode _mode = _MixedMode.flashcard;
-  List<String> _options = [];
-  String? _selected;
-  bool _submitted  = false;
-  bool _showBack   = false;
-  final _rand      = Random();
+  final _rand = math.Random();
   DateTime _wordStartTime = DateTime.now();
+  bool _submitted = false;
 
   @override
   void initState() {
@@ -33,18 +35,10 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
   void _nextMode() {
     final modes = _MixedMode.values;
     _mode = modes[_rand.nextInt(modes.length)];
-    _buildOptions();
-  }
-
-  void _buildOptions() {
-    final lp = context.read<LearnProvider>();
-    final word = lp.currentWord;
-    if (word == null) return;
-    final all = lp.session?.words ?? [];
-    final dist = all.where((w) => w.word != word.word).map((w) => w.word).toList()..shuffle();
-    final opts = [word.word, ...dist.take(3)]..shuffle();
-    setState(() { _options = opts; _selected = null; _submitted = false; _showBack = false; });
-    _wordStartTime = DateTime.now();
+    setState(() {
+      _submitted = false;
+      _wordStartTime = DateTime.now();
+    });
   }
 
   Future<void> _answer(bool correct) async {
@@ -56,14 +50,15 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
     await lp.submitAnswer(
       correct,
       timeTakenMs: ms,
-      userAnswer: correct ? 'Marked correct' : 'Marked wrong',
+      userAnswer: correct ? 'Got it' : 'Didn\'t know',
       correctAnswer: word?.meaningVn ?? '',
       prompt: word?.word ?? '',
       mode: 'flashcard',
       advance: false,
     );
 
-    await Future.delayed(const Duration(seconds: 1));
+    // Wait a brief moment to match the individual screen's timing
+    await Future.delayed(const Duration(milliseconds: 200));
     if (!mounted) return;
 
     final total = lp.session?.words.length ?? 1;
@@ -79,27 +74,29 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
     }
   }
 
-  Future<void> _selectOption(String opt) async {
+  Future<void> _selectOption(bool correct) async {
     if (_submitted) return;
-    setState(() { _selected = opt; _submitted = true; });
+    setState(() => _submitted = true);
     final lp = context.read<LearnProvider>();
     final word = lp.currentWord!;
-    final correct = opt == word.word;
     final ms = DateTime.now().difference(_wordStartTime).inMilliseconds;
     final mode = _mode == _MixedMode.fillBlank ? 'fill_blank' : 'reverse_recall';
-    final prompt = _mode == _MixedMode.fillBlank ? 'Meaning: ${word.meaningVn}' : word.meaningVn;
+    final prompt = _mode == _MixedMode.fillBlank
+        ? (word.example.isNotEmpty ? word.example.replaceAll(word.word, '_______') : 'The _______ means: ${word.meaningVn}')
+        : word.meaningVn;
+    
     await lp.submitAnswer(
       correct,
       timeTakenMs: ms,
-      userAnswer: opt,
-      correctAnswer: word.word,
+      userAnswer: correct ? 'Correct answer' : 'Incorrect answer',
+      correctAnswer: 'Correct',
       prompt: prompt,
-      options: _options,
       mode: mode,
       advance: false,
     );
 
-    await Future.delayed(const Duration(seconds: 1));
+    // Wait a brief moment to match the individual screen's timing
+    await Future.delayed(const Duration(milliseconds: 200));
     if (!mounted) return;
 
     final total = lp.session?.words.length ?? 1;
@@ -151,153 +148,59 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        child: Column(
-          children: [
-            AppProgressBar(value: current / total, color: AppColors.error),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: AppColors.error.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(AppRadius.full),
-              ),
-              child: Text(
-                _modeLabel(_mode),
-                style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w600, fontSize: 12),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // ── Flashcard sub-mode ──────────────────────────────────
-            if (_mode == _MixedMode.flashcard) ...[
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => setState(() => _showBack = !_showBack),
-                  child: AppCard(
-                    padding: const EdgeInsets.all(24),
-                    child: Center(
-                      child: _showBack
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(word.meaningVn,
-                                    style: const TextStyle(
-                                      fontSize: 26, fontWeight: FontWeight.w800,
-                                      color: AppColors.primary)),
-                                const SizedBox(height: 12),
-                                Text(word.definitionVn, style: AppTextStyles.bodySmall,
-                                    textAlign: TextAlign.center),
-                              ],
-                            )
-                          : Text(word.word,
-                              style: const TextStyle(
-                                fontSize: 40, fontWeight: FontWeight.w800,
-                                color: AppColors.textPrimary)),
-                    ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            child: Column(
+              children: [
+                AppProgressBar(value: current / total, color: AppColors.error),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(AppRadius.full),
+                  ),
+                  child: Text(
+                    _modeLabel(_mode),
+                    style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w600, fontSize: 12),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              if (!_showBack)
-                Text('Tap to flip', style: AppTextStyles.bodySmall)
-              else
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: _submitted ? null : () => _answer(false),
-                        child: Container(
-                          height: 52,
-                          decoration: BoxDecoration(
-                            color: AppColors.error.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(AppRadius.lg),
-                            border: Border.all(color: AppColors.error.withOpacity(0.3)),
-                          ),
-                          child: const Center(child: Icon(Icons.close_rounded, color: AppColors.error, size: 28)),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: _submitted ? null : () => _answer(true),
-                        child: Container(
-                          height: 52,
-                          decoration: BoxDecoration(
-                            color: AppColors.success.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(AppRadius.lg),
-                            border: Border.all(color: AppColors.success.withOpacity(0.3)),
-                          ),
-                          child: const Center(child: Icon(Icons.check_rounded, color: AppColors.success, size: 28)),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-            ],
+                const SizedBox(height: 20),
 
-            // ── MCQ sub-modes ───────────────────────────────────────
-            if (_mode != _MixedMode.flashcard) ...[
-              AppCard(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  _mode == _MixedMode.fillBlank
-                      ? 'Meaning: ${word.meaningVn}'
-                      : word.meaningVn,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text('SELECT THE CORRECT WORD', style: AppTextStyles.label),
-              ),
-              const SizedBox(height: 12),
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 2.5,
-                children: _options.map((opt) {
-                  Color bg = Colors.white;
-                  Color border = Colors.grey.shade200;
-                  Color textClr = AppColors.textPrimary;
-                  if (_submitted && _selected == opt) {
-                    final c = opt == word.word;
-                    bg = c ? AppColors.success.withOpacity(0.12) : AppColors.error.withOpacity(0.12);
-                    border = c ? AppColors.success : AppColors.error;
-                    textClr = c ? AppColors.success : AppColors.error;
-                  } else if (_submitted && opt == word.word) {
-                    bg = AppColors.success.withOpacity(0.12);
-                    border = AppColors.success;
-                    textClr = AppColors.success;
-                  }
-                  return GestureDetector(
-                    onTap: () => _selectOption(opt),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      decoration: BoxDecoration(
-                        color: bg,
-                        borderRadius: BorderRadius.circular(AppRadius.lg),
-                        border: Border.all(color: border, width: 1.5),
-                      ),
-                      child: Center(
-                        child: Text(opt,
-                            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: textClr)),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ],
-            const SizedBox(height: 20),
-            const SizedBox(height: 12),
-            const SizedBox(height: 24),
-          ],
+                // ── Flashcard sub-mode ──────────────────────────────────
+                if (_mode == _MixedMode.flashcard) ...[
+                  FlashcardScreen(
+                    key: ValueKey('fc_${word.id}'),
+                    isMixedMode: true,
+                    onAnswer: _answer,
+                  ),
+                ],
+
+                // ── Fill in the Blank sub-mode ──────────────────────────
+                if (_mode == _MixedMode.fillBlank) ...[
+                  FillBlankScreen(
+                    key: ValueKey('fb_${word.id}'),
+                    isMixedMode: true,
+                    onAnswer: _selectOption,
+                  ),
+                ],
+
+                // ── Reverse Recall sub-mode ─────────────────────────────
+                if (_mode == _MixedMode.reverse) ...[
+                  ReverseRecallScreen(
+                    key: ValueKey('rr_${word.id}'),
+                    isMixedMode: true,
+                    onAnswer: _selectOption,
+                  ),
+                ],
+
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
         ),
       ),
     );

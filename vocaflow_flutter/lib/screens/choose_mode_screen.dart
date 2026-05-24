@@ -205,8 +205,7 @@ class ChooseModeScreen extends StatelessWidget {
   }
 }
 
-// Giữ nguyên _ModeCard như cũ vì thiết kế thẻ của bạn đã hoàn toàn responsive nội bộ
-class _ModeCard extends StatelessWidget {
+class _ModeCard extends StatefulWidget {
   final String id, label, desc;
   final IconData icon;
   final Color color;
@@ -220,54 +219,73 @@ class _ModeCard extends StatelessWidget {
   });
 
   @override
+  State<_ModeCard> createState() => _ModeCardState();
+}
+
+class _ModeCardState extends State<_ModeCard> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: isSelected ? color.withOpacity(0.07) : Colors.white,
-          borderRadius: BorderRadius.circular(AppRadius.lg),
-          border: Border.all(
-            color: isSelected ? color : Colors.grey.shade100,
-            width: isSelected ? 2 : 1,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          transform: Matrix4.identity()..scale(_isHovered ? 1.03 : 1.0),
+          transformAlignment: Alignment.center,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: widget.isSelected ? widget.color.withOpacity(0.07) : Colors.white,
+            borderRadius: BorderRadius.circular(AppRadius.lg),
+            border: Border.all(
+              color: widget.isSelected
+                  ? widget.color
+                  : (_isHovered ? widget.color.withOpacity(0.5) : Colors.grey.shade100),
+              width: widget.isSelected ? 2 : 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: widget.isSelected
+                    ? widget.color.withOpacity(0.15)
+                    : (_isHovered ? Colors.black.withOpacity(0.08) : Colors.black.withOpacity(0.04)),
+                blurRadius: _isHovered ? 14 : 10,
+                offset: _isHovered ? const Offset(0, 4) : const Offset(0, 3),
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              color: isSelected ? color.withOpacity(0.15) : Colors.black.withOpacity(0.04),
-              blurRadius: 10, offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 52, height: 52,
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(14),
+          child: Row(
+            children: [
+              Container(
+                width: 52, height: 52,
+                decoration: BoxDecoration(
+                  color: widget.color.withOpacity(0.12),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(widget.icon, color: widget.color, size: 26),
               ),
-              child: Icon(icon, color: color, size: 26),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(label,
-                      style: TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.w700,
-                        color: isSelected ? color : AppColors.textPrimary,
-                      )),
-                  const SizedBox(height: 3),
-                  Text(desc, style: AppTextStyles.bodySmall),
-                ],
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.label,
+                        style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w700,
+                          color: widget.isSelected ? widget.color : AppColors.textPrimary,
+                        )),
+                    const SizedBox(height: 3),
+                    Text(widget.desc, style: AppTextStyles.bodySmall),
+                  ],
+                ),
               ),
-            ),
-            if (isSelected)
-              Icon(Icons.check_circle_rounded, color: color, size: 24),
-          ],
+              if (widget.isSelected)
+                Icon(Icons.check_circle_rounded, color: widget.color, size: 24),
+            ],
+          ),
         ),
       ),
     );

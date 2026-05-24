@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema(
     // Badges earned
     badges: [{ type: String }],
 
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }

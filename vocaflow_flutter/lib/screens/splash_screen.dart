@@ -38,7 +38,11 @@ class _SplashScreenState extends State<SplashScreen>
     await auth.tryAutoLogin();
     if (!mounted) return;
     if (auth.isAuthenticated) {
-      Navigator.pushReplacementNamed(context, '/home');
+      if (auth.isAdmin) {
+        Navigator.pushReplacementNamed(context, '/admin');
+      } else {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
     } else {
       Navigator.pushReplacementNamed(context, '/login');
     }

@@ -33,6 +33,7 @@ import 'screens/story_select_words_screen.dart';
 import 'screens/story_view_screen.dart';
 import 'screens/story_quiz_screen.dart';
 import 'screens/story_history_screen.dart';
+import 'screens/admin_dashboard_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -108,6 +109,7 @@ class LingoProApp extends StatelessWidget {
         routes: {
           '/':              (_) => const SplashScreen(),
           '/login':         (_) => const LoginScreen(),
+          '/admin':         (_) => const AdminDashboardScreen(),
           '/home':          (_) => const MainShell(),
           '/learn':         (_) => const LearnScreen(),
           '/select-topic':  (_) => const SelectTopicScreen(),

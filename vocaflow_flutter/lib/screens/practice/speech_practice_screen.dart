@@ -156,7 +156,15 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
     // Auto submit learning results to the backend
     final correct = scorePct >= 70; // 70%+ is counted as correct
     final ms = DateTime.now().difference(_startTime).inMilliseconds;
-    lp.submitAnswer(correct, timeTakenMs: ms);
+    lp.submitAnswer(
+      correct,
+      timeTakenMs: ms,
+      userAnswer: _transcribedText,
+      correctAnswer: targetText,
+      prompt: targetText,
+      mode: 'speech',
+      advance: false,
+    );
   }
 
   int _levenshtein(String s, String t) {
@@ -195,7 +203,17 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
     // If not submitted yet, submit as incorrect by default before moving next
     if (!_submitted) {
       final ms = DateTime.now().difference(_startTime).inMilliseconds;
-      await lp.submitAnswer(false, timeTakenMs: ms);
+      final word = lp.currentWord;
+      final targetText = word != null ? (word.example.isNotEmpty ? word.example : word.word) : '';
+      await lp.submitAnswer(
+        false,
+        timeTakenMs: ms,
+        userAnswer: '',
+        correctAnswer: targetText,
+        prompt: targetText,
+        mode: 'speech',
+        advance: false,
+      );
     }
 
     lp.nextWord();

@@ -18,153 +18,197 @@ class ProfileScreen extends StatelessWidget {
     final dash  = stats.dashboard;
     final progress = dash?['progress'] as Map<String, dynamic>? ?? {};
 
+    final width = MediaQuery.of(context).size.width;
+    final isDesktop = width >= 900;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: EdgeInsets.symmetric(
+            horizontal: isDesktop ? 32 : 20,
+            vertical: isDesktop ? 24 : 16,
+          ),
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 800),
-              child: Column(
-                children: [
-                  // ── Avatar + name hero card ─────────────────────────
-                  _ProfileHeroCard(user: user, progress: progress),
-                  const SizedBox(height: 20),
-
-                  // ── Streak Milestone Progress ───────────────────────
-                  _StreakMilestonesCard(user: user),
-                  const SizedBox(height: 16),
-
-                  // ── Goals section ───────────────────────────────────
-                  AppCard(
-                    child: Column(
+              constraints: BoxConstraints(maxWidth: isDesktop ? 1024 : 800),
+              child: isDesktop
+                  ? Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Learning Goals', style: AppTextStyles.h3),
-                            TextButton.icon(
-                              onPressed: () => _showEditGoalsDialog(context, user),
-                              icon: const Icon(Icons.edit_outlined, size: 16),
-                              label: const Text('Edit'),
-                              style: TextButton.styleFrom(
-                                foregroundColor: AppColors.primary,
-                                textStyle: const TextStyle(fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                          ],
+                        // Left Column
+                        Expanded(
+                          flex: 5,
+                          child: Column(
+                            children: [
+                              _ProfileHeroCard(user: user, progress: progress),
+                              const SizedBox(height: 20),
+                              _StreakMilestonesCard(user: user),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 8),
-                        _GoalRow(
-                          icon: Icons.today_rounded,
-                          label: 'Daily Goal',
-                          value: '${user?.dailyGoal ?? 20} words/day',
-                          color: AppColors.primary,
-                        ),
-                        const Divider(height: 20),
-                        _GoalRow(
-                          icon: Icons.track_changes_rounded,
-                          label: 'Target Accuracy',
-                          value: '${user?.goalAccuracy ?? 80}%',
-                          color: AppColors.secondary,
-                        ),
-                        const Divider(height: 20),
-                        _GoalRow(
-                          icon: Icons.local_fire_department_rounded,
-                          label: 'Best Streak',
-                          value: '${user?.bestStreak ?? 0} days',
-                          color: Colors.deepOrange,
+                        const SizedBox(width: 24),
+                        // Right Column
+                        Expanded(
+                          flex: 5,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildGoalsCard(context, user),
+                              const SizedBox(height: 20),
+                              if ((user?.badges ?? []).isNotEmpty) ...[
+                                _buildBadgesCard(user!),
+                                const SizedBox(height: 20),
+                              ],
+                              _buildSettingsCard(context, user),
+                            ],
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // ── Badges ──────────────────────────────────────────
-                  if ((user?.badges ?? []).isNotEmpty)
-                    AppCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Badges Earned', style: AppTextStyles.h3),
-                          const SizedBox(height: 14),
-                          Wrap(
-                            spacing: 10, runSpacing: 10,
-                            children: (user!.badges).map((b) => _BadgeChip(badge: b)).toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  if ((user?.badges ?? []).isNotEmpty) const SizedBox(height: 16),
-
-                  // ── Settings / Logout ───────────────────────────────
-                  AppCard(
-                    child: Column(
+                    )
+                  : Column(
                       children: [
-                        _SettingsTile(
-                          icon: Icons.person_outline_rounded,
-                          label: 'Edit Profile',
-                          onTap: () => _showEditProfileDialog(context, user),
-                        ),
-                        const Divider(height: 1),
-                        _SettingsTile(
-                          icon: Icons.notifications_active_outlined,
-                          label: 'Study Reminders',
-                          trailing: Switch(
-                            value: true, // Dummy value
-                            onChanged: (v) {},
-                            activeColor: AppColors.primary,
-                          ),
-                          onTap: () {},
-                        ),
-                        const Divider(height: 1),
-                        _SettingsTile(
-                          icon: Icons.help_outline_rounded,
-                          label: 'Help & Support',
-                          onTap: () => _showComingSoon(context),
-                        ),
-                        const Divider(height: 1),
-                        _SettingsTile(
-                          icon: Icons.logout_rounded,
-                          label: 'Sign Out',
-                          color: AppColors.error,
-                          onTap: () async {
-                            final confirm = await showDialog<bool>(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(AppRadius.lg)),
-                                title: const Text('Sign Out?',
-                                    style: TextStyle(fontWeight: FontWeight.w700)),
-                                content: const Text('Are you sure you want to sign out?'),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () => Navigator.pop(context, false),
-                                      child: const Text('Cancel')),
-                                  TextButton(
-                                      onPressed: () => Navigator.pop(context, true),
-                                      child: const Text('Sign Out',
-                                          style: TextStyle(color: AppColors.error))),
-                                ],
-                              ),
-                            );
-                            if (confirm == true && context.mounted) {
-                              await context.read<AuthProvider>().logout();
-                              Navigator.pushReplacementNamed(context, '/login');
-                            }
-                          },
-                        ),
+                        _ProfileHeroCard(user: user, progress: progress),
+                        const SizedBox(height: 20),
+                        _StreakMilestonesCard(user: user),
+                        const SizedBox(height: 16),
+                        _buildGoalsCard(context, user),
+                        const SizedBox(height: 16),
+                        if ((user?.badges ?? []).isNotEmpty) ...[
+                          _buildBadgesCard(user!),
+                          const SizedBox(height: 16),
+                        ],
+                        _buildSettingsCard(context, user),
+                        const SizedBox(height: 80),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 80),
-                ],
-              ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildGoalsCard(BuildContext context, user) {
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Learning Goals', style: AppTextStyles.h3),
+              TextButton.icon(
+                onPressed: () => _showEditGoalsDialog(context, user),
+                icon: const Icon(Icons.edit_outlined, size: 16),
+                label: const Text('Edit'),
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.primary,
+                  textStyle: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _GoalRow(
+            icon: Icons.today_rounded,
+            label: 'Daily Goal',
+            value: '${user?.dailyGoal ?? 20} words/day',
+            color: AppColors.primary,
+          ),
+          const Divider(height: 20),
+          _GoalRow(
+            icon: Icons.track_changes_rounded,
+            label: 'Target Accuracy',
+            value: '${user?.goalAccuracy ?? 80}%',
+            color: AppColors.secondary,
+          ),
+          const Divider(height: 20),
+          _GoalRow(
+            icon: Icons.local_fire_department_rounded,
+            label: 'Best Streak',
+            value: '${user?.bestStreak ?? 0} days',
+            color: Colors.deepOrange,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBadgesCard(user) {
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Badges Earned', style: AppTextStyles.h3),
+          const SizedBox(height: 14),
+          Wrap(
+            spacing: 10, runSpacing: 10,
+            children: (user.badges as List).map((b) => _BadgeChip(badge: b.toString())).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSettingsCard(BuildContext context, user) {
+    return AppCard(
+      child: Column(
+        children: [
+          _SettingsTile(
+            icon: Icons.person_outline_rounded,
+            label: 'Edit Profile',
+            onTap: () => _showEditProfileDialog(context, user),
+          ),
+          const Divider(height: 1),
+          _SettingsTile(
+            icon: Icons.notifications_active_outlined,
+            label: 'Study Reminders',
+            trailing: Switch(
+              value: true, // Dummy value
+              onChanged: (v) {},
+              activeColor: AppColors.primary,
+            ),
+            onTap: () {},
+          ),
+          const Divider(height: 1),
+          _SettingsTile(
+            icon: Icons.help_outline_rounded,
+            label: 'Help & Support',
+            onTap: () => _showComingSoon(context),
+          ),
+          const Divider(height: 1),
+          _SettingsTile(
+            icon: Icons.logout_rounded,
+            label: 'Sign Out',
+            color: AppColors.error,
+            onTap: () async {
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (_) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppRadius.lg)),
+                  title: const Text('Sign Out?',
+                      style: TextStyle(fontWeight: FontWeight.w700)),
+                  content: const Text('Are you sure you want to sign out?'),
+                  actions: [
+                    TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text('Cancel')),
+                    TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: const Text('Sign Out',
+                            style: TextStyle(color: AppColors.error))),
+                  ],
+                ),
+              );
+              if (confirm == true && context.mounted) {
+                await context.read<AuthProvider>().logout();
+                Navigator.pushReplacementNamed(context, '/login');
+              }
+            },
+          ),
+        ],
       ),
     );
   }

@@ -39,7 +39,15 @@ class _TypingScreenState extends State<TypingScreen> {
     setState(() { _isCorrect = correct; _submitted = true; });
 
     final ms = DateTime.now().difference(_startTime).inMilliseconds;
-    lp.submitAnswer(correct, timeTakenMs: ms);
+    lp.submitAnswer(
+      correct,
+      timeTakenMs: ms,
+      userAnswer: _ctrl.text.trim(),
+      correctAnswer: word.word,
+      prompt: word.example.isNotEmpty ? word.example.replaceAll(word.word, '___') : 'Meaning: ${word.meaningVn}',
+      mode: 'typing',
+      advance: false,
+    );
 
     if (correct) {
       _nextTimer = Timer(const Duration(milliseconds: 1000), () {
@@ -215,8 +223,7 @@ class _TypingScreenState extends State<TypingScreen> {
                             ),
                           ],
 
-                          const Spacer(),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 24),
                           if (!_submitted || (_submitted && _isCorrect == false))
                             Center(
                               child: ConstrainedBox(
