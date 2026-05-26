@@ -16,6 +16,7 @@ class UserModel {
   final String authProvider;
   final DateTime? createdAt;
   final String role;
+  final bool isActive;
 
   UserModel({
     required this.id,
@@ -34,6 +35,7 @@ class UserModel {
     this.authProvider = 'local',
     this.createdAt,
     this.role = 'user',
+    this.isActive = true,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -56,6 +58,7 @@ class UserModel {
           ? DateTime.tryParse(json['createdAt'])
           : null,
       role:                     json['role'] ?? 'user',
+      isActive:                 json['isActive'] ?? true,
     );
   }
 
@@ -75,6 +78,7 @@ class UserModel {
     'streakMilestonesClaimed': streakMilestonesClaimed,
     'authProvider':           authProvider,
     'role':                   role,
+    'isActive':               isActive,
   };
 
   UserModel copyWith({
@@ -90,6 +94,7 @@ class UserModel {
     List<String>? badges,
     List<int>? streakMilestonesClaimed,
     String? role,
+    bool? isActive,
   }) {
     return UserModel(
       id: id,
@@ -108,6 +113,7 @@ class UserModel {
       badges:                  badges ?? this.badges,
       streakMilestonesClaimed: streakMilestonesClaimed ?? this.streakMilestonesClaimed,
       role:                    role ?? this.role,
+      isActive:                isActive ?? this.isActive,
     );
   }
 }

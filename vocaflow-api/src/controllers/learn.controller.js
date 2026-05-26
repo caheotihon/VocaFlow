@@ -500,3 +500,67 @@ exports.generateAiStory = async (req, res) => {
     return errorResponse(res, 'Server error', 500);
   }
 };
+
+/**
+ * GET /api/learn/history
+ * Get completed learning sessions history
+ */
+exports.getSessionHistory = async (req, res) => {
+  try {
+    const sessions = await Session.find({
+      user: req.user._id,
+      status: 'completed'
+    })
+    .sort({ completed_at: -1 })
+    .populate('words_studied');
+
+    return successResponse(res, { sessions });
+  } catch (err) {
+    console.error('[Learn/history]', err.message);
+    return errorResponse(res, 'Server error', 500);
+  }
+};
+
+/**
+ * GET /api/learn/session/:id
+ * Get details of a single completed session
+ */
+exports.getSessionDetails = async (req, res) => {
+  try {
+    const session = await Session.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    }).populate('words_studied');
+
+    if (!session) return errorResponse(res, 'Session not found', 404);
+
+    const user = await User.findById(req.user._id);
+
+    return successResponse(res, {
+      accuracy: session.accuracy,
+      xp_earned: session.xp_earned,
+      total_xp: user ? user.totalXP : 0,
+      streak: user ? (typeof user.getStreakForToday === 'function' ? user.getStreakForToday() : user.streakDays) : 0,
+      bestStreak: user ? (user.bestStreak || 0) : 0,
+      correct: session.correct_answers,
+      wrong: session.wrong_answers,
+      total: session.total_words,
+      words: session.words_studied,
+      mode: session.mode,
+      source: session.source,
+      level: session.level,
+      topic: session.topic,
+      completed_at: session.completed_at,
+      duration_seconds: session.duration_seconds,
+      dailyProgress: {
+        dailyWordsLearned: user ? (user.wordsLearnedToday ? user.wordsLearnedToday.length : 0) : 0,
+        dailyGoal: user ? user.dailyGoal : 20,
+        dailyGoalClaimed: user ? user.dailyGoalClaimed : false,
+        dailyGoalMet: false, // Don't trigger goal met dialog on historical views
+      }
+    });
+  } catch (err) {
+    console.error('[Learn/session-details]', err.message);
+    return errorResponse(res, 'Server error', 500);
+  }
+};

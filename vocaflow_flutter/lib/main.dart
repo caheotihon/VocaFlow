@@ -23,12 +23,11 @@ import 'screens/favorites_screen.dart';
 import 'screens/leaderboard_screen.dart';
 import 'screens/practice/flashcard_screen.dart';
 import 'screens/practice/typing_screen.dart';
-import 'screens/practice/listening_screen.dart';
-import 'screens/practice/reverse_recall_screen.dart';
-import 'screens/practice/fill_blank_screen.dart';
+import 'screens/practice/multiple_choice_practice_screen.dart';
 import 'screens/practice/mixed_challenge_screen.dart';
 import 'screens/practice/review_history_screen.dart';
 import 'screens/practice/speech_practice_screen.dart';
+import 'screens/practice/quiz_history_screen.dart';
 import 'screens/story_select_words_screen.dart';
 import 'screens/story_view_screen.dart';
 import 'screens/story_quiz_screen.dart';
@@ -118,6 +117,7 @@ class LingoProApp extends StatelessWidget {
           '/favorites':     (_) => const FavoritesScreen(),
           '/leaderboard':   (_) => const LeaderboardScreen(),
           '/review/history': (_) => const ReviewHistoryScreen(),
+          '/practice-history': (_) => const QuizHistoryScreen(),
           '/story/select-words': (_) => const StorySelectWordsScreen(),
           '/story/view':         (_) => const StoryViewScreen(),
           '/story/quiz':         (_) => const StoryQuizScreen(),
@@ -126,9 +126,9 @@ class LingoProApp extends StatelessWidget {
           // Practice modes
           '/practice/flashcard':  (_) => const FlashcardScreen(),
           '/practice/typing':     (_) => const TypingScreen(),
-          '/practice/listening':  (_) => const ListeningScreen(),
-          '/practice/reverse':    (_) => const ReverseRecallScreen(),
-          '/practice/fill-blank': (_) => const FillBlankScreen(),
+          '/practice/listening':  (_) => const MultipleChoicePracticeScreen(overrideMode: 'listening'),
+          '/practice/reverse':    (_) => const MultipleChoicePracticeScreen(overrideMode: 'reverse_recall'),
+          '/practice/fill-blank': (_) => const MultipleChoicePracticeScreen(overrideMode: 'fill_blank'),
           '/practice/mixed':      (_) => const MixedChallengeScreen(),
           '/practice/speech':     (_) => const SpeechPracticeScreen(),
         },

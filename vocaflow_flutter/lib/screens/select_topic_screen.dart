@@ -94,12 +94,12 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
                               ],
                             ),
                           )
-                        else
+                        else if (isDesktop || isTablet)
                           GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: isDesktop ? 2 : (isTablet ? 2 : 1),
+                              crossAxisCount: 2,
                               crossAxisSpacing: 16,
                               mainAxisSpacing: 16,
                               mainAxisExtent: 185,
@@ -111,8 +111,9 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
                               final total    = topic['total'] as int? ?? 0;
                               final mastered = topic['mastered'] as int? ?? 0;
                               final learning = topic['learning'] as int? ?? 0;
+                              final reviewing = topic['reviewing'] as int? ?? 0;
                               final newCount = topic['new'] as int? ?? total;
-                              final hasProgress = mastered > 0 || learning > 0;
+                              final hasProgress = mastered > 0 || learning > 0 || reviewing > 0;
 
                               return _TopicCard(
                                 index:    i + 1,
@@ -120,6 +121,39 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
                                 total:    total,
                                 mastered: mastered,
                                 learning: learning,
+                                reviewing: reviewing,
+                                newCount: newCount,
+                                hasProgress: hasProgress,
+                                onStart: () {
+                                  learnP.selectTopic(name);
+                                  Navigator.pushNamed(context, '/choose-mode');
+                                },
+                              );
+                            },
+                          )
+                        else
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: topics.length,
+                            separatorBuilder: (_, __) => const SizedBox(height: 16),
+                            itemBuilder: (context, i) {
+                              final topic = topics[i];
+                              final name     = topic['topic'] as String? ?? '';
+                              final total    = topic['total'] as int? ?? 0;
+                              final mastered = topic['mastered'] as int? ?? 0;
+                              final learning = topic['learning'] as int? ?? 0;
+                              final reviewing = topic['reviewing'] as int? ?? 0;
+                              final newCount = topic['new'] as int? ?? total;
+                              final hasProgress = mastered > 0 || learning > 0 || reviewing > 0;
+
+                              return _TopicCard(
+                                index:    i + 1,
+                                topic:    name,
+                                total:    total,
+                                mastered: mastered,
+                                learning: learning,
+                                reviewing: reviewing,
                                 newCount: newCount,
                                 hasProgress: hasProgress,
                                 onStart: () {
@@ -144,14 +178,14 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
 }
 
 class _TopicCard extends StatelessWidget {
-  final int index, total, mastered, learning, newCount;
+  final int index, total, mastered, learning, reviewing, newCount;
   final String topic;
   final bool hasProgress;
   final VoidCallback onStart;
 
   const _TopicCard({
     required this.index, required this.topic, required this.total,
-    required this.mastered, required this.learning, required this.newCount,
+    required this.mastered, required this.learning, required this.reviewing, required this.newCount,
     required this.hasProgress, required this.onStart,
   });
 
@@ -202,19 +236,25 @@ class _TopicCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Row(
-            children: [
-              _StatDot(label: 'Mastered: $mastered', color: AppColors.mastered),
-              const SizedBox(width: 14),
-              _StatDot(label: 'Learning: $learning', color: AppColors.learning),
-              const SizedBox(width: 14),
-              _StatDot(label: 'New: $newCount', color: AppColors.newWord),
-            ],
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              spacing: 12,
+              runSpacing: 4,
+              children: [
+                _StatDot(label: 'Mastered: $mastered', color: AppColors.mastered),
+                _StatDot(label: 'Reviewing: $reviewing', color: AppColors.reviewing),
+                _StatDot(label: 'Learning: $learning', color: AppColors.learning),
+                _StatDot(label: 'New: $newCount', color: AppColors.newWord),
+              ],
+            ),
           ),
           const SizedBox(height: 10),
-          AppProgressBar(
-            value: total > 0 ? (mastered + learning) / total : 0,
-            color: AppColors.secondary, // Violet/Purple progress bar
+          _MultiSegmentProgressBar(
+            total: total,
+            mastered: mastered,
+            reviewing: reviewing,
+            learning: learning,
             height: 6,
           ),
           const SizedBox(height: 12),
@@ -274,6 +314,73 @@ class _StatDot extends StatelessWidget {
         const SizedBox(width: 4),
         Text(label, style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
       ],
+    );
+  }
+}
+
+class _MultiSegmentProgressBar extends StatelessWidget {
+  final int total;
+  final int mastered;
+  final int reviewing;
+  final int learning;
+  final double height;
+
+  const _MultiSegmentProgressBar({
+    required this.total,
+    required this.mastered,
+    required this.reviewing,
+    required this.learning,
+    this.height = 6,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (total <= 0) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(AppRadius.full),
+        child: Container(
+          height: height,
+          color: Colors.grey.shade200,
+        ),
+      );
+    }
+
+    final double masteredWeight = mastered / total;
+    final double reviewingWeight = reviewing / total;
+    final double learningWeight = learning / total;
+    
+    // Remaining is New words
+    final double remainingWeight = 1.0 - masteredWeight - reviewingWeight - learningWeight;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(AppRadius.full),
+      child: SizedBox(
+        height: height,
+        child: Row(
+          children: [
+            if (masteredWeight > 0)
+              Expanded(
+                flex: (masteredWeight * 1000).round(),
+                child: Container(color: AppColors.mastered),
+              ),
+            if (reviewingWeight > 0)
+              Expanded(
+                flex: (reviewingWeight * 1000).round(),
+                child: Container(color: AppColors.reviewing),
+              ),
+            if (learningWeight > 0)
+              Expanded(
+                flex: (learningWeight * 1000).round(),
+                child: Container(color: AppColors.learning),
+              ),
+            if (remainingWeight > 0)
+              Expanded(
+                flex: (remainingWeight * 1000).round(),
+                child: Container(color: Colors.grey.shade200),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }

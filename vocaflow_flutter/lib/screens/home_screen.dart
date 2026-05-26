@@ -563,12 +563,6 @@ class _HomeScreenState extends State<HomeScreen> {
           childAspectRatio: aspectRatio,
           children: [
             _QuickActionCard(
-              icon: Icons.menu_book_rounded,
-              label: 'Learn Vocab',
-              color: AppColors.primary,
-              onTap: () => Navigator.pushNamed(context, '/learn'),
-            ),
-            _QuickActionCard(
               icon: Icons.leaderboard_rounded,
               label: 'Leaderboard',
               color: AppColors.secondary,
@@ -581,15 +575,15 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () => Navigator.pushNamed(context, '/review/history'),
             ),
             _QuickActionCard(
-              icon: Icons.favorite_border_rounded,
-              label: 'Favorites',
-              color: Colors.pinkAccent,
-              onTap: () => Navigator.pushNamed(context, '/favorites'),
+              icon: Icons.history_rounded,
+              label: 'Quiz History',
+              color: Colors.blue,
+              onTap: () => Navigator.pushNamed(context, '/practice-history'),
             ),
             _QuickActionCard(
               icon: Icons.history_edu_rounded,
               label: 'Story History',
-              color: Color(0xFF6366F1),
+              color: const Color(0xFF6366F1),
               onTap: () => Navigator.pushNamed(context, '/story/history'),
             ),
           ],

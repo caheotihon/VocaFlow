@@ -49,14 +49,25 @@ progressSchema.methods.applySpacedRepetition = function (quality) {
     // Failed — reset interval
     this.interval_days = 1;
     this.ease_factor = Math.max(1.3, this.ease_factor - 0.2);
+    // Decrease mastery dynamically
+    this.mastery = Math.max(0, Math.round(this.mastery * 0.5));
   } else {
     // Passed — increase interval
-    if (this.times_seen === 1) this.interval_days = 1;
-    else if (this.times_seen === 2) this.interval_days = 6;
-    else this.interval_days = Math.round(this.interval_days * this.ease_factor);
+    if (this.times_seen === 1) {
+      this.interval_days = 1;
+    } else if (this.interval_days <= 1) {
+      this.interval_days = 3;
+    } else if (this.interval_days <= 3) {
+      this.interval_days = 6;
+    } else {
+      this.interval_days = Math.round(this.interval_days * this.ease_factor);
+    }
 
     this.ease_factor = this.ease_factor + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02);
     this.ease_factor = Math.max(1.3, this.ease_factor);
+    
+    // Increase mastery dynamically (+20% per correct review)
+    this.mastery = Math.min(100, this.mastery + 20);
   }
 
   this.last_reviewed = new Date();
@@ -64,17 +75,16 @@ progressSchema.methods.applySpacedRepetition = function (quality) {
   nextReview.setDate(nextReview.getDate() + this.interval_days);
   this.next_review = nextReview;
 
-  // Update mastery
-  const accuracy = this.times_seen > 0
-    ? (this.times_correct / this.times_seen) * 100
-    : 0;
-  this.mastery = Math.min(100, Math.round(accuracy));
-
-  // Update status
-  if (this.mastery >= 90 && this.times_seen >= 5) this.status = 'mastered';
-  else if (this.times_seen >= 2) this.status = 'reviewing';
-  else if (this.times_seen >= 1) this.status = 'learning';
-  else this.status = 'new';
+  // Update status based on mastery and times seen
+  if (this.times_seen === 0) {
+    this.status = 'new';
+  } else if (this.mastery < 50) {
+    this.status = 'learning';
+  } else if (this.mastery >= 50 && this.mastery < 85) {
+    this.status = 'reviewing';
+  } else {
+    this.status = 'mastered';
+  }
 };
 
 module.exports = mongoose.model('Progress', progressSchema);

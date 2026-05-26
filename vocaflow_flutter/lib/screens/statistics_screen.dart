@@ -287,7 +287,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
             children: [
               const Text('Total Study Time',
                   style: TextStyle(color: Colors.white70, fontSize: 13)),
-              Text('${study['totalStudyHours'] ?? 0}h',
+              Text('${study['totalStudyHours'] ?? 0}h ${study['totalStudyMinutes'] ?? 0}m',
                   style: const TextStyle(
                       color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
             ],

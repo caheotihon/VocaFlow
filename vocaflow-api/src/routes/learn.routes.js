@@ -12,5 +12,7 @@ router.get('/progress',       ctrl.getProgress);
 router.get('/review-today',   ctrl.getReviewToday);
 router.get('/today-history',  ctrl.getTodayHistory);
 router.get('/last-active',    ctrl.getLastActiveSession);
+router.get('/history',        ctrl.getSessionHistory);
+router.get('/session/:id',    ctrl.getSessionDetails);
 
 module.exports = router;

@@ -144,6 +144,8 @@ class ApiService {
 
   Future<Response> getReviewToday() => _dio.get('/learn/review-today');
   Future<Response> getTodayHistory() => _dio.get('/learn/today-history');
+  Future<Response> getSessionHistory() => _dio.get('/learn/history');
+  Future<Response> getSessionDetails(String sessionId) => _dio.get('/learn/session/$sessionId');
   Future<Response> getLastActiveSession() => _dio.get('/learn/last-active');
   Future<Response> generateAiStory(List<String> wordIds) =>
       _dio.post('/learn/ai-story', data: {'word_ids': wordIds});
