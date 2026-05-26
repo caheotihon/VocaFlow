@@ -25,6 +25,7 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
 
   bool _isAvailable = false;
   bool _isListening = false;
+  bool _hasEvaluated = false;
   String _transcribedText = "";
   double _score = -1.0; // -1 means not tested yet
   bool _submitted = false;
@@ -55,19 +56,23 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
       bool available = await _speech.initialize(
         onStatus: (status) {
           if (status == 'done' || status == 'notListening') {
-            setState(() {
-              _isListening = false;
-            });
-            if (_transcribedText.isNotEmpty) {
+            if (mounted) {
+              setState(() {
+                _isListening = false;
+              });
+            }
+            if (_transcribedText.isNotEmpty && !_hasEvaluated) {
               _evaluateSpeech();
             }
           }
         },
         onError: (val) {
           print('❌ [STT Error]: $val');
-          setState(() {
-            _isListening = false;
-          });
+          if (mounted) {
+            setState(() {
+              _isListening = false;
+            });
+          }
         },
       );
       if (mounted) {
@@ -83,32 +88,44 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
   Future<void> _toggleListening() async {
     if (_isListening) {
       await _speech.stop();
-      setState(() {
-        _isListening = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isListening = false;
+        });
+      }
     } else {
       if (!_isAvailable) {
         await _initSpeech();
         if (!_isAvailable) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Speech recognition is not available.')),
-          );
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Speech recognition is not available.')),
+            );
+          }
           return;
         }
       }
 
-      setState(() {
-        _isListening = true;
-        _transcribedText = "";
-        _score = -1.0;
-        _submitted = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isListening = true;
+          _hasEvaluated = false;
+          _transcribedText = "";
+          _score = -1.0;
+          _submitted = false;
+        });
+      }
 
       await _speech.listen(
         onResult: (SpeechRecognitionResult result) {
-          setState(() {
-            _transcribedText = result.recognizedWords;
-          });
+          if (mounted) {
+            setState(() {
+              _transcribedText = result.recognizedWords;
+            });
+            if (result.finalResult && !_hasEvaluated) {
+              _evaluateSpeech();
+            }
+          }
         },
         localeId: 'en_US',
         listenFor: const Duration(seconds: 8),
@@ -118,6 +135,9 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
   }
 
   void _evaluateSpeech() {
+    if (_hasEvaluated) return;
+    _hasEvaluated = true;
+
     final lp = context.read<LearnProvider>();
     final word = lp.currentWord;
     if (word == null) return;
@@ -129,10 +149,12 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
     final cleanTranscribed = _transcribedText.toLowerCase().replaceAll(RegExp(r'[^\w\s]'), '').trim();
 
     if (cleanTranscribed.isEmpty) {
-      setState(() {
-        _score = 0.0;
-        _submitted = true;
-      });
+      if (mounted) {
+        setState(() {
+          _score = 0.0;
+          _submitted = true;
+        });
+      }
       return;
     }
 
@@ -148,10 +170,12 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
       scorePct = math.max(scorePct, 80.0);
     }
 
-    setState(() {
-      _score = scorePct;
-      _submitted = true;
-    });
+    if (mounted) {
+      setState(() {
+        _score = scorePct;
+        _submitted = true;
+      });
+    }
 
     // Auto submit learning results to the backend
     final correct = scorePct >= 70; // 70%+ is counted as correct
@@ -197,7 +221,9 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
 
   Future<void> _goToNext() async {
     if (_answering) return;
-    setState(() => _answering = true);
+    if (mounted) {
+      setState(() => _answering = true);
+    }
 
     final lp = context.read<LearnProvider>();
     // If not submitted yet, submit as incorrect by default before moving next
@@ -223,13 +249,15 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
         Navigator.pushReplacementNamed(context, '/result', arguments: result);
       }
     } else {
-      setState(() {
-        _transcribedText = "";
-        _score = -1.0;
-        _submitted = false;
-        _answering = false;
-        _startTime = DateTime.now();
-      });
+      if (mounted) {
+        setState(() {
+          _transcribedText = "";
+          _score = -1.0;
+          _submitted = false;
+          _answering = false;
+          _startTime = DateTime.now();
+        });
+      }
     }
   }
 

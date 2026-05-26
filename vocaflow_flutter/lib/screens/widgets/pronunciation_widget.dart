@@ -27,6 +27,7 @@ class _PronunciationWidgetState extends State<PronunciationWidget>
 
   bool _isAvailable = false;
   bool _isListening = false;
+  bool _hasEvaluated = false;
   String _transcribedText = "";
   double _score = -1.0; // -1 means not tested yet
   String _feedbackMessage = "";
@@ -56,21 +57,25 @@ class _PronunciationWidgetState extends State<PronunciationWidget>
       bool available = await _speech.initialize(
         onStatus: (status) {
           if (status == 'done' || status == 'notListening') {
-            setState(() {
-              _isListening = false;
-              if (_pulseCtrl.isAnimating) _pulseCtrl.stop();
-            });
-            if (_transcribedText.isNotEmpty) {
+            if (mounted) {
+              setState(() {
+                _isListening = false;
+                if (_pulseCtrl.isAnimating) _pulseCtrl.stop();
+              });
+            }
+            if (_transcribedText.isNotEmpty && !_hasEvaluated) {
               _evaluatePronunciation();
             }
           }
         },
         onError: (val) {
           print('❌ [STT Error]: $val');
-          setState(() {
-            _isListening = false;
-            _pulseCtrl.stop();
-          });
+          if (mounted) {
+            setState(() {
+              _isListening = false;
+              _pulseCtrl.stop();
+            });
+          }
         },
       );
       if (mounted) {
@@ -86,36 +91,48 @@ class _PronunciationWidgetState extends State<PronunciationWidget>
   Future<void> _toggleListening() async {
     if (_isListening) {
       await _speech.stop();
-      setState(() {
-        _isListening = false;
-        _pulseCtrl.stop();
-      });
+      if (mounted) {
+        setState(() {
+          _isListening = false;
+          _pulseCtrl.stop();
+        });
+      }
     } else {
       if (!_isAvailable) {
         await _initSpeech();
         if (!_isAvailable) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Speech recognition is not available on this device.')),
-          );
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Speech recognition is not available on this device.')),
+            );
+          }
           return;
         }
       }
 
-      setState(() {
-        _isListening = true;
-        _transcribedText = "";
-        _score = -1.0;
-        _feedbackMessage = "Listening... Speak now!";
-        _feedbackColor = AppColors.primary;
-      });
+      if (mounted) {
+        setState(() {
+          _isListening = true;
+          _hasEvaluated = false;
+          _transcribedText = "";
+          _score = -1.0;
+          _feedbackMessage = "Listening... Speak now!";
+          _feedbackColor = AppColors.primary;
+        });
+      }
 
       _pulseCtrl.repeat(reverse: true);
 
       await _speech.listen(
         onResult: (SpeechRecognitionResult result) {
-          setState(() {
-            _transcribedText = result.recognizedWords;
-          });
+          if (mounted) {
+            setState(() {
+              _transcribedText = result.recognizedWords;
+            });
+            if (result.finalResult && !_hasEvaluated) {
+              _evaluatePronunciation();
+            }
+          }
         },
         localeId: 'en_US',
         listenFor: const Duration(seconds: 5),
@@ -126,15 +143,20 @@ class _PronunciationWidgetState extends State<PronunciationWidget>
 
   /// Evaluates how close the transcribed text is to the target word
   void _evaluatePronunciation() {
+    if (_hasEvaluated) return;
+    _hasEvaluated = true;
+
     final cleanTarget = widget.targetWord.toLowerCase().replaceAll(RegExp(r'[^\w\s]'), '').trim();
     final cleanTranscribed = _transcribedText.toLowerCase().replaceAll(RegExp(r'[^\w\s]'), '').trim();
 
     if (cleanTranscribed.isEmpty) {
-      setState(() {
-        _score = 0.0;
-        _feedbackMessage = "We couldn't hear anything. Try again!";
-        _feedbackColor = AppColors.error;
-      });
+      if (mounted) {
+        setState(() {
+          _score = 0.0;
+          _feedbackMessage = "We couldn't hear anything. Try again!";
+          _feedbackColor = AppColors.error;
+        });
+      }
       return;
     }
 
@@ -167,11 +189,13 @@ class _PronunciationWidgetState extends State<PronunciationWidget>
       color = AppColors.error;
     }
 
-    setState(() {
-      _score = scorePct;
-      _feedbackMessage = message;
-      _feedbackColor = color;
-    });
+    if (mounted) {
+      setState(() {
+        _score = scorePct;
+        _feedbackMessage = message;
+        _feedbackColor = color;
+      });
+    }
   }
 
   /// Standard Levenshtein Distance Algorithm
