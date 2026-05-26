@@ -689,6 +689,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> with SingleTickerProv
                 lp.selectedSource = 'Favorites';
                 lp.selectedLevel = null;
                 lp.selectedTopic = null;
+                lp.selectedStatus = null;
                 lp.selectMode('flashcard');
                 Navigator.pushNamed(context, '/choose-mode');
               },
@@ -699,20 +700,47 @@ class _FavoritesScreenState extends State<FavoritesScreen> with SingleTickerProv
           : null;
     } else {
       // TAB 2: Review Learned Words
+      final String filter = _selectedStatusFilter;
+      String label = 'Review All';
+      IconData icon = Icons.refresh_rounded;
+      Color color = AppColors.secondary;
+
+      if (filter == 'mastered') {
+        label = 'Practice Mastered';
+        icon = Icons.done_all_rounded;
+        color = AppColors.mastered;
+      } else if (filter == 'reviewing') {
+        label = 'Practice Reviewing';
+        icon = Icons.autorenew_rounded;
+        color = AppColors.reviewing;
+      } else if (filter == 'learning') {
+        label = 'Practice Learning';
+        icon = Icons.school_rounded;
+        color = AppColors.learning;
+      } else if (filter == 'new') {
+        label = 'Practice New';
+        icon = Icons.fiber_new_rounded;
+        color = AppColors.newWord;
+      }
+
       return learned.isNotEmpty
           ? FloatingActionButton.extended(
-              backgroundColor: AppColors.secondary,
+              backgroundColor: color,
               onPressed: () {
                 final lp = context.read<LearnProvider>();
                 lp.selectedSource = 'Review';
                 lp.selectedLevel = null;
                 lp.selectedTopic = null;
+                // Set the status filter for Spaced Repetition custom review
+                lp.selectedStatus = filter == 'all' ? null : filter;
                 lp.selectMode('flashcard');
                 Navigator.pushNamed(context, '/choose-mode');
               },
-              icon: const Icon(Icons.refresh_rounded, color: Colors.white),
-              label: const Text('Review Mastered',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+              icon: Icon(icon, color: Colors.white),
+              label: Text(
+                label,
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              ),
             )
           : null;
     }

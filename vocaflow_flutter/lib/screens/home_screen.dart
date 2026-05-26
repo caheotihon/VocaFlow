@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  _buildResumeCard(context, dash),
+                                  _buildReviewTodayCard(context, stats.reviewTodayCount),
                                   const SizedBox(height: 16),
                                   _buildAiStoryCard(context),
                                   const SizedBox(height: 24),
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildResumeCard(context, dash),
+                            _buildReviewTodayCard(context, stats.reviewTodayCount),
                             const SizedBox(height: 16),
                             _buildDailyStats(user, dash),
                             const SizedBox(height: 16),
@@ -203,58 +203,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildResumeCard(BuildContext context, dash) {
-    final resume = dash?['resume'] as Map<String, dynamic>?;
-    final activeSession = resume?['activeSession'] as Map<String, dynamic>?;
-    final nextRec = resume?['nextRecommendation'] as Map<String, dynamic>?;
-
-    if (activeSession == null && nextRec == null) {
-      return const SizedBox.shrink();
-    }
-
-    final bool isActive = activeSession != null;
-    final Map<String, dynamic> data = isActive ? activeSession : nextRec!;
-
-    final String source = data['source'] ?? 'General';
-    final String? level = data['level'];
-    final String? topic = data['topic'];
-    final String mode = data['mode'] ?? 'mixed';
-
-    String title = source;
-    if (level != null) title += ' • $level';
-    if (topic != null) title += ' ($topic)';
+  Widget _buildReviewTodayCard(BuildContext context, int count) {
+    final bool hasReviews = count > 0;
 
     return AppCard(
       hasBorder: true,
       padding: const EdgeInsets.all(20),
-      onTap: () async {
-        final learnP = context.read<LearnProvider>();
-        if (isActive) {
-          final bool success = await learnP.resumeSession();
-          if (success && mounted) {
-            final route = _getRoute(mode);
-            Navigator.pushNamed(context, route);
-          } else if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Failed to resume session. Please try again! 🚀')),
-            );
-          }
-        } else {
-          learnP.selectedSource = source;
-          learnP.selectedLevel = level;
-          learnP.selectedTopic = topic;
-          learnP.selectedMode = mode;
-          final bool success = await learnP.startSession();
-          if (success && mounted) {
-            final route = _getRoute(mode);
-            Navigator.pushNamed(context, route);
-          } else if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Failed to start next session. Please try again! 🚀')),
-            );
-          }
-        }
-      },
       child: Row(
         children: [
           Expanded(
@@ -262,45 +216,83 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  isActive ? 'RESUME LEARNING' : 'RECOMMENDED FOR YOU',
+                  hasReviews ? 'REVIEW DUE TODAY' : 'ALL REVIEWS DONE',
                   style: AppTextStyles.label.copyWith(
-                    color: isActive ? AppColors.primary : Colors.amber.shade800,
+                    color: hasReviews ? AppColors.primary : AppColors.success,
                     letterSpacing: 1.2,
                   ),
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  title,
+                  hasReviews 
+                      ? 'You have $count words to review!' 
+                      : 'Great job! All reviews done',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  isActive 
-                      ? 'Tap to continue (${activeSession['currentIndex']} / ${activeSession['total_words']} words)' 
-                      : 'Tap to start next topic',
+                  hasReviews 
+                      ? 'Tap to review and commit to long-term memory' 
+                      : 'No vocabulary is overdue today 🎉',
                   style: AppTextStyles.bodySmall,
                 ),
               ],
             ),
           ),
-          Container(
-            width: 52, height: 52,
-            decoration: BoxDecoration(
-              gradient: isActive ? AppColors.primaryGradient : null,
-              color: isActive ? null : Colors.amber.shade600,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: (isActive ? AppColors.primary : Colors.amber).withOpacity(0.35),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                )
-              ],
-            ),
-            child: const Icon(
-              Icons.play_arrow_rounded,
-              color: Colors.white,
-              size: 28,
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: hasReviews ? () async {
+              final lp = context.read<LearnProvider>();
+              lp.selectedSource = 'Review';
+              lp.selectedLevel = null;
+              lp.selectedTopic = null;
+              lp.selectedStatus = null; // Standard review of due words
+              lp.selectedMode = 'mixed'; // 1-tap learn mixed challenge directly
+              
+              // Show premium spinner
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => const Center(
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                ),
+              );
+              
+              final bool success = await lp.startSession();
+              if (context.mounted) {
+                Navigator.pop(context); // close spinner
+              }
+              
+              if (success && context.mounted) {
+                Navigator.pushNamed(context, '/practice/mixed');
+              } else if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Failed to start review. Please try again! 🚀'),
+                    backgroundColor: AppColors.error,
+                  ),
+                );
+              }
+            } : null,
+            child: Container(
+              width: 52, height: 52,
+              decoration: BoxDecoration(
+                gradient: hasReviews ? AppColors.primaryGradient : null,
+                color: hasReviews ? null : AppColors.success,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: (hasReviews ? AppColors.primary : AppColors.success).withOpacity(0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  )
+                ],
+              ),
+              child: Icon(
+                hasReviews ? Icons.play_arrow_rounded : Icons.check_rounded,
+                color: Colors.white,
+                size: 28,
+              ),
             ),
           ),
         ],

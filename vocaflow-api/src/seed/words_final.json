@@ -1302,7 +1302,7 @@
       "activity"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈsaɪtˌsiː.ɪŋ/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/sightseeing-us.mp3"
   },
   {
@@ -1453,7 +1453,7 @@
       "airport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈtʃek.ɪn/"
   },
   {
     "word": "boarding pass",
@@ -1489,7 +1489,7 @@
       "airport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈleɪ.əʊ.və(r)/"
   },
   {
     "word": "red-eye flight",
@@ -1507,7 +1507,8 @@
       "airport"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈred.aɪ flaɪt/"
   },
   {
     "word": "budget",
@@ -1598,7 +1599,7 @@
       "business"
     ],
     "partOfSpeech": "verb",
-    "phonetic": "",
+    "phonetic": "/nəˈɡoʊ.ʃi.eɪt/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/negotiate-au.mp3"
   },
   {
@@ -1652,7 +1653,7 @@
       "business"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈtiːm.wɜːk/"
   },
   {
     "word": "innovation",
@@ -1875,7 +1876,7 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈwɜːk.fɔːs/"
   },
   {
     "word": "profit",
@@ -1912,7 +1913,7 @@
       "competition"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/kəmˈpet.ɪ.tə(r)//"
   },
   {
     "word": "headquarters",
@@ -1985,7 +1986,7 @@
       "finance"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈæs.et/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/asset-au.mp3"
   },
   {
@@ -2152,7 +2153,7 @@
       "finance"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈtɜːn.əʊ.və(r)/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/turnover-us.mp3"
   },
   {
@@ -2602,7 +2603,7 @@
       "taste"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˈspaɪ.si/"
   },
   {
     "word": "vegetarian",
@@ -2768,7 +2769,7 @@
       "security"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ɪnˈkrɪp.ʃən/"
   },
   {
     "word": "interface",
@@ -2821,7 +2822,7 @@
       "technology"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˌɔː.təˈmeɪ.ʃən/"
   },
   {
     "word": "innovation",
@@ -3006,7 +3007,7 @@
       "internet"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈklaʊd kəmˈpjuː.tɪŋ/"
   },
   {
     "word": "artificial intelligence",
@@ -3024,7 +3025,7 @@
       "AI"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˌɑː.tɪˈfɪʃ.əl ɪnˈtel.ɪ.dʒəns/"
   },
   {
     "word": "data",
@@ -3134,7 +3135,7 @@
       "VR"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈvɜː.tʃu.əl riˈæl.ə.ti/"
   },
   {
     "word": "augmented reality",
@@ -3152,7 +3153,7 @@
       "AR"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ɔːɡˈmen.tɪd riˈæl.ə.ti/"
   },
   {
     "word": "hacker",
@@ -3354,7 +3355,7 @@
       "education"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈskɒl.ə.ʃɪp/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/scholarship-au.mp3"
   },
   {
@@ -3483,7 +3484,7 @@
       "study"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/əˈsaɪn.mənt/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/assignment-us.mp3"
   },
   {
@@ -3576,7 +3577,7 @@
       "communication"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈsem.ɪ.nɑː(r)/"
   },
   {
     "word": "lecture",
@@ -3613,7 +3614,7 @@
       "action"
     ],
     "partOfSpeech": "verb",
-    "phonetic": ""
+    "phonetic": "/ˈɡrædʒ.u.ət/"
   },
   {
     "word": "undergraduate",
@@ -3631,7 +3632,7 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˌʌn.dəˈɡrædʒ.u.ət/"
   },
   {
     "word": "postgraduate",
@@ -3649,7 +3650,7 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˌpəʊstˈɡrædʒ.u.ət/"
   },
   {
     "word": "faculty",
@@ -3724,7 +3725,7 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/rɪˈsɜː.tʃə(r)/"
   },
   {
     "word": "academic integrity",
@@ -3742,7 +3743,8 @@
       "academic"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ɪnˈteɡ.rə.ti/"
   },
   {
     "word": "academic advisor",
@@ -3760,7 +3762,8 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ədˈvaɪ.zə(r)/"
   },
   {
     "word": "academic conference",
@@ -3778,7 +3781,8 @@
       "communication"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ˈkɒn.fər.əns/"
   },
   {
     "word": "academic journal",
@@ -3796,7 +3800,8 @@
       "publication"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ˈdʒɜː.nəl/"
   },
   {
     "word": "academic performance",
@@ -3814,7 +3819,8 @@
       "performance"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk pəˈfɔː.məns/"
   },
   {
     "word": "academic year",
@@ -3850,7 +3856,8 @@
       "time"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ˈkæl.ən.də(r)/"
   },
   {
     "word": "academic discipline",
@@ -3868,7 +3875,8 @@
       "field"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ˈdɪs.ə.plɪn/"
   },
   {
     "word": "academic institution",
@@ -3886,7 +3894,8 @@
       "institution"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ˌɪn.stɪˈtʃuː.ʃən/"
   },
   {
     "word": "academic research",
@@ -3904,7 +3913,8 @@
       "research"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk rɪˈsɜː.tʃ/"
   },
   {
     "word": "academic staff",
@@ -3922,7 +3932,8 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk stɑːf/"
   },
   {
     "word": "academic excellence",
@@ -3940,7 +3951,8 @@
       "performance"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˌæk.əˈdem.ɪk ˈek.səl.əns/"
   },
   {
     "word": "agenda",
@@ -3995,7 +4007,7 @@
       "business"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ləˈdʒɪs.tɪks/"
   },
   {
     "word": "merger",
@@ -4050,7 +4062,7 @@
       "management"
     ],
     "partOfSpeech": "verb",
-    "phonetic": ""
+    "phonetic": "/ˈdel.ɪ.ɡət/"
   },
   {
     "word": "correspondence",
@@ -4106,7 +4118,7 @@
       "agreement"
     ],
     "partOfSpeech": "verb",
-    "phonetic": "",
+    "phonetic": "/nəˈɡoʊ.ʃi.eɪt/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/negotiate-au.mp3"
   },
   {
@@ -4125,7 +4137,7 @@
       "training"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈwɜːk.ʃɒp/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/workshop-au.mp3"
   },
   {
@@ -4308,7 +4320,7 @@
       "energy"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/rɪˈnjuː.ə.bəl/"
   },
   {
     "word": "ecosystem",
@@ -4363,7 +4375,7 @@
       "energy"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/rɪˈnjuː.ə.bəl/"
   },
   {
     "word": "climate change",
@@ -4381,7 +4393,7 @@
       "climate"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈklaɪ.mət tʃeɪndʒ/"
   },
   {
     "word": "deforestation",
@@ -4417,7 +4429,7 @@
       "climate"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈkɑː.bən ˈfʊt.prɪnt/"
   },
   {
     "word": "sustainability",
@@ -4453,7 +4465,7 @@
       "climate"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈɡriːn.haʊs ɡæs/"
   },
   {
     "word": "recycle",
@@ -4508,7 +4520,8 @@
       "impact"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ɪnˌvaɪ.rənˈmen.təl ˈɪm.pækt/"
   },
   {
     "word": "sustainable development",
@@ -4526,7 +4539,7 @@
       "development"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/səˈsteɪ.nə.bəl dɪˈvel.əp.mənt/"
   },
   {
     "word": "carbon offset",
@@ -4544,7 +4557,7 @@
       "climate"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈkɑː.bən ˈɒf.set/"
   },
   {
     "word": "green energy",
@@ -4562,7 +4575,8 @@
       "energy"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈɡriːn ˈen.ə.dʒi/"
   },
   {
     "word": "carbon neutral",
@@ -4580,7 +4594,8 @@
       "climate"
     ],
     "partOfSpeech": "adjective",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈkɑː.bən ˈnjuː.trəl/"
   },
   {
     "word": "zero waste",
@@ -4598,7 +4613,8 @@
       "waste"
     ],
     "partOfSpeech": "adjective",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈzɪə.rəʊ weɪst/"
   },
   {
     "word": "environmental policy",
@@ -4616,7 +4632,8 @@
       "policy"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ɪnˌvaɪ.rənˈmen.təl ˈpɒl.ə.si/"
   },
   {
     "word": "environmental awareness",
@@ -4634,7 +4651,8 @@
       "awareness"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ɪnˌvaɪ.rənˈmen.təl əˈweə.nəs/"
   },
   {
     "word": "symptom",
@@ -4725,7 +4743,7 @@
       "biology"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": "",
+    "phonetic": "/ɪˈmjuːn/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/immune-uk.mp3"
   },
   {
@@ -4838,7 +4856,7 @@
       "medical"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": "",
+    "phonetic": "/əˈkjuːt/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/acute-au.mp3"
   },
   {
@@ -5090,7 +5108,7 @@
       "memory"
     ],
     "partOfSpeech": "verb",
-    "phonetic": "",
+    "phonetic": "/ɪˈvəʊk/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/evoke-au.mp3"
   },
   {
@@ -5337,7 +5355,7 @@
       "style"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ɪmˈpreʃ.ən.ɪ.zəm/"
   },
   {
     "word": "cubism",
@@ -5410,7 +5428,7 @@
       "style"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˈɡɒθ.ɪk/"
   },
   {
     "word": "minimalism",
@@ -5428,7 +5446,7 @@
       "style"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈmɪn.ɪ.məl.ɪ.zəm/"
   },
   {
     "word": "grateful",
@@ -5615,7 +5633,7 @@
       "surprise"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": "",
+    "phonetic": "/əˈstɒn.ɪʃt/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/astonished-us.mp3"
   },
   {
@@ -5635,7 +5653,7 @@
       "worry"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/dɪsˈmeɪd/"
   },
   {
     "word": "delighted",
@@ -5673,7 +5691,7 @@
       "fear"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˌæp.rɪˈhen.sɪv/"
   },
   {
     "word": "overwhelmed",
@@ -6051,7 +6069,7 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/rɪˈsɜː.tʃə(r)/"
   },
   {
     "word": "scientist",
@@ -6142,7 +6160,7 @@
       "people"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/kəʊtʃ/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/coach-au.mp3"
   },
   {
@@ -6330,7 +6348,7 @@
       "collaboration"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈtiːm.wɜːk/"
   },
   {
     "word": "league",
@@ -6385,7 +6403,8 @@
       "event"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/əˈlɪm.pɪks/"
   },
   {
     "word": "gymnasium",
@@ -6740,7 +6759,7 @@
       "news"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˈnjuːzˌwɜː.ði/"
   },
   {
     "word": "sensation",
@@ -7018,7 +7037,7 @@
       "news"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˈnjuːzˌwɜː.ði/"
   },
   {
     "word": "sensation",
@@ -7338,7 +7357,7 @@
       "court"
     ],
     "partOfSpeech": "verb",
-    "phonetic": ""
+    "phonetic": "/əˈkwɪt.ɪd/"
   },
   {
     "word": "convicted",
@@ -7580,7 +7599,7 @@
       "crime"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈmænˌslɔː.tə(r)/"
   },
   {
     "word": "kidnapping",
@@ -7598,7 +7617,7 @@
       "crime"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈkɪd.næp.ɪŋ/"
   },
   {
     "word": "robbery",
@@ -7691,7 +7710,7 @@
       "mind"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˌsʌbˈkɒn.ʃəs/"
   },
   {
     "word": "anxiety",
@@ -7783,7 +7802,8 @@
       "personality"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈɪn.trə.vɜːt/"
   },
   {
     "word": "instinct",
@@ -8022,7 +8042,7 @@
       "housing"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈsʌb.ɜːb/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/suburb-au.mp3"
   },
   {
@@ -8059,7 +8079,7 @@
       "business"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˌdaʊnˈtaʊn/"
   },
   {
     "word": "residential",
@@ -8077,7 +8097,7 @@
       "housing"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˌrez.ɪˈden.ʃəl/"
   },
   {
     "word": "neighborhood",
@@ -8151,7 +8171,7 @@
       "atmosphere"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˈbʌs.lɪŋ/"
   },
   {
     "word": "pavement",
@@ -8207,7 +8227,7 @@
       "transport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈpʌb.lɪk ˈtræn.spɔːt/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/public%20transport-au.mp3"
   },
   {
@@ -8226,7 +8246,7 @@
       "traffic"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈtræf.ɪk dʒæm/"
   },
   {
     "word": "commuter",
@@ -8244,7 +8264,7 @@
       "transport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/kəˈmjuː.tə(r)/"
   },
   {
     "word": "downtown",
@@ -8262,7 +8282,7 @@
       "business"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˌdaʊnˈtaʊn/"
   },
   {
     "word": "subway",
@@ -8299,7 +8319,7 @@
       "transport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈbʌs stɒp/"
   },
   {
     "word": "taxi",
@@ -8336,7 +8356,7 @@
       "transport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈpɑː.kɪŋ lɒt/"
   },
   {
     "word": "crosswalk",
@@ -8354,7 +8374,7 @@
       "transport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈkrɒs.wɔːk/"
   },
   {
     "word": "roundabout",
@@ -8372,7 +8392,7 @@
       "transport"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˈraʊnd.ə.baʊt/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/roundabout-au.mp3"
   },
   {
@@ -8391,7 +8411,7 @@
       "architecture"
     ],
     "partOfSpeech": "adjective",
-    "phonetic": ""
+    "phonetic": "/ˈhaɪ.raɪz/"
   },
   {
     "word": "gentrification",
@@ -9868,7 +9888,7 @@
       "career"
     ],
     "partOfSpeech": "verb",
-    "phonetic": "",
+    "phonetic": "/rɪˈtaɪə(r)/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/retire-1-au.mp3"
   },
   {
@@ -10055,7 +10075,7 @@
       "environment"
     ],
     "partOfSpeech": "noun",
-    "phonetic": ""
+    "phonetic": "/ˈwɜːk.pleɪs/"
   },
   {
     "word": "colleague",
@@ -10451,7 +10471,7 @@
       "science"
     ],
     "partOfSpeech": "noun",
-    "phonetic": "",
+    "phonetic": "/ˌɑː.kiˈɒl.ə.dʒɪst/",
     "audio_url": "https://api.dictionaryapi.dev/media/pronunciations/en/archaeologist-us.mp3"
   },
   {
@@ -10470,7 +10490,8 @@
       "heritage"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈkʌl.tʃər.əl ˈher.ɪ.tɪdʒ/"
   },
   {
     "word": "historian",
@@ -10506,7 +10527,8 @@
       "exchange"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈkʌl.tʃər.əl ɪksˈtʃeɪndʒ/"
   },
   {
     "word": "historical site",
@@ -10524,7 +10546,8 @@
       "tourism"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/hɪˈstɒr.ɪ.kəl saɪt/"
   },
   {
     "word": "cultural identity",
@@ -10542,7 +10565,8 @@
       "identity"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈkʌl.tʃər.əl aɪˈden.tə.ti/"
   },
   {
     "word": "historical event",
@@ -10560,7 +10584,8 @@
       "event"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/hɪˈstɒr.ɪ.kəl ɪˈvent/"
   },
   {
     "word": "cultural diversity",
@@ -10578,6 +10603,7 @@
       "diversity"
     ],
     "partOfSpeech": "noun",
-    "audio_url": ""
+    "audio_url": "",
+    "phonetic": "/ˈkʌl.tʃər.əl daɪˈvɜː.sə.ti/"
   }
 ]

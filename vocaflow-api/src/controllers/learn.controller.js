@@ -37,51 +37,63 @@ exports.startSession = async (req, res) => {
         wordsToStudy = difficultProgresses.map((p) => p.word).filter(Boolean);
       }
     } else if (source === 'Review') {
-
-      // 1. Spaced Repetition Due (next_review <= now, status !== mastered)
-      const dueProgresses = await Progress.find({
-        user: userId,
-        next_review: { $lte: new Date() },
-        status: { $ne: 'mastered' },
-      }).populate('word').limit(20);
-
-      // 2. Words studied today
-      const todayProgresses = await Progress.find({
-        user: userId,
-        updatedAt: { $gte: today }
-      }).populate('word').limit(20);
-
-      // 3. Difficult words (high incorrect rate or times_incorrect >= 2)
-      const difficultProgresses = await Progress.find({
-        user: userId,
-        times_incorrect: { $gte: 2 }
-      }).populate('word').limit(20);
-
-      // Combine and deduplicate
-      const uniqueWordIds = new Set();
-      const reviewWords = [];
-
-      const addWord = (progressItem) => {
-        if (progressItem && progressItem.word) {
-          const wId = progressItem.word._id.toString();
-          if (!uniqueWordIds.has(wId)) {
-            uniqueWordIds.add(wId);
-            reviewWords.push(progressItem.word);
-          }
+      const { status } = req.body;
+      if (status) {
+        // Custom review by specific category status (new, learning, reviewing, mastered)
+        const filter = { user: userId };
+        if (status === 'new') {
+          filter.status = { $in: ['new', 'newWord'] };
+        } else {
+          filter.status = status;
         }
-      };
+        const progresses = await Progress.find(filter).populate('word').limit(count);
+        wordsToStudy = progresses.map(p => p.word).filter(Boolean);
+      } else {
+        // 1. Spaced Repetition Due (next_review <= now, status !== mastered)
+        const dueProgresses = await Progress.find({
+          user: userId,
+          next_review: { $lte: new Date() },
+          status: { $ne: 'mastered' },
+        }).populate('word').limit(20);
 
-      // Add in order
-      todayProgresses.forEach(addWord);
-      dueProgresses.forEach(addWord);
-      difficultProgresses.forEach(addWord);
+        // 2. Words studied today
+        const todayProgresses = await Progress.find({
+          user: userId,
+          updatedAt: { $gte: today }
+        }).populate('word').limit(20);
 
-      wordsToStudy = reviewWords.slice(0, count);
+        // 3. Difficult words (high incorrect rate or times_incorrect >= 2)
+        const difficultProgresses = await Progress.find({
+          user: userId,
+          times_incorrect: { $gte: 2 }
+        }).populate('word').limit(20);
 
-      // Fallback if no review words
-      if (wordsToStudy.length === 0) {
-        const anyProgress = await Progress.find({ user: userId }).populate('word').limit(count);
-        wordsToStudy = anyProgress.map(p => p.word).filter(Boolean);
+        // Combine and deduplicate
+        const uniqueWordIds = new Set();
+        const reviewWords = [];
+
+        const addWord = (progressItem) => {
+          if (progressItem && progressItem.word) {
+            const wId = progressItem.word._id.toString();
+            if (!uniqueWordIds.has(wId)) {
+              uniqueWordIds.add(wId);
+              reviewWords.push(progressItem.word);
+            }
+          }
+        };
+
+        // Add in order
+        todayProgresses.forEach(addWord);
+        dueProgresses.forEach(addWord);
+        difficultProgresses.forEach(addWord);
+
+        wordsToStudy = reviewWords.slice(0, count);
+
+        // Fallback if no review words
+        if (wordsToStudy.length === 0) {
+          const anyProgress = await Progress.find({ user: userId }).populate('word').limit(count);
+          wordsToStudy = anyProgress.map(p => p.word).filter(Boolean);
+        }
       }
     } else if (source === 'Favorites') {
       const Favorite = require('../models/Favorite');
@@ -267,6 +279,12 @@ exports.completeSession = async (req, res) => {
     }
     if (user.totalXP >= 5000 && !user.badges.includes('XP Legend')) {
       user.badges.push('XP Legend');
+    }
+    
+    // Award Vocab Master if mastered >= 100 words
+    const masteredCount = await Progress.countDocuments({ user: user._id, status: 'mastered' });
+    if (masteredCount >= 100 && !user.badges.includes('Vocab Master')) {
+      user.badges.push('Vocab Master');
     }
     await user.save();
 

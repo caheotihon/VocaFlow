@@ -8,12 +8,14 @@ class StatsProvider extends ChangeNotifier {
   Map<String, dynamic>? _dashboard;
   List<dynamic> _leaderboard = [];
   Map<String, dynamic>? _myRank;
+  int _reviewTodayCount = 0;
   bool _isLoading = false;
   String? _error;
 
   Map<String, dynamic>? get dashboard => _dashboard;
   List<dynamic> get leaderboard => _leaderboard;
   Map<String, dynamic>? get myRank => _myRank;
+  int get reviewTodayCount => _reviewTodayCount;
   bool get isLoading => _isLoading;
   String? get error => _error;
 
@@ -24,6 +26,10 @@ class StatsProvider extends ChangeNotifier {
       final res = await _api.getDashboard();
       if (res.data['success'] == true) {
         _dashboard = res.data['data'];
+      }
+      final reviewRes = await _api.getReviewToday();
+      if (reviewRes.data['success'] == true) {
+        _reviewTodayCount = reviewRes.data['data']['total'] ?? 0;
       }
     } catch (e) {
       _error = e.toString();

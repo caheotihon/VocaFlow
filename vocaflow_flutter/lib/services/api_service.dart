@@ -106,9 +106,14 @@ class ApiService {
 
   // ── Learn ──────────────────────────────────────────────────────────
   Future<Response> startSession(String source, String mode,
-          {String? level, String? topic, int count = 10}) =>
+          {String? level, String? topic, int count = 10, String? status}) =>
       _dio.post('/learn/start', data: {
-        'source': source, 'mode': mode, 'level': level, 'topic': topic, 'count': count,
+        'source': source,
+        'mode': mode,
+        'level': level,
+        'topic': topic,
+        'count': count,
+        if (status != null) 'status': status,
       });
 
   Future<Response> submitResult(

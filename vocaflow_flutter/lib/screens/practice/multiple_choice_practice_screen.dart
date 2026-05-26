@@ -279,24 +279,26 @@ class _MultipleChoicePracticeScreenState extends State<MultipleChoicePracticeScr
             const SizedBox(height: 28),
           ],
 
-          // Instruction label
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            decoration: BoxDecoration(
-              color: accentColor.withOpacity(0.12),
-              borderRadius: BorderRadius.circular(AppRadius.full),
+          if (!widget.isMixedMode) ...[
+            // Instruction label
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: accentColor.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(AppRadius.full),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(icon, color: accentColor, size: 16),
+                  const SizedBox(width: 6),
+                  Text(label,
+                      style: TextStyle(color: accentColor, fontWeight: FontWeight.w600, fontSize: 13)),
+                ],
+              ),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(icon, color: accentColor, size: 16),
-                const SizedBox(width: 6),
-                Text(label,
-                    style: TextStyle(color: accentColor, fontWeight: FontWeight.w600, fontSize: 13)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
+          ],
 
           // Dynamic prompt card
           promptCard,
