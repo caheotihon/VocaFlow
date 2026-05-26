@@ -62,7 +62,7 @@ class _LearnScreenState extends State<LearnScreen> {
         child: Column(
           children: [
             // ── App bar ────────────────────────────────────────────
-            LingoAppBar(streak: auth.user?.streakDays ?? 0),
+            LingoAppBar(streak: auth.user?.streakDays ?? 0, showBackButton: false),
 
             Expanded(
               child: SingleChildScrollView(
@@ -78,6 +78,8 @@ class _LearnScreenState extends State<LearnScreen> {
                         const SizedBox(height: 4),
                         Text('Select your level and source to begin.',
                             style: AppTextStyles.bodySmall),
+                        const SizedBox(height: 16),
+                        _buildAIDeckBanner(context),
                         const SizedBox(height: 28),
 
                         // ── Choose Level ───────────────────────────────
@@ -95,14 +97,10 @@ class _LearnScreenState extends State<LearnScreen> {
                             },
                           )).toList(),
                         ),
-                        const SizedBox(height: 24),
-
-                        // ── AI Deck Generator Banner ────────────────────
-                        _buildAIDeckBanner(context),
                         const SizedBox(height: 32),
 
                         // ── Choose Source ──────────────────────────────
-                        SectionHeader(
+                        const SectionHeader(
                           title: 'Choose Learning Source'
                         ),
                         const SizedBox(height: 16),
@@ -191,7 +189,7 @@ GridView(
   Widget _buildAIDeckBanner(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [Color(0xFF4F46E5), Color(0xFF06B6D4)],
@@ -201,49 +199,35 @@ GridView(
         borderRadius: BorderRadius.circular(AppRadius.lg),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF4F46E5).withOpacity(0.25),
-            blurRadius: 16,
-            offset: const Offset(0, 6),
+            color: const Color(0xFF4F46E5).withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Row(
         children: [
-          Expanded(
+          const Text('✨', style: TextStyle(fontSize: 18)),
+          const SizedBox(width: 8),
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const Row(
-                  children: [
-                    Text('✨', style: TextStyle(fontSize: 22)),
-                    SizedBox(width: 8),
-                    Text(
-                      'AI DECK GENERATOR',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Tạo bộ từ vựng thông minh bằng AI',
+                Text(
+                  'AI DECK GENERATOR',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 2),
                 Text(
-                  'Nhập chủ đề bất kỳ (ví dụ: Space exploration, Cooking...) để AI soạn riêng cho bạn.',
+                  'Generate custom vocabulary cards instantly.',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.85),
-                    fontSize: 13,
-                    height: 1.4,
+                    color: Colors.white70,
+                    fontSize: 11,
                   ),
                 ),
               ],
@@ -253,23 +237,23 @@ GridView(
           GestureDetector(
             onTap: () => _showAIDeckDialog(context),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(AppRadius.full),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 6,
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 4,
                   ),
                 ],
               ),
               child: const Text(
-                'Tạo ngay',
+                'Generate',
                 style: TextStyle(
                   color: Color(0xFF4F46E5),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 12,
                 ),
               ),
             ),
@@ -299,12 +283,12 @@ GridView(
                   const CircularProgressIndicator(color: AppColors.primary),
                   const SizedBox(height: 24),
                   const Text(
-                    'AI đang biên soạn từ vựng... ✨',
+                    'AI is generating vocabulary... ✨',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Đang phân tích chủ đề "${topicCtrl.text.trim()}" và thiết kế 8 thẻ học chuẩn CEFR $selectedLvl. Vui lòng đợi trong giây lát!',
+                    'Analyzing topic "${topicCtrl.text.trim()}" and designing 8 learning cards aligned to CEFR $selectedLvl. Please wait a moment!',
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4),
                   ),
@@ -320,25 +304,25 @@ GridView(
               children: [
                 Text('✨', style: TextStyle(fontSize: 22)),
                 SizedBox(width: 8),
-                Text('Tạo bộ từ vựng AI', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('AI Vocabulary Deck', style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Chủ đề muốn học:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textSecondary)),
+                const Text('Study Topic:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textSecondary)),
                 const SizedBox(height: 8),
                 TextField(
                   controller: topicCtrl,
                   decoration: InputDecoration(
-                    hintText: 'ví dụ: Space exploration, Cooking...',
+                    hintText: 'e.g. Space exploration, Cooking...',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text('Trình độ (CEFR):', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textSecondary)),
+                const Text('Target Level (CEFR):', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textSecondary)),
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -366,7 +350,7 @@ GridView(
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Hủy'),
+                child: const Text('Cancel'),
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -385,7 +369,7 @@ GridView(
                       if (context.mounted) {
                         Navigator.pop(context); // Close dialog
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Tạo bộ từ vựng AI thành công! 🎉'), backgroundColor: AppColors.success),
+                          const SnackBar(content: Text('AI Deck created successfully! 🎉'), backgroundColor: AppColors.success),
                         );
                         // Reload sources for current level
                         setState(() {
@@ -404,7 +388,7 @@ GridView(
                     if (context.mounted) {
                       Navigator.pop(context); // Close dialog
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Không thể kết nối hoặc tạo từ vựng AI.'), backgroundColor: AppColors.error),
+                        const SnackBar(content: Text('Connection error or failed to create AI vocabulary deck.'), backgroundColor: AppColors.error),
                       );
                     }
                   }
@@ -414,7 +398,7 @@ GridView(
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
                 ),
-                child: const Text('Tạo ngay'),
+                child: const Text('Generate'),
               ),
             ],
           );

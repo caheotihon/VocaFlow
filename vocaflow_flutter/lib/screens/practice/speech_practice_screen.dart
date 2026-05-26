@@ -287,16 +287,13 @@ class _SpeechPracticeScreenState extends State<SpeechPracticeScreen>
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
+      appBar: LingoAppBar(
+        title: '${current + 1} / $total',
+        showStreak: false,
         leading: BackButton(
           color: AppColors.textPrimary,
           onPressed: () => _showExitDialog(context),
         ),
-        centerTitle: true,
-        title: Text('$current / $total',
-            style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
         actions: [
           IconButton(
             icon: Icon(

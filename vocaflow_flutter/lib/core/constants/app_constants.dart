@@ -41,6 +41,23 @@ class AppColors {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  // Centralized box shadows for premium styling
+  static List<BoxShadow> get cardShadow => [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.04),
+      blurRadius: 12,
+      offset: const Offset(0, 4),
+    ),
+  ];
+
+  static List<BoxShadow> get premiumShadow => [
+    BoxShadow(
+      color: primary.withOpacity(0.25),
+      blurRadius: 16,
+      offset: const Offset(0, 6),
+    ),
+  ];
 }
 
 class AppSpacing {

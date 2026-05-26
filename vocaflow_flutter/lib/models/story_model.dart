@@ -35,6 +35,7 @@ class StoryModel {
   final String user;
   final String title;
   final String content;
+  final String translation;
   final List<WordModel> words;
   final List<StoryQuizModel> quiz;
   final bool isCompleted;
@@ -46,6 +47,7 @@ class StoryModel {
     required this.user,
     required this.title,
     required this.content,
+    required this.translation,
     required this.words,
     required this.quiz,
     required this.isCompleted,
@@ -69,6 +71,7 @@ class StoryModel {
       user: json['user'] ?? '',
       title: json['title'] ?? 'AI English Story',
       content: json['content'] ?? '',
+      translation: json['translation'] ?? '',
       words: wordsList,
       quiz: quizList,
       isCompleted: json['isCompleted'] ?? false,
@@ -84,6 +87,7 @@ class StoryModel {
     'user': user,
     'title': title,
     'content': content,
+    'translation': translation,
     'words': words.map((w) => w.toJson()).toList(),
     'quiz': quiz.map((q) => q.toJson()).toList(),
     'isCompleted': isCompleted,

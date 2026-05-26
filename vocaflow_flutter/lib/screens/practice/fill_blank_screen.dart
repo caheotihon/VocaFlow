@@ -217,13 +217,9 @@ class _FillBlankScreenState extends State<FillBlankScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: const BackButton(color: AppColors.textPrimary),
-        centerTitle: true,
-        title: Text('$current / $total',
-            style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+      appBar: LingoAppBar(
+        title: '${current + 1} / $total',
+        showStreak: false,
         actions: [
           IconButton(
             icon: Icon(

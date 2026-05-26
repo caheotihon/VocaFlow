@@ -14,13 +14,13 @@ exports.startSession = async (req, res) => {
     const { source, level, topic, mode, count = 10 } = req.body;
     if (!source || !mode) return errorResponse(res, 'source and mode are required', 400);
 
+    const userId = req.user._id;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     let wordsToStudy = [];
 
     if (source === 'ReviewWrong') {
-      const userId = req.user._id;
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
       const wrongProgresses = await Progress.find({
         user: userId,
         updatedAt: { $gte: today },
@@ -83,6 +83,10 @@ exports.startSession = async (req, res) => {
         const anyProgress = await Progress.find({ user: userId }).populate('word').limit(count);
         wordsToStudy = anyProgress.map(p => p.word).filter(Boolean);
       }
+    } else if (source === 'Favorites') {
+      const Favorite = require('../models/Favorite');
+      const userFavs = await Favorite.find({ user: req.user._id }).populate('word').limit(count);
+      wordsToStudy = userFavs.map((f) => f.word).filter(Boolean);
     } else {
       // Build word filter
       const filter = { source };
@@ -112,6 +116,10 @@ exports.startSession = async (req, res) => {
           .slice(0, count - wordsToStudy.length);
         wordsToStudy = [...wordsToStudy, ...newWords];
       }
+    }
+
+    if (wordsToStudy.length === 0) {
+      return errorResponse(res, 'No words found matching the selected criteria', 404);
     }
 
     // Create session record

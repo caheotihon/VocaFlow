@@ -8,10 +8,12 @@ import '../../services/tts_service.dart';
 
 class PronunciationWidget extends StatefulWidget {
   final String targetWord;
+  final String audioUrl;
 
   const PronunciationWidget({
     super.key,
     required this.targetWord,
+    this.audioUrl = '',
   });
 
   @override
@@ -230,7 +232,7 @@ class _PronunciationWidgetState extends State<PronunciationWidget>
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
                 icon: const Icon(Icons.volume_up_rounded, color: AppColors.primary, size: 22),
-                onPressed: () => _tts.speak(widget.targetWord),
+                onPressed: () => _tts.playWord(widget.targetWord, audioUrl: widget.audioUrl),
               ),
             ],
           ),

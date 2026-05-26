@@ -1,9 +1,9 @@
 // Leaderboard Screen — streak & XP rankings
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 import '../providers/stats_provider.dart';
-import '../services/api_service.dart';
 import '../core/constants/app_constants.dart';
 import 'widgets/shared_widgets.dart';
 
@@ -36,10 +36,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Leaderboard', style: TextStyle(fontWeight: FontWeight.w800)),
-        backgroundColor: AppColors.background,
-        elevation: 0,
+      appBar: LingoAppBar(
+        title: 'Leaderboard',
+        showStreak: false,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: Center(
@@ -290,12 +289,31 @@ class _PodiumPillar extends StatelessWidget {
         CircleAvatar(
           radius: rank == 1 ? 28 : 22,
           backgroundColor: Colors.white.withOpacity(0.2),
-          backgroundImage: avatar != null ? NetworkImage(avatar) : null,
-          child: avatar == null
-              ? Text(name[0].toUpperCase(),
+          child: avatar != null
+              ? ClipOval(
+                  child: avatar.startsWith('data:image/')
+                      ? Image.memory(
+                          base64.decode(avatar.split(',').last),
+                          fit: BoxFit.cover,
+                          width: rank == 1 ? 56 : 44,
+                          height: rank == 1 ? 56 : 44,
+                          errorBuilder: (_, __, ___) => Text(name[0].toUpperCase(),
+                              style: TextStyle(color: Colors.white,
+                                  fontSize: rank == 1 ? 20 : 16, fontWeight: FontWeight.w800)),
+                        )
+                      : Image.network(
+                          avatar,
+                          fit: BoxFit.cover,
+                          width: rank == 1 ? 56 : 44,
+                          height: rank == 1 ? 56 : 44,
+                          errorBuilder: (_, __, ___) => Text(name[0].toUpperCase(),
+                              style: TextStyle(color: Colors.white,
+                                  fontSize: rank == 1 ? 20 : 16, fontWeight: FontWeight.w800)),
+                        ),
+                )
+              : Text(name[0].toUpperCase(),
                   style: TextStyle(color: Colors.white,
-                      fontSize: rank == 1 ? 20 : 16, fontWeight: FontWeight.w800))
-              : null,
+                      fontSize: rank == 1 ? 20 : 16, fontWeight: FontWeight.w800)),
         ),
         const SizedBox(height: 6),
         Text(name.split(' ').first,
@@ -362,11 +380,28 @@ class _LeaderboardTile extends StatelessWidget {
           CircleAvatar(
             radius: 20,
             backgroundColor: AppColors.primary.withOpacity(0.1),
-            backgroundImage: avatar != null ? NetworkImage(avatar) : null,
-            child: avatar == null
-                ? Text(name[0].toUpperCase(),
-                    style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700))
-                : null,
+            child: avatar != null
+                ? ClipOval(
+                    child: avatar.startsWith('data:image/')
+                        ? Image.memory(
+                            base64.decode(avatar.split(',').last),
+                            fit: BoxFit.cover,
+                            width: 40,
+                            height: 40,
+                            errorBuilder: (_, __, ___) => Text(name[0].toUpperCase(),
+                                style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700)),
+                          )
+                        : Image.network(
+                            avatar,
+                            fit: BoxFit.cover,
+                            width: 40,
+                            height: 40,
+                            errorBuilder: (_, __, ___) => Text(name[0].toUpperCase(),
+                                style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700)),
+                          ),
+                  )
+                : Text(name[0].toUpperCase(),
+                    style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700)),
           ),
           const SizedBox(width: 12),
           Expanded(

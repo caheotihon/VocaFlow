@@ -1,5 +1,6 @@
 // Learn Provider — manages active learning session state
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import '../models/word_model.dart';
 import '../models/session_model.dart';
 import '../services/api_service.dart';
@@ -103,6 +104,17 @@ class LearnProvider extends ChangeNotifier {
         final words = (data['words'] as List)
             .map((w) => WordModel.fromJson(w))
             .toList();
+
+        if (words.isEmpty) {
+          if (selectedSource == 'Favorites') {
+            _error = 'You have no favorited words to practice yet. Add some words to favorites first! ❤️';
+          } else {
+            _error = 'No words found matching the selected criteria. Please try another source/level!';
+          }
+          notifyListeners();
+          return false;
+        }
+
         _session = SessionModel(
           id: data['session_id'],
           source: selectedSource!,
@@ -115,7 +127,12 @@ class LearnProvider extends ChangeNotifier {
         return true;
       }
     } catch (e) {
-      _error = e.toString();
+      if (e is DioException && e.response != null && e.response?.data != null) {
+        final msg = e.response?.data['message'];
+        _error = msg ?? e.toString();
+      } else {
+        _error = e.toString();
+      }
     } finally {
       _setLoading(false);
     }

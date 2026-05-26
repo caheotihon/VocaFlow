@@ -88,13 +88,9 @@ class _TypingScreenState extends State<TypingScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: const BackButton(color: AppColors.textPrimary),
-        centerTitle: true,
-        title: Text('$current / $total',
-            style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+      appBar: LingoAppBar(
+        title: '${current + 1} / $total',
+        showStreak: false,
         actions: [
           IconButton(
             icon: Icon(
@@ -229,7 +225,7 @@ class _TypingScreenState extends State<TypingScreen> {
                               child: ConstrainedBox(
                                 constraints: const BoxConstraints(maxWidth: 340),
                                 child: GradientButton(
-                                  text: _submitted ? 'Tiếp tục' : 'Kiểm tra',
+                                  text: _submitted ? 'Continue' : 'Check Answer',
                                   onTap: _submitted ? _goToNext : _submit,
                                   icon: _submitted ? Icons.arrow_forward_rounded : Icons.check_rounded,
                                 ),

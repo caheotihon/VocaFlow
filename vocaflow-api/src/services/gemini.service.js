@@ -15,6 +15,21 @@ if (apiKey) {
   console.warn('[WARNING] GEMINI_API_KEY is not defined in environment variables. AI features will fallback to dummy content.');
 }
 
+/**
+ * Helper to safely extract JSON from AI response, stripping markdown fences if present
+ */
+const parseJsonFromText = (text) => {
+  if (!text || typeof text !== 'string') return null;
+  const cleaned = text.replace(/```json\s*/i, '').replace(/```/g, '').trim();
+  const first = cleaned.indexOf('{');
+  const last = cleaned.lastIndexOf('}');
+  const candidate = first !== -1 && last !== -1 ? cleaned.slice(first, last + 1) : cleaned;
+  try {
+    return JSON.parse(candidate);
+  } catch (e) {
+    return null;
+  }
+};
 
 /**
  * Generates an English story and Vietnamese translation based on a list of words.
@@ -27,10 +42,10 @@ exports.generateStoryFromWords = async (words) => {
       return getDummyStory(words);
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     // Format list of words for prompt
-    const wordListStr = words.map(w => `- ${w.word} (${w.partOfSpeech}): nghĩa tiếng Việt: ${w.meaningVn}, định nghĩa tiếng Anh: ${w.definitionEn}`).join('\n');
+    const wordListStr = words.map(w => `- ${w.word} (${w.partOfSpeech}): nghĩa tiếng Việt: ${w.meaning_vn || w.meaningVn}, định nghĩa tiếng Anh: ${w.definition_en || w.definitionEn}`).join('\n');
 
     const prompt = `
 Bạn là một giáo viên tiếng Anh bản xứ tài năng và thân thiện.
@@ -59,7 +74,8 @@ YÊU CẦU:
     });
 
     const responseText = result.response.text();
-    const data = JSON.parse(responseText);
+    const data = parseJsonFromText(responseText.trim());
+    if (!data) throw new Error('Failed to parse JSON from Gemini story response');
 
     return {
       storyEn: data.storyEn,
@@ -77,7 +93,7 @@ YÊU CẦU:
  */
 function getDummyStory(words) {
   const wordSpans = words.map(w => `<b>${w.word}</b>`).join(', ');
-  const wordMeanings = words.map(w => `${w.word} (${w.meaningVn})`).join(', ');
+  const wordMeanings = words.map(w => `${w.word} (${w.meaning_vn || w.meaningVn})`).join(', ');
 
   return {
     storyEn: `Once upon a time, a diligent student wanted to improve their English. Every day, they practiced vocabulary. Today, they learned several useful expressions including: ${wordSpans}. By learning these words, they became much more confident in expressing themselves in any situation. Remember, practice makes perfect, and keeping a daily learning habit is the key to mastering any language!`,
@@ -97,7 +113,7 @@ exports.generateAIDeck = async (topic, level = 'B2') => {
       return getDummyDeck(topic, level);
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     const prompt = `
 You are an expert English language teacher and lexicographer.
@@ -135,10 +151,13 @@ Format:
     });
 
     const responseText = result.response.text();
-    const data = JSON.parse(responseText);
+    const data = parseJsonFromText(responseText.trim());
 
     if (data && Array.isArray(data.words)) {
-      return data.words;
+      return data.words.map(w => ({
+        ...w,
+        level: w.level || level
+      }));
     }
     return getDummyDeck(topic, level);
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/word_provider.dart';
 import '../providers/learn_provider.dart';
+import '../providers/auth_provider.dart';
+import '../providers/stats_provider.dart';
 import '../core/constants/app_constants.dart';
 import 'widgets/shared_widgets.dart';
 
@@ -24,6 +26,8 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<WordProvider>().loadSources();
       context.read<WordProvider>().loadTopics();
+      context.read<AuthProvider>().refreshUser();
+      context.read<StatsProvider>().loadDashboard();
     });
 
     _circleCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
@@ -344,12 +348,18 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
             GradientButton(
               text: 'Practice Again',
               icon: Icons.replay_rounded,
-              onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/choose-mode', ModalRoute.withName('/home')),
+              onTap: () {
+                context.read<LearnProvider>().resetSession();
+                Navigator.pushNamedAndRemoveUntil(context, '/choose-mode', ModalRoute.withName('/home'));
+              },
             ),
             const SizedBox(height: 12),
             TextButton(
               style: TextButton.styleFrom(minimumSize: const Size(double.infinity, 54)),
-              onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false),
+              onPressed: () {
+                context.read<LearnProvider>().resetSession();
+                Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
+              },
               child: const Text('Back to Home', style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.w600)),
             ),
           ],

@@ -11,7 +11,7 @@ import 'widgets/shared_widgets.dart';
 final _googleSignIn = kIsWeb
   ? GoogleSignIn(
     clientId:
-      '773388708674-odfas8cf0mqg4327pick68j3sep7rv30.apps.googleusercontent.com',
+      '927024631970-dgmsh37d0pdjd99on673r1be4ijt4l7a.apps.googleusercontent.com',
     scopes: ['email', 'profile'],
     )
   : GoogleSignIn(scopes: ['email', 'profile']);
@@ -97,10 +97,19 @@ class _LoginScreenState extends State<LoginScreen>
       }
     } catch (e) {
       if (mounted) {
+        final errorStr = e.toString();
+        String friendlyMessage = 'Google Sign-In failed: $errorStr';
+        
+        if (errorStr.contains('popup_closed') || errorStr.contains('TokenResponse')) {
+          final currentOrigin = '${Uri.base.scheme}://${Uri.base.host}${Uri.base.hasPort ? ":${Uri.base.port}" : ""}';
+          friendlyMessage = 'Cửa sổ đăng nhập Google đã đóng. Vui lòng kiểm tra: 1. Cho phép popup trên trình duyệt. 2. Thêm chính xác địa chỉ hiện tại của bạn ($currentOrigin) vào "Authorized JavaScript Origins" trên Google Cloud Console!';
+        }
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Google Sign-In failed: ${e.toString()}'),
+            content: Text(friendlyMessage),
             backgroundColor: AppColors.error,
+            duration: const Duration(seconds: 6),
           ),
         );
       }
@@ -145,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen>
                       child: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 44),
                     ),
                     const SizedBox(height: 16),
-                    const Text('VocaFlow',
+                    const Text('LingoPro',
                         style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800,
                             color: AppColors.primary)),
                     const SizedBox(height: 4),
@@ -344,7 +353,7 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                               const SizedBox(height: 16),
                               const Text(
-                                'Experience a premium way to master English vocabulary. VocaFlow combines intelligent spacing algorithms, real-time AI speech evaluation, and contextual story generation tailored perfectly to your target CEFR levels.',
+                                'Experience a premium way to master English vocabulary. LingoPro combines intelligent spacing algorithms, real-time AI speech evaluation, and contextual story generation tailored perfectly to your target CEFR levels.',
                                 style: TextStyle(
                                   color: Colors.white70,
                                   fontSize: 15,

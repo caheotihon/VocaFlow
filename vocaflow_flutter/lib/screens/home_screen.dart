@@ -1,4 +1,5 @@
 // Home Dashboard Screen
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
@@ -135,7 +136,29 @@ class _HomeScreenState extends State<HomeScreen> {
               radius: 22,
               backgroundColor: AppColors.primary.withOpacity(0.15),
               child: user?.avatar != null
-                  ? ClipOval(child: Image.network(user!.avatar!, fit: BoxFit.cover))
+                  ? ClipOval(
+                      child: user!.avatar!.startsWith('data:image/')
+                          ? Image.memory(
+                              base64.decode(user!.avatar!.split(',').last),
+                              fit: BoxFit.cover,
+                              width: 44,
+                              height: 44,
+                              errorBuilder: (_, __, ___) => Text(
+                                user?.name.isNotEmpty == true ? user!.name[0].toUpperCase() : 'U',
+                                style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700, fontSize: 18),
+                              ),
+                            )
+                          : Image.network(
+                              user!.avatar!,
+                              fit: BoxFit.cover,
+                              width: 44,
+                              height: 44,
+                              errorBuilder: (_, __, ___) => Text(
+                                user?.name.isNotEmpty == true ? user!.name[0].toUpperCase() : 'U',
+                                style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700, fontSize: 18),
+                              ),
+                            ),
+                    )
                   : Text(
                       user?.name.isNotEmpty == true ? user!.name[0].toUpperCase() : 'U',
                       style: const TextStyle(
