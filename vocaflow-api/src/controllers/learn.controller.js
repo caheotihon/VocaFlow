@@ -240,12 +240,12 @@ exports.completeSession = async (req, res) => {
     const accuracy = session.total_words > 0
       ? Math.round((session.correct_answers / session.total_words) * 100)
       : 0;
-    
+
     // XP based on unique new words correct today to prevent spamming
-    const uniqueCorrectCount = session.correct_new_words && session.correct_new_words.length > 0 
-      ? session.correct_new_words.length 
+    const uniqueCorrectCount = session.correct_new_words && session.correct_new_words.length > 0
+      ? session.correct_new_words.length
       : session.correct_answers;
-    
+
     const xp = calcXP(uniqueCorrectCount, session.total_words);
 
     session.accuracy = accuracy;
@@ -382,9 +382,9 @@ exports.getReviewToday = async (req, res) => {
     // Limit to max 50 words to avoid overwhelming
     const finalWords = reviewWords.slice(0, 50);
 
-    return successResponse(res, { 
-      words: finalWords, 
-      total: finalWords.length 
+    return successResponse(res, {
+      words: finalWords,
+      total: finalWords.length
     });
   } catch (err) {
     console.error('[Learn/review-today]', err.message);
@@ -453,8 +453,8 @@ exports.getTodayHistory = async (req, res) => {
 
     const totalXP = sessions.reduce((sum, s) => sum + (s.xp_earned || 0), 0);
     const totalWords = progresses.length;
-    const accuracy = totalWords > 0 
-      ? Math.round((correctWords.length / totalWords) * 100) 
+    const accuracy = totalWords > 0
+      ? Math.round((correctWords.length / totalWords) * 100)
       : 0;
 
     return successResponse(res, {

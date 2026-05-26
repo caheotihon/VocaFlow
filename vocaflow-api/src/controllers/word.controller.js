@@ -155,7 +155,7 @@ exports.getTopics = async (req, res) => {
       const wordFilter = {};
       if (source) wordFilter.source = source;
       if (level) wordFilter.level = level;
-      
+
       const targetWords = await Word.find(wordFilter).select('_id topic');
       const targetWordIds = targetWords.map(w => w._id);
 
@@ -176,7 +176,7 @@ exports.getTopics = async (req, res) => {
       const mastered = progressMap[t._id]?.mastered || 0;
       const learning = (progressMap[t._id]?.learning || 0) + (progressMap[t._id]?.reviewing || 0);
       const totalStudied = mastered + learning;
-      
+
       return {
         topic: t._id,
         total: t.total,

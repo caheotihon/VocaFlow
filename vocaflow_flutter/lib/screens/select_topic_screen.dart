@@ -205,13 +205,15 @@ class _TopicCard extends StatelessWidget {
           Row(
             children: [
               _StatDot(label: 'Mastered: $mastered', color: AppColors.mastered),
-              const SizedBox(width: 16),
+              const SizedBox(width: 14),
+              _StatDot(label: 'Learning: $learning', color: AppColors.learning),
+              const SizedBox(width: 14),
               _StatDot(label: 'New: $newCount', color: AppColors.newWord),
             ],
           ),
           const SizedBox(height: 10),
           AppProgressBar(
-            value: total > 0 ? mastered / total : 0,
+            value: total > 0 ? (mastered + learning) / total : 0,
             color: AppColors.secondary, // Violet/Purple progress bar
             height: 6,
           ),

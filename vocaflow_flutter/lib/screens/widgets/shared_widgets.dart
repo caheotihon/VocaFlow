@@ -235,7 +235,7 @@ class LingoAppBar extends StatelessWidget implements PreferredSizeWidget {
   const LingoAppBar({
     super.key,
     this.title,
-    this.showStreak = true,
+    this.showStreak = false,
     this.streak = 0,
     this.leading,
     this.actions,

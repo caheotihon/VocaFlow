@@ -62,7 +62,7 @@ class _LearnScreenState extends State<LearnScreen> {
         child: Column(
           children: [
             // ── App bar ────────────────────────────────────────────
-            LingoAppBar(streak: auth.user?.streakDays ?? 0, showBackButton: false),
+            LingoAppBar(streak: auth.user?.streakDays ?? 0, showBackButton: false, showStreak: true),
 
             Expanded(
               child: SingleChildScrollView(

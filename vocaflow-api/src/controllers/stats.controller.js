@@ -14,15 +14,15 @@ exports.getDashboard = async (req, res) => {
 
     // ── Progress summary ──────────────────────────────────────────────
     const progresses = await Progress.find({ user: userId });
-    const totalLearned  = progresses.filter((p) => ['learning','reviewing','mastered'].includes(p.status)).length;
+    const totalLearned = progresses.filter((p) => ['learning', 'reviewing', 'mastered'].includes(p.status)).length;
     const totalMastered = progresses.filter((p) => p.status === 'mastered').length;
     const totalReviewing = progresses.filter((p) => p.status === 'reviewing').length;
     const dueToday = progresses.filter((p) => p.next_review <= new Date() && p.status !== 'mastered').length;
 
     // ── Accuracy ─────────────────────────────────────────────────────
-    const totalSeen    = progresses.reduce((a, p) => a + p.times_seen, 0);
+    const totalSeen = progresses.reduce((a, p) => a + p.times_seen, 0);
     const totalCorrect = progresses.reduce((a, p) => a + p.times_correct, 0);
-    const accuracy     = totalSeen > 0 ? Math.round((totalCorrect / totalSeen) * 100) : 0;
+    const accuracy = totalSeen > 0 ? Math.round((totalCorrect / totalSeen) * 100) : 0;
 
     // ── Weekly chart (last 7 days) ────────────────────────────────────
     const weekSessions = await Session.find({
@@ -44,7 +44,7 @@ exports.getDashboard = async (req, res) => {
       });
 
       return {
-        day: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][d.getDay() === 0 ? 6 : d.getDay() - 1],
+        day: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][d.getDay() === 0 ? 6 : d.getDay() - 1],
         words: daySessions.reduce((a, s) => a + s.correct_answers, 0),
         xp: daySessions.reduce((a, s) => a + s.xp_earned, 0),
         date: d.toISOString().split('T')[0],
@@ -65,7 +65,7 @@ exports.getDashboard = async (req, res) => {
     const heatmap = {};
     for (const s of heatmapSessions) {
       const key = new Date(s.completed_at).toISOString().split('T')[0];
-      heatmap[key] = (heatmap[key] || 0) + s.correct_answers;
+      heatmap[key] = (heatmap[key] || 0) + 1;
     }
 
     // ── Recent sessions ───────────────────────────────────────────────
@@ -87,7 +87,7 @@ exports.getDashboard = async (req, res) => {
 
     if (!activeSession && lastCompletedSession) {
       const { source, level } = lastCompletedSession;
-      
+
       // Get all topics for this source + level
       const matchFilter = { source };
       if (level) matchFilter.level = level;
