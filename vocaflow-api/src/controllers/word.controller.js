@@ -174,14 +174,16 @@ exports.getTopics = async (req, res) => {
 
     const enriched = topics.map((t) => {
       const mastered = progressMap[t._id]?.mastered || 0;
-      const learning = (progressMap[t._id]?.learning || 0) + (progressMap[t._id]?.reviewing || 0);
-      const totalStudied = mastered + learning;
+      const learning = progressMap[t._id]?.learning || 0;
+      const reviewing = progressMap[t._id]?.reviewing || 0;
+      const totalStudied = mastered + learning + reviewing;
 
       return {
         topic: t._id,
         total: t.total,
         mastered: mastered,
         learning: learning,
+        reviewing: reviewing,
         new: Math.max(0, t.total - totalStudied),
       };
     });

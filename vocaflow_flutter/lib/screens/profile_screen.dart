@@ -62,10 +62,7 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               _buildGoalsCard(context, user),
                               const SizedBox(height: 20),
-                              if ((user?.badges ?? []).isNotEmpty) ...[
-                                _buildBadgesCard(user!),
-                                const SizedBox(height: 20),
-                              ],
+
                               _buildSettingsCard(context, user),
                             ],
                           ),
@@ -80,10 +77,7 @@ class ProfileScreen extends StatelessWidget {
                         const SizedBox(height: 16),
                         _buildGoalsCard(context, user),
                         const SizedBox(height: 16),
-                        if ((user?.badges ?? []).isNotEmpty) ...[
-                          _buildBadgesCard(user!),
-                          const SizedBox(height: 16),
-                        ],
+
                         _buildSettingsCard(context, user),
                         const SizedBox(height: 80),
                       ],
@@ -141,21 +135,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBadgesCard(user) {
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Badges Earned', style: AppTextStyles.h3),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 10, runSpacing: 10,
-            children: (user.badges as List).map((b) => _BadgeChip(badge: b.toString())).toList(),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildSettingsCard(BuildContext context, user) {
     return AppCard(

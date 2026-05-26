@@ -147,7 +147,8 @@ exports.getDashboard = async (req, res) => {
       },
       study: {
         totalStudySeconds,
-        totalStudyHours: Math.round(totalStudySeconds / 3600),
+        totalStudyHours: Math.floor(totalStudySeconds / 3600),
+        totalStudyMinutes: Math.floor((totalStudySeconds % 3600) / 60),
         totalSessions: allSessions.length,
       },
       weeklyData,

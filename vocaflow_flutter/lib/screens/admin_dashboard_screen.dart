@@ -175,7 +175,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   }
 
   Future<void> _toggleUserBlock(UserModel user) async {
-    final isCurrentlyBlocked = user.badges.contains('blocked');
+    final isCurrentlyBlocked = !user.isActive;
 
     setState(() => _isActionLoading = true);
     try {
@@ -885,7 +885,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                               DataColumn(label: Text('Actions', style: TextStyle(fontWeight: FontWeight.bold))),
                             ],
                             rows: _filteredUsers.map((user) {
-                              final isBlocked = user.badges.contains('blocked');
+                              final isBlocked = !user.isActive;
                               final joinStr = user.createdAt != null
                                   ? DateFormat('MMM dd, yyyy').format(user.createdAt!)
                                   : 'Unknown';
@@ -971,7 +971,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                         separatorBuilder: (_, __) => const Divider(height: 1, color: Color(0xFFF1F5F9)),
                         itemBuilder: (ctx, i) {
                           final user = _filteredUsers[i];
-                          final isBlocked = user.badges.contains('blocked');
+                          final isBlocked = !user.isActive;
                           final joinStr = user.createdAt != null
                               ? DateFormat('MMM dd').format(user.createdAt!)
                               : '-';

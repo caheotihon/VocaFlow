@@ -8,9 +8,8 @@ import '../../core/constants/app_constants.dart';
 import '../widgets/shared_widgets.dart';
 
 // Import individual screens for embedding
-import 'fill_blank_screen.dart';
 import 'flashcard_screen.dart';
-import 'reverse_recall_screen.dart';
+import 'multiple_choice_practice_screen.dart';
 
 enum _MixedMode { flashcard, fillBlank, reverse }
 
@@ -170,18 +169,20 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
 
                 // ── Fill in the Blank sub-mode ──────────────────────────
                 if (_mode == _MixedMode.fillBlank) ...[
-                  FillBlankScreen(
+                  MultipleChoicePracticeScreen(
                     key: ValueKey('fb_${word.id}'),
                     isMixedMode: true,
+                    overrideMode: 'fill_blank',
                     onAnswer: _selectOption,
                   ),
                 ],
 
                 // ── Reverse Recall sub-mode ─────────────────────────────
                 if (_mode == _MixedMode.reverse) ...[
-                  ReverseRecallScreen(
+                  MultipleChoicePracticeScreen(
                     key: ValueKey('rr_${word.id}'),
                     isMixedMode: true,
+                    overrideMode: 'reverse_recall',
                     onAnswer: _selectOption,
                   ),
                 ],
