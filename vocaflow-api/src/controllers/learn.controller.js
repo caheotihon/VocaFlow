@@ -49,50 +49,19 @@ exports.startSession = async (req, res) => {
         const progresses = await Progress.find(filter).populate('word').limit(count);
         wordsToStudy = progresses.map(p => p.word).filter(Boolean);
       } else {
-        // 1. Spaced Repetition Due (next_review <= now, status !== mastered)
+        // Spaced Repetition Due (next_review <= now, status !== mastered)
         const dueProgresses = await Progress.find({
           user: userId,
           next_review: { $lte: new Date() },
           status: { $ne: 'mastered' },
-        }).populate('word').limit(20);
+        }).populate('word').limit(count);
 
-        // 2. Words studied today
-        const todayProgresses = await Progress.find({
-          user: userId,
-          updatedAt: { $gte: today }
-        }).populate('word').limit(20);
+        wordsToStudy = dueProgresses.map((p) => p.word).filter(Boolean);
 
-        // 3. Difficult words (high incorrect rate or times_incorrect >= 2)
-        const difficultProgresses = await Progress.find({
-          user: userId,
-          times_incorrect: { $gte: 2 }
-        }).populate('word').limit(20);
-
-        // Combine and deduplicate
-        const uniqueWordIds = new Set();
-        const reviewWords = [];
-
-        const addWord = (progressItem) => {
-          if (progressItem && progressItem.word) {
-            const wId = progressItem.word._id.toString();
-            if (!uniqueWordIds.has(wId)) {
-              uniqueWordIds.add(wId);
-              reviewWords.push(progressItem.word);
-            }
-          }
-        };
-
-        // Add in order
-        todayProgresses.forEach(addWord);
-        dueProgresses.forEach(addWord);
-        difficultProgresses.forEach(addWord);
-
-        wordsToStudy = reviewWords.slice(0, count);
-
-        // Fallback if no review words
+        // Fallback if no review words are due: return any progress words
         if (wordsToStudy.length === 0) {
           const anyProgress = await Progress.find({ user: userId }).populate('word').limit(count);
-          wordsToStudy = anyProgress.map(p => p.word).filter(Boolean);
+          wordsToStudy = anyProgress.map((p) => p.word).filter(Boolean);
         }
       }
     } else if (source === 'Favorites') {
@@ -356,53 +325,22 @@ exports.getProgress = async (req, res) => {
 exports.getReviewToday = async (req, res) => {
   try {
     const userId = req.user._id;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
 
-    // 1. Spaced Repetition Due (next_review <= now, status !== mastered)
+    // Spaced Repetition Due (next_review <= now, status !== mastered)
     const dueProgresses = await Progress.find({
       user: userId,
       next_review: { $lte: new Date() },
       status: { $ne: 'mastered' },
-    }).populate('word').limit(30);
+    }).populate('word');
 
-    // 2. Words studied today
-    const todayProgresses = await Progress.find({
-      user: userId,
-      updatedAt: { $gte: today }
-    }).populate('word').limit(30);
-
-    // 3. Difficult words (high incorrect rate or times_incorrect >= 2)
-    const difficultProgresses = await Progress.find({
-      user: userId,
-      times_incorrect: { $gte: 2 }
-    }).populate('word').limit(30);
-
-    // Combine and deduplicate
-    const uniqueWordIds = new Set();
-    const reviewWords = [];
-
-    const addWord = (progressItem) => {
-      if (progressItem && progressItem.word) {
-        const wId = progressItem.word._id.toString();
-        if (!uniqueWordIds.has(wId)) {
-          uniqueWordIds.add(wId);
-          reviewWords.push(progressItem.word);
-        }
-      }
-    };
-
-    // Add in order: today's words first, then due words, then difficult ones
-    todayProgresses.forEach(addWord);
-    dueProgresses.forEach(addWord);
-    difficultProgresses.forEach(addWord);
+    const reviewWords = dueProgresses.map((p) => p.word).filter(Boolean);
 
     // Limit to max 50 words to avoid overwhelming
     const finalWords = reviewWords.slice(0, 50);
 
     return successResponse(res, {
       words: finalWords,
-      total: finalWords.length
+      total: reviewWords.length
     });
   } catch (err) {
     console.error('[Learn/review-today]', err.message);
