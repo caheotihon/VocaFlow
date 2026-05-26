@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               _ProfileHeroCard(user: user, progress: progress),
                               const SizedBox(height: 20),
-                              _StreakMilestonesCard(user: user),
+                              _BadgesCard(user: user, progress: progress),
                             ],
                           ),
                         ),
@@ -73,11 +73,10 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         _ProfileHeroCard(user: user, progress: progress),
                         const SizedBox(height: 20),
-                        _StreakMilestonesCard(user: user),
+                        _BadgesCard(user: user, progress: progress),
                         const SizedBox(height: 16),
                         _buildGoalsCard(context, user),
                         const SizedBox(height: 16),
-
                         _buildSettingsCard(context, user),
                         const SizedBox(height: 80),
                       ],
@@ -349,130 +348,7 @@ class _ProfileHeroCard extends StatelessWidget {
   }
 }
 
-// ── Streak Milestones Card ───────────────────────────────────────────────────
-class _StreakMilestonesCard extends StatelessWidget {
-  final dynamic user;
-  const _StreakMilestonesCard({required this.user});
 
-  @override
-  Widget build(BuildContext context) {
-    final streak = user?.streakDays ?? 0;
-    final claimed = user?.streakMilestonesClaimed ?? <int>[];
-    final milestones = [
-      {'days': 7,   'xp': 100,  'icon': '🔥', 'label': '7-Day Streak'},
-      {'days': 30,  'xp': 500,  'icon': '⚡', 'label': '30-Day Streak'},
-      {'days': 100, 'xp': 2000, 'icon': '💎', 'label': '100-Day Legend'},
-    ];
-
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Text('🔥', style: TextStyle(fontSize: 20)),
-              const SizedBox(width: 8),
-              const Text('Streak Milestones', style: AppTextStyles.h3),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.deepOrange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(AppRadius.full),
-                ),
-                child: Text('$streak days',
-                    style: const TextStyle(color: Colors.deepOrange,
-                        fontWeight: FontWeight.w700, fontSize: 13)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ...() {
-            final List<Map<String, dynamic>> visibleMilestones = [];
-            bool foundNext = false;
-            for (final m in milestones) {
-              final days = m['days'] as int;
-              final achieved = streak >= days;
-              if (achieved) {
-                visibleMilestones.add(m);
-              } else if (!foundNext) {
-                visibleMilestones.add(m);
-                foundNext = true;
-              }
-            }
-
-            return visibleMilestones.map((m) {
-              final days = m['days'] as int;
-              final xp   = m['xp'] as int;
-              final achieved = streak >= days;
-              final claimedAlready = (claimed as List).contains(days);
-              final progress = (streak / days).clamp(0.0, 1.0);
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 14),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 42, height: 42,
-                      decoration: BoxDecoration(
-                        color: achieved
-                            ? Colors.deepOrange.withOpacity(0.15)
-                            : Colors.grey.shade100,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(child: Text(m['icon'] as String,
-                          style: TextStyle(fontSize: 20,
-                              color: achieved ? null : Colors.grey))),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(m['label'] as String,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: achieved ? AppColors.textPrimary : AppColors.textSecondary)),
-                              const Spacer(),
-                              Text('+$xp XP',
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: FontWeight.w700,
-                                      color: claimedAlready ? AppColors.success : AppColors.primary)),
-                            ],
-                          ),
-                          const SizedBox(height: 6),
-                          AppProgressBar(
-                            value: progress,
-                            color: achieved ? AppColors.success : AppColors.primary,
-                            height: 5,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            claimedAlready
-                                ? '✓ Claimed!'
-                                : achieved
-                                    ? 'Milestone reached!'
-                                    : '$streak / $days days',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: claimedAlready
-                                    ? AppColors.success
-                                    : achieved ? AppColors.primary : AppColors.textHint),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            });
-          }(),
-        ],
-      ),
-    );
-  }
-}
 
 // ── Edit Profile Bottom Sheet ────────────────────────────────────────────────
 class _EditProfileSheet extends StatefulWidget {
@@ -669,24 +545,224 @@ class _StatPill extends StatelessWidget {
   );
 }
 
-class _BadgeChip extends StatelessWidget {
-  final String badge;
-  const _BadgeChip({required this.badge});
+class _BadgesCard extends StatelessWidget {
+  final dynamic user;
+  final Map<String, dynamic> progress;
+  
+  const _BadgesCard({required this.user, required this.progress});
+
   @override
   Widget build(BuildContext context) {
-    const icons = {'7-Day Streak': '🔥', '30-Day Streak': '⚡', '100-Day Legend': '💎',
-                   'XP Master': '⚡', 'XP Legend': '🌟'};
-    final icon = icons[badge] ?? '🏆';
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(AppRadius.full),
-        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+    final bool hasStreak7 = user?.badges.contains('7-Day Streak') == true || (user?.streakDays ?? 0) >= 7;
+    final bool hasStreak30 = user?.badges.contains('30-Day Streak') == true || (user?.streakDays ?? 0) >= 30;
+    final bool hasXPMaster = user?.badges.contains('XP Master') == true || (user?.totalXP ?? 0) >= 1000;
+
+    final badgeDefs = [
+      {
+        'key': '7-Day Streak',
+        'title': 'Streak Hunter I',
+        'desc': 'Maintain a 7-day learning streak',
+        'icon': '🔥',
+        'unlocked': hasStreak7,
+        'progressText': '${(user?.streakDays ?? 0).clamp(0, 7)} / 7 days',
+        'progressVal': ((user?.streakDays ?? 0) / 7).clamp(0.0, 1.0),
+      },
+      if (hasStreak7)
+        {
+          'key': '30-Day Streak',
+          'title': 'Streak Hunter II',
+          'desc': 'Maintain a 30-day learning streak',
+          'icon': '⚡',
+          'unlocked': hasStreak30,
+          'progressText': '${(user?.streakDays ?? 0).clamp(0, 30)} / 30 days',
+          'progressVal': ((user?.streakDays ?? 0) / 30).clamp(0.0, 1.0),
+        },
+      if (hasStreak30)
+        {
+          'key': '100-Day Streak',
+          'title': '100-Day Legend',
+          'desc': 'Maintain a 100-day learning streak',
+          'icon': '💎',
+          'unlocked': user?.badges.contains('100-Day Streak') == true || user?.badges.contains('100-Day Legend') == true || (user?.streakDays ?? 0) >= 100,
+          'progressText': '${(user?.streakDays ?? 0).clamp(0, 100)} / 100 days',
+          'progressVal': ((user?.streakDays ?? 0) / 100).clamp(0.0, 1.0),
+        },
+      {
+        'key': 'XP Master',
+        'title': 'XP Master I',
+        'desc': 'Accumulate 1,000 total XP',
+        'icon': '👑',
+        'unlocked': hasXPMaster,
+        'progressText': '${(user?.totalXP ?? 0).clamp(0, 1000)} / 1,000 XP',
+        'progressVal': ((user?.totalXP ?? 0) / 1000).clamp(0.0, 1.0),
+      },
+      if (hasXPMaster)
+        {
+          'key': 'XP Legend',
+          'title': 'XP Master II',
+          'desc': 'Accumulate 5,000 total XP',
+          'icon': '🌟',
+          'unlocked': user?.badges.contains('XP Legend') == true || (user?.totalXP ?? 0) >= 5000,
+          'progressText': '${(user?.totalXP ?? 0).clamp(0, 5000)} / 5,000 XP',
+          'progressVal': ((user?.totalXP ?? 0) / 5000).clamp(0.0, 1.0),
+        },
+      {
+        'key': 'Vocab Master',
+        'title': 'Vocab Master',
+        'desc': 'Master 100 vocabulary words',
+        'icon': '📚',
+        'unlocked': user?.badges.contains('Vocab Master') == true || (progress['totalMastered'] ?? 0) >= 100,
+        'progressText': '${(progress['totalMastered'] ?? 0).clamp(0, 100)} / 100 words',
+        'progressVal': ((progress['totalMastered'] ?? 0) / 100).clamp(0.0, 1.0),
+      },
+      {
+        'key': 'AI Bookworm',
+        'title': 'AI Bookworm',
+        'desc': 'Complete 10 AI stories & quizzes',
+        'icon': '🧠',
+        'unlocked': user?.badges.contains('AI Bookworm') == true,
+        'progressText': user?.badges.contains('AI Bookworm') == true ? '10 / 10 stories' : 'Complete AI quizzes',
+        'progressVal': user?.badges.contains('AI Bookworm') == true ? 1.0 : 0.0,
+      },
+    ];
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Row(
+            children: [
+              Text('🏆', style: TextStyle(fontSize: 20)),
+              const SizedBox(width: 8),
+              Text('Badges & Achievements', style: AppTextStyles.h3),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: badgeDefs.length,
+            itemBuilder: (context, index) {
+              final b = badgeDefs[index];
+              final bool unlocked = b['unlocked'] as bool;
+              final double val = b['progressVal'] as double;
+              
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Row(
+                  children: [
+                    // Badge Circle
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: unlocked
+                            ? AppColors.primary.withOpacity(0.12)
+                            : Colors.grey.shade100,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: unlocked
+                              ? AppColors.primary.withOpacity(0.2)
+                              : Colors.grey.shade300,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Center(
+                        child: Opacity(
+                          opacity: unlocked ? 1.0 : 0.4,
+                          child: Text(
+                            b['icon'] as String,
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    
+                    // Details & Progress
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                b['title'] as String,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.5,
+                                  color: unlocked
+                                      ? AppColors.textPrimary
+                                      : AppColors.textSecondary,
+                                ),
+                              ),
+                              if (unlocked)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.success.withOpacity(0.12),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: const Text(
+                                    '✓ Unlocked',
+                                    style: TextStyle(
+                                      color: AppColors.success,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                )
+                              else
+                                const Text(
+                                  '🔒 Locked',
+                                  style: TextStyle(
+                                    color: AppColors.textHint,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            b['desc'] as String,
+                            style: const TextStyle(
+                              color: AppColors.textSecondary,
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: AppProgressBar(
+                                  value: val,
+                                  color: unlocked ? AppColors.primary : Colors.grey.shade300,
+                                  height: 5,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Text(
+                                b['progressText'] as String,
+                                style: TextStyle(
+                                  color: unlocked ? AppColors.primary : AppColors.textHint,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
       ),
-      child: Text('$icon $badge',
-          style: const TextStyle(
-              color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 13)),
     );
   }
 }

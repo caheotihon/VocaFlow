@@ -19,6 +19,8 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
   late Animation<double> _circleAnim;
   late Animation<double> _itemsFade;
   bool _showTranslation = false;
+  bool _hasShownDailyGoal = false;
+  bool _hasShownMilestone = false;
 
   @override
   void initState() {
@@ -63,7 +65,8 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
     final isPerfect     = accuracy >= 90;
 
     // Show daily goal popup once after animations done
-    if (dailyGoalMet) {
+    if (dailyGoalMet && !_hasShownDailyGoal) {
+      _hasShownDailyGoal = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Future.delayed(const Duration(milliseconds: 1800), () {
           if (mounted) _showDailyGoalDialog(context, dailyProgress!);
@@ -72,7 +75,8 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
     }
 
     // Show milestone popup once after animations done
-    if (milestone != null) {
+    if (milestone != null && !_hasShownMilestone) {
+      _hasShownMilestone = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Future.delayed(Duration(milliseconds: dailyGoalMet ? 3600 : 1800), () {
           if (mounted) _showMilestoneDialog(context, milestone);

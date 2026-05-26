@@ -325,6 +325,12 @@ exports.completeStoryQuiz = async (req, res) => {
     if (user) {
       user.totalXP += xpBonus;
       user.dailyXP += xpBonus;
+      
+      // Auto award AI Bookworm if user completed >= 10 stories
+      const completedStoriesCount = await Story.countDocuments({ user: user._id, isCompleted: true });
+      if (completedStoriesCount >= 10 && !user.badges.includes('AI Bookworm')) {
+        user.badges.push('AI Bookworm');
+      }
       await user.save();
     }
 

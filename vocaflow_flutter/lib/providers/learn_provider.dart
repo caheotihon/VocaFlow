@@ -28,6 +28,7 @@ class LearnProvider extends ChangeNotifier {
   String? selectedLevel;
   String? selectedTopic;
   String? selectedMode;
+  String? selectedStatus;
 
   SessionModel? get session => _session;
   bool get isLoading => _isLoading;
@@ -98,6 +99,7 @@ class LearnProvider extends ChangeNotifier {
         level: selectedLevel,
         topic: selectedTopic,
         count: 10,
+        status: selectedStatus,
       );
       if (res.data['success'] == true) {
         final data = res.data['data'];
@@ -292,6 +294,7 @@ class LearnProvider extends ChangeNotifier {
     _aiStoryEn = null;
     _aiStoryVi = null;
     _answeredCorrectByWordId.clear();
+    selectedStatus = null;
     notifyListeners();
   }
 
