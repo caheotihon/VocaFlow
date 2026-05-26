@@ -118,7 +118,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
           GestureDetector(
             onTap: _flip,
             child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 320),
+              constraints: const BoxConstraints(minHeight: 340),
               child: AnimatedBuilder(
                 animation: _flipAnim,
                 builder: (_, child) {
@@ -132,6 +132,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                     child: isFront
                         ? _CardFace(
                             word: word.word,
+                            audioUrl: word.audioUrl,
                             partOfSpeech: word.partOfSpeech,
                             pronunciation: word.pronunciation,
                             tags: word.tags,
@@ -141,6 +142,7 @@ class _FlashcardScreenState extends State<FlashcardScreen>
                             transform: Matrix4.identity()..rotateY(math.pi),
                             child: _CardBack(
                               word:         word.word,
+                              audioUrl:     word.audioUrl,
                               meaningVn:    word.meaningVn,
                               definitionVn: word.definitionVn,
                               definitionEn: word.definitionEn,
@@ -229,17 +231,13 @@ class _FlashcardScreenState extends State<FlashcardScreen>
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
+      appBar: LingoAppBar(
+        title: '$current / $total',
+        showStreak: false,
         leading: BackButton(
           color: AppColors.textPrimary,
           onPressed: () => _showExitDialog(context),
         ),
-        centerTitle: true,
-        title: Text('$current / $total',
-            style: const TextStyle(
-              color: AppColors.textPrimary, fontWeight: FontWeight.w700)),
         actions: [
           IconButton(
             icon: Icon(
@@ -300,10 +298,10 @@ class _FlashcardScreenState extends State<FlashcardScreen>
 }
 
 class _CardFace extends StatelessWidget {
-  final String word, partOfSpeech, pronunciation;
+  final String word, audioUrl, partOfSpeech, pronunciation;
   final List<String> tags;
   const _CardFace({
-    required this.word, required this.partOfSpeech,
+    required this.word, required this.audioUrl, required this.partOfSpeech,
     required this.pronunciation, required this.tags,
   });
 
@@ -311,6 +309,7 @@ class _CardFace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: 340,
       decoration: BoxDecoration(
         gradient: AppColors.primaryGradient,
         borderRadius: BorderRadius.circular(24),
@@ -343,7 +342,7 @@ class _CardFace extends StatelessWidget {
               const SizedBox(width: 8),
               IconButton(
                 icon: const Icon(Icons.volume_up_rounded, color: Colors.white, size: 28),
-                onPressed: () => TtsService().speak(word),
+                onPressed: () => TtsService().playWord(word, audioUrl: audioUrl),
               ),
             ],
           ),
@@ -373,9 +372,11 @@ class _CardFace extends StatelessWidget {
 
 class _CardBack extends StatelessWidget {
   final String word;
+  final String audioUrl;
   final String meaningVn, definitionVn, definitionEn, example;
   const _CardBack({
     required this.word,
+    this.audioUrl = '',
     required this.meaningVn, required this.definitionVn,
     required this.definitionEn, required this.example,
   });
@@ -384,6 +385,7 @@ class _CardBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: 340,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -426,7 +428,7 @@ class _CardBack extends StatelessWidget {
               ),
             ],
             const SizedBox(height: 16),
-            PronunciationWidget(targetWord: word),
+            PronunciationWidget(targetWord: word, audioUrl: audioUrl),
           ],
         ),
       ),

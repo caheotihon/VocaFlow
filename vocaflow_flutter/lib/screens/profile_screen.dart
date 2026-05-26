@@ -1,4 +1,5 @@
 // Profile Screen — full profile management with edit, streak milestones, badges
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,11 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: const LingoAppBar(
+        title: 'Profile',
+        showStreak: false,
+        showBackButton: false,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
@@ -268,9 +274,23 @@ class _ProfileHeroCard extends StatelessWidget {
                 radius: 44,
                 backgroundColor: Colors.white.withOpacity(0.2),
                 child: user?.avatar != null
-                    ? ClipOval(child: Image.network(user!.avatar!, fit: BoxFit.cover,
-                        width: 88, height: 88,
-                        errorBuilder: (_, __, ___) => _avatarFallback()))
+                    ? ClipOval(
+                        child: user!.avatar!.startsWith('data:image/')
+                            ? Image.memory(
+                                base64.decode(user!.avatar!.split(',').last),
+                                fit: BoxFit.cover,
+                                width: 88,
+                                height: 88,
+                                errorBuilder: (_, __, ___) => _avatarFallback(),
+                              )
+                            : Image.network(
+                                user!.avatar!,
+                                fit: BoxFit.cover,
+                                width: 88,
+                                height: 88,
+                                errorBuilder: (_, __, ___) => _avatarFallback(),
+                              ),
+                      )
                     : _avatarFallback(),
               ),
               GestureDetector(
@@ -318,48 +338,34 @@ class _ProfileHeroCard extends StatelessWidget {
   );
 
   Future<void> _pickAvatar(BuildContext context) async {
-    final picker = ImagePicker();
-    final picked = await picker.pickImage(source: ImageSource.gallery, maxWidth: 512);
-    if (picked == null || !context.mounted) return;
-    // For now, show a URL input dialog instead of file upload
-    _showAvatarUrlDialog(context);
-  }
+    try {
+      final picker = ImagePicker();
+      final picked = await picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 256,
+        maxHeight: 256,
+        imageQuality: 60,
+      );
+      if (picked == null || !context.mounted) return;
 
-  void _showAvatarUrlDialog(BuildContext context) {
-    final ctrl = TextEditingController(text: user?.avatar ?? '');
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.lg)),
-        title: const Text('Update Avatar', style: TextStyle(fontWeight: FontWeight.w700)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Enter image URL:', style: TextStyle(fontSize: 13)),
-            const SizedBox(height: 12),
-            TextField(
-              controller: ctrl,
-              decoration: InputDecoration(
-                hintText: 'https://...',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
-          TextButton(
-            onPressed: () async {
-              Navigator.pop(context);
-              if (ctrl.text.trim().isNotEmpty) {
-                await context.read<AuthProvider>().updateProfile(avatar: ctrl.text.trim());
-              }
-            },
-            child: const Text('Save', style: TextStyle(fontWeight: FontWeight.w700)),
-          ),
-        ],
-      ),
-    );
+      final bytes = await picked.readAsBytes();
+      final base64String = 'data:image/png;base64,${base64.encode(bytes)}';
+
+      final auth = context.read<AuthProvider>();
+      final ok = await auth.updateProfile(avatar: base64String);
+
+      if (ok && context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Avatar updated successfully! ✓'), backgroundColor: AppColors.success),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update avatar: $e'), backgroundColor: AppColors.error),
+        );
+      }
+    }
   }
 }
 

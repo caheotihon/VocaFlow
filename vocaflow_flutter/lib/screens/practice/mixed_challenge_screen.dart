@@ -124,20 +124,9 @@ class _MixedChallengeScreenState extends State<MixedChallengeScreen> {
     final favP = context.watch<FavoriteProvider>();
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: const BackButton(color: AppColors.textPrimary),
-        centerTitle: true,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.shuffle_rounded, color: AppColors.primary, size: 18),
-            const SizedBox(width: 6),
-            Text('$current / $total',
-                style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-          ],
-        ),
+      appBar: LingoAppBar(
+        title: '${current + 1} / $total',
+        showStreak: false,
         actions: [
           IconButton(
             icon: Icon(

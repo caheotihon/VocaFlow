@@ -126,12 +126,7 @@ class AppCard extends StatelessWidget {
           border: hasBorder
               ? Border.all(color: AppColors.primary, width: 2)
               : Border.all(color: Colors.grey.shade100),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 12, offset: const Offset(0, 4),
-            ),
-          ],
+          boxShadow: AppColors.cardShadow,
         ),
         child: child,
       ),
@@ -147,7 +142,7 @@ class AppProgressBar extends StatelessWidget {
 
   const AppProgressBar({
     super.key, required this.value,
-    this.color, this.height = 6,
+    this.color, this.height = 8,
   });
 
   @override
@@ -233,6 +228,9 @@ class LingoAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int streak;
   final Widget? leading;
   final List<Widget>? actions;
+  final Color? backgroundColor;
+  final PreferredSizeWidget? bottom;
+  final bool showBackButton;
 
   const LingoAppBar({
     super.key,
@@ -241,17 +239,23 @@ class LingoAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.streak = 0,
     this.leading,
     this.actions,
+    this.backgroundColor,
+    this.bottom,
+    this.showBackButton = true,
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(60 + (bottom?.preferredSize.height ?? 0.0));
 
   @override
   Widget build(BuildContext context) {
+    final canPop = Navigator.canPop(context);
+
     return AppBar(
-      backgroundColor: AppColors.background,
+      backgroundColor: backgroundColor ?? AppColors.background,
       elevation: 0,
-      leading: leading,
+      automaticallyImplyLeading: showBackButton,
+      leading: leading ?? (showBackButton && canPop ? const BackButton(color: AppColors.textPrimary) : null),
       centerTitle: true,
       title: title != null
           ? Text(
@@ -261,7 +265,7 @@ class LingoAppBar extends StatelessWidget implements PreferredSizeWidget {
                 foreground: Paint()
                   ..shader = const LinearGradient(
                     colors: [AppColors.primary, AppColors.secondary],
-                  ).createShader(const Rect.fromLTWH(0, 0, 100, 20)),
+                  ).createShader(const Rect.fromLTWH(0, 0, 150, 20)),
               ),
             )
           : const Text(
@@ -271,6 +275,7 @@ class LingoAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: AppColors.primary,
               ),
             ),
+      bottom: bottom,
       actions: [
         if (showStreak) ...[
           Container(

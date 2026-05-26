@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/story_provider.dart';
 import '../models/story_model.dart';
 import '../core/constants/app_constants.dart';
+import 'widgets/shared_widgets.dart';
 
 class StoryHistoryScreen extends StatefulWidget {
   const StoryHistoryScreen({super.key});
@@ -55,11 +56,9 @@ class _StoryHistoryScreenState extends State<StoryHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text(
-          'Story History',
-          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-        ),
+      appBar: const LingoAppBar(
+        title: 'Story History',
+        showStreak: false,
       ),
       body: Consumer<StoryProvider>(
         builder: (context, storyProvider, _) {

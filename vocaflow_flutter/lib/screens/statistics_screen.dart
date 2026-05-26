@@ -37,6 +37,11 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: const LingoAppBar(
+        title: 'Statistics',
+        showStreak: false,
+        showBackButton: false,
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => context.read<StatsProvider>().loadDashboard(),
@@ -53,9 +58,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Learning Stats', style: AppTextStyles.h2),
-                    Text('Your progress this week.', style: AppTextStyles.bodySmall),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
                     isDesktop
                         ? Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -429,7 +432,7 @@ class _EnhancedHeatmapGrid extends StatelessWidget {
             return GestureDetector(
               onTap: isFuture ? null : () {
                 final dateStr = "${date.day}/${date.month}";
-                final learnedStr = value > 0 ? "Bạn đã học $value từ vựng" : "Chưa học từ vựng nào";
+                final learnedStr = value > 0 ? "You learned $value words" : "No words learned";
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -437,7 +440,7 @@ class _EnhancedHeatmapGrid extends StatelessWidget {
                       children: [
                         const Text('🗓️ ', style: TextStyle(fontSize: 16)),
                         Text(
-                          "Ngày $dateStr: $learnedStr!",
+                          "Date $dateStr: $learnedStr!",
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],

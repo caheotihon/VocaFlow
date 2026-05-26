@@ -555,7 +555,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             ),
             const SizedBox(height: 4),
             Text(
-              'VocaFlow Platform Management',
+              'LingoPro Platform Management',
               style: AppTextStyles.h1.copyWith(letterSpacing: -0.5),
             ),
           ],
@@ -1323,7 +1323,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                           ),
                           const SizedBox(width: 10),
                           const Text(
-                            'VocaFlow',
+                            'LingoPro',
                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.primary),
                           ),
                         ],

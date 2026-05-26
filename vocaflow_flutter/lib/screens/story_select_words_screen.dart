@@ -6,6 +6,7 @@ import '../providers/story_provider.dart';
 import '../models/word_model.dart';
 import '../services/api_service.dart';
 import '../core/constants/app_constants.dart';
+import 'widgets/shared_widgets.dart';
 
 class StorySelectWordsScreen extends StatefulWidget {
   const StorySelectWordsScreen({super.key});
@@ -185,11 +186,9 @@ class _StorySelectWordsScreenState extends State<StorySelectWordsScreen>
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text(
-          'Select Words',
-          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-        ),
+      appBar: LingoAppBar(
+        title: 'Select Words',
+        showStreak: false,
         bottom: TabBar(
           controller: _tabCtrl,
           labelColor: AppColors.primary,

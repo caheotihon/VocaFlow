@@ -20,6 +20,10 @@ const storySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    translation: {
+      type: String,
+      default: '',
+    },
     words: [
       {
         type: mongoose.Schema.Types.ObjectId,

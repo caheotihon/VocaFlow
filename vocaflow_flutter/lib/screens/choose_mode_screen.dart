@@ -66,13 +66,8 @@ class ChooseModeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: const BackButton(color: AppColors.textPrimary),
-        centerTitle: true,
-        title: const Text('LingoPro',
-            style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800)),
+      appBar: const LingoAppBar(
+        title: 'Choose Practice Mode',
       ),
       body: SafeArea(
         // Giới hạn chiều rộng tối đa cho Tablet/Desktop

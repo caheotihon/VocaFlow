@@ -276,6 +276,7 @@ exports.generateAIDeck = async (req, res) => {
       } else {
         const newWord = await Word.create({
           ...wData,
+          level: wData.level || level,
           word: wData.word.toLowerCase().trim(),
           source: 'AI Generated',
           topic: topic,

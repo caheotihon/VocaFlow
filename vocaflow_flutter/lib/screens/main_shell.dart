@@ -125,13 +125,15 @@ class _MainShellState extends State<MainShell> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(_navItems.length, (index) {
                 final item = _navItems[index];
-                return _NavItem(
-                  icon: item['icon'],
-                  activeIcon: item['activeIcon'],
-                  label: item['label'],
-                  index: index,
-                  currentIndex: _currentIndex,
-                  onTap: () => setState(() => _currentIndex = index),
+                return Expanded(
+                  child: _NavItem(
+                    icon: item['icon'],
+                    activeIcon: item['activeIcon'],
+                    label: item['label'],
+                    index: index,
+                    currentIndex: _currentIndex,
+                    onTap: () => setState(() => _currentIndex = index),
+                  ),
                 );
               }),
             ),
@@ -171,7 +173,7 @@ class _NavItem extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           padding: isSideNav
               ? EdgeInsets.symmetric(horizontal: isExtended ? 20 : 0, vertical: 12)
-              : const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              : const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           decoration: BoxDecoration(
             color: isActive ? AppColors.primary.withOpacity(0.08) : Colors.transparent,
             borderRadius: BorderRadius.circular(AppRadius.lg),

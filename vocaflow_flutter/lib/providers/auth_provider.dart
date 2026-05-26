@@ -44,6 +44,17 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Reload user profile details from the server to sync streak, XP, and badges
+  Future<void> refreshUser() async {
+    try {
+      final res = await _api.getMe();
+      if (res.data['success'] == true) {
+        _user = UserModel.fromJson(res.data['data']['user']);
+        notifyListeners();
+      }
+    } catch (_) {}
+  }
+
   Future<bool> register(String name, String email, String password) async {
     _setLoading(true);
     try {

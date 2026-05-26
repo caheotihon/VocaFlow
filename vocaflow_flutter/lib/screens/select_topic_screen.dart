@@ -37,12 +37,8 @@ class _SelectTopicScreenState extends State<SelectTopicScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: const BackButton(color: AppColors.textPrimary),
-        title: const Text('LingoPro',
-            style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800)),
+      appBar: const LingoAppBar(
+        title: 'Select Topic',
       ),
       body: SafeArea(
         child: Column(
@@ -208,9 +204,9 @@ class _TopicCard extends StatelessWidget {
           const SizedBox(height: 12),
           Row(
             children: [
-              _StatDot(label: 'mastered: $mastered đã học', color: AppColors.mastered),
+              _StatDot(label: 'Mastered: $mastered', color: AppColors.mastered),
               const SizedBox(width: 16),
-              _StatDot(label: 'new: $newCount chưa học', color: AppColors.newWord),
+              _StatDot(label: 'New: $newCount', color: AppColors.newWord),
             ],
           ),
           const SizedBox(height: 10),

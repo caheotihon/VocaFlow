@@ -110,20 +110,26 @@ const toggleUserStatus = async (req, res) => {
 const createWord = async (req, res) => {
   try {
     const {
-      word, meaningVn, partOfSpeech, level,
-      definition, example, pronunciation, source, topic
+      word, meaningVn, meaning_vn, partOfSpeech, level,
+      definition, definition_vn, definition_en, example, pronunciation, source, topic
     } = req.body;
 
-    if (!word || !meaningVn || !partOfSpeech || !level) {
-      return res.status(400).json({ success: false, message: 'Required fields: word, meaningVn, partOfSpeech, level' });
+    const actualWord = word;
+    const actualMeaningVn = meaning_vn || meaningVn;
+    const actualPartOfSpeech = partOfSpeech;
+    const actualLevel = level;
+
+    if (!actualWord || !actualMeaningVn || !actualPartOfSpeech || !actualLevel) {
+      return res.status(400).json({ success: false, message: 'Required fields: word, meaning_vn, partOfSpeech, level' });
     }
 
     const newWord = await Word.create({
-      word: word.trim(),
-      meaningVn: meaningVn.trim(),
-      partOfSpeech: partOfSpeech.trim(),
-      level: level.trim().toUpperCase(),
-      definition: definition ? definition.trim() : '',
+      word: actualWord.trim(),
+      meaning_vn: actualMeaningVn.trim(),
+      partOfSpeech: actualPartOfSpeech.trim(),
+      level: actualLevel.trim().toUpperCase(),
+      definition_vn: (definition_vn || definition || '').trim(),
+      definition_en: (definition_en || '').trim(),
       example: example ? example.trim() : '',
       pronunciation: pronunciation ? pronunciation.trim() : '',
       source: source ? source.trim() : 'Oxford 3000',

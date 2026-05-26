@@ -1,10 +1,10 @@
 // Listening Recall Screen — shows word pronunciation, user picks meaning
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 import '../../providers/learn_provider.dart';
 import '../../providers/favorite_provider.dart';
 import '../../core/constants/app_constants.dart';
+import '../../services/tts_service.dart';
 import '../widgets/shared_widgets.dart';
 
 class ListeningScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class ListeningScreen extends StatefulWidget {
 
 class _ListeningScreenState extends State<ListeningScreen>
     with SingleTickerProviderStateMixin {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final TtsService _tts = TtsService();
   List<String> _options = [];
   String? _selected;
   bool _submitted = false;
@@ -37,7 +37,7 @@ class _ListeningScreenState extends State<ListeningScreen>
   @override
   void dispose() {
     _pulseCtrl.dispose();
-    _audioPlayer.dispose();
+    _tts.stop();
     super.dispose();
   }
 
@@ -47,7 +47,7 @@ class _ListeningScreenState extends State<ListeningScreen>
     if (word == null) return;
 
     // Phát âm thanh tự động khi vừa vào từ mới
-    _playAudio(word.audioUrl);
+    _tts.playWord(word.word, audioUrl: word.audioUrl);
 
     final allWords = lp.session?.words ?? [];
     final distractors = allWords
@@ -65,11 +65,8 @@ class _ListeningScreenState extends State<ListeningScreen>
   }
 
   // Hàm helper để gọi phát âm thanh dễ dàng
-  void _playAudio(String url) {
-    if (url.isNotEmpty) {
-      _audioPlayer.stop(); // Dừng luồng âm thanh cũ nếu đang chạy dở
-      _audioPlayer.play(UrlSource(url));
-    }
+  void _playAudio(String word, String audioUrl) {
+    _tts.playWord(word, audioUrl: audioUrl);
   }
 
   Future<void> _select(String option) async {
@@ -119,13 +116,9 @@ class _ListeningScreenState extends State<ListeningScreen>
     final favP = context.watch<FavoriteProvider>();
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: const BackButton(color: AppColors.textPrimary),
-        centerTitle: true,
-        title: Text('${current + 1} / $total', // Thêm +1 để hiển thị số thứ tự tự nhiên (ví dụ 1/10 thay vì 0/10)
-            style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+      appBar: LingoAppBar(
+        title: '${current + 1} / $total',
+        showStreak: false,
         actions: [
           IconButton(
             icon: Icon(
@@ -150,7 +143,7 @@ class _ListeningScreenState extends State<ListeningScreen>
             ScaleTransition(
               scale: _pulseCtrl,
               child: GestureDetector(
-                onTap: () => _playAudio(word.audioUrl), // Nhấn vào đây để nghe lại thoải mái
+                onTap: () => _playAudio(word.word, word.audioUrl), // Nhấn vào đây để nghe lại thoải mái
                 child: Container(
                   width: 120, height: 120,
                   decoration: BoxDecoration(

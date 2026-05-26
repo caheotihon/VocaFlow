@@ -38,19 +38,9 @@ class _ReviewHistoryScreenState extends State<ReviewHistoryScreen>
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        elevation: 0,
-        leading: const BackButton(color: AppColors.textPrimary),
-        centerTitle: true,
-        title: const Text(
-          'Review Today',
-          style: TextStyle(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w800,
-            fontSize: 20,
-          ),
-        ),
+      appBar: LingoAppBar(
+        title: 'Review Today',
+        showStreak: false,
         bottom: TabBar(
           controller: _tabController,
           labelColor: AppColors.primary,
@@ -260,7 +250,7 @@ class _ReviewHistoryScreenState extends State<ReviewHistoryScreen>
               child: Column(
                 children: [
                   GradientButton(
-                    text: 'Xem chi tiết đúng / sai',
+                    text: 'View Performance Details',
                     icon: Icons.list_alt_rounded,
                     onTap: () {
                       _tabController.animateTo(1);
@@ -366,7 +356,7 @@ class _ReviewHistoryScreenState extends State<ReviewHistoryScreen>
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'Các câu làm sai (${wrong.length})',
+                        'Incorrect Answers (${wrong.length})',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w800,
@@ -392,7 +382,7 @@ class _ReviewHistoryScreenState extends State<ReviewHistoryScreen>
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'Các câu làm đúng (${correct.length})',
+                        'Correct Answers (${correct.length})',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w800,
@@ -438,7 +428,7 @@ class _ReviewHistoryScreenState extends State<ReviewHistoryScreen>
                       },
                       icon: const Icon(Icons.replay_rounded, color: AppColors.error),
                       label: const Text(
-                        'Ôn lại câu sai',
+                        'Review Mistakes',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.error,
@@ -468,7 +458,7 @@ class _ReviewHistoryScreenState extends State<ReviewHistoryScreen>
                     },
                     icon: const Icon(Icons.shuffle_rounded, color: Colors.white),
                     label: const Text(
-                      'Ôn tập tổng hợp',
+                      'General Review',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

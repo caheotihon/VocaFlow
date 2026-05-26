@@ -1,13 +1,19 @@
-// LingoPro — API Service using Dio
+import 'dart:io' show Platform;
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ApiService {
   // Use 'http://10.0.2.2:3000/api' for Android Emulator
   // Use 'http://localhost:3000/api' for iOS Simulator or Web
   // Use your machine's IP for physical device: 'http://192.168.1.x:3000/api'
-  static const String _baseUrl = 'http://localhost:3000/api';
+  static String get _baseUrl {
+    if (kIsWeb) return 'http://localhost:3000/api';
+    try {
+      if (Platform.isAndroid) return 'http://10.0.2.2:3000/api';
+    } catch (_) {}
+    return 'http://localhost:3000/api';
+  }
 
   late final Dio _dio;
   final FlutterSecureStorage _storage = const FlutterSecureStorage();

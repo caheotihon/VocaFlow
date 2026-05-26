@@ -59,6 +59,21 @@ const generateFallbackStory = (wordsList) => {
   // Combine into a coherent story
   const story = `${opening} ${context} During their exploration, they realized that learning vocabulary is not just about memorizing words, but about using them in real context. ${embeddedSentences.join(' ')} Every day, they practiced diligently, knowing that each word they mastered would open new doors of opportunity in their lives. Eventually, their efforts paid off, and they became more fluent and confident in expressing their ideas to the world.`;
 
+  // Generate a natural translation for the fallback story
+  const embeddedSentencesVi = [];
+  for (let i = 0; i < wordsList.length; i++) {
+    const w = wordsList[i];
+    const name = w.word;
+    const meaning = w.meaning_vn || '';
+    if (meaning) {
+      embeddedSentencesVi.push(`Họ thường xuyên sử dụng từ "${name}" (nghĩa là: ${meaning}) trong các ngữ cảnh thích hợp.`);
+    } else {
+      embeddedSentencesVi.push(`Họ tìm cách sử dụng từ "${name}" một cách tự nhiên trong văn nói và văn viết.`);
+    }
+  }
+
+  const translation = `Ngày xửa ngày xưa, một nhóm người học tò mò đã bắt đầu hành trình khám phá giáo dục. Mục tiêu của họ là hiểu sâu hơn về giao tiếp nhân loại và làm chủ vốn từ vựng mới. Trong quá trình học tập, họ nhận ra rằng học từ vựng không chỉ là ghi nhớ máy móc mà phải dùng trong ngữ cảnh thực tế. ${embeddedSentencesVi.join(' ')} Mỗi ngày họ đều luyện tập chăm chỉ, biết rằng mỗi từ thành thạo sẽ mở ra những cánh cửa cơ hội mới trong đời. Cuối cùng, những nỗ lực đã được đền đáp xứng đáng, giúp họ giao tiếp lưu loát và tự tin chia sẻ ý tưởng của mình với thế giới.`;
+
   const quiz = [
     {
       question: `What was the primary goal of the learners in the story?`,
@@ -84,7 +99,7 @@ const generateFallbackStory = (wordsList) => {
     }
   ];
 
-  return { title, story, quiz };
+  return { title, story, translation, quiz };
 };
 
 /**
@@ -132,7 +147,7 @@ exports.generateStory = async (req, res) => {
       try {
         const prompt = buildStoryPrompt(words, false);
 
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
         const payload = {
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: { responseMimeType: 'application/json' }
@@ -211,6 +226,7 @@ exports.generateStory = async (req, res) => {
       user: req.user._id,
       title: storyData.title || 'An English Adventure',
       content: storyData.story,
+      translation: storyData.translation || '',
       words: words.map(w => w._id),
       quiz: storyData.quiz,
       isCompleted: false,
